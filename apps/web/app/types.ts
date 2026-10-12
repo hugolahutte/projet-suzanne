@@ -14,6 +14,7 @@ export type Household = {
 };
 export type Me = { profile: Profile; households: Household[]; demo: boolean };
 export type Account = {
+  demo: boolean;
   id: string;
   name: string;
   age: number;

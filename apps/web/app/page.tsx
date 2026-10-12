@@ -26,6 +26,7 @@ import {
   X,
 } from "lucide-react";
 import { Notebook, LiveSettings } from "./notebook";
+import { PublicWelcome } from "./presence";
 import { Welcome } from "./welcome";
 import { Games } from "./games";
 import { Curriculum } from "./curriculum";
@@ -88,6 +89,7 @@ export default function App() {
   const [large, setLarge] = useState(false);
   const household = me?.households[0];
   const isChild = household?.role === "child";
+  const demoSelected = accounts.find((a) => a.id === selected)?.demo !== false;
 
   async function loadSession() {
     const next = await api<Me>("/me");
@@ -106,7 +108,14 @@ export default function App() {
   useEffect(() => {
     async function start() {
       try {
-        setAccounts(await api<Account[]>("/demo/accounts"));
+        const available = await api<Account[]>("/demo/accounts");
+        setAccounts(available);
+        const first = available.find((a) => !a.demo) ?? available[0];
+        if (first) {
+          setFamily(first.household);
+          setSelected(first.id);
+          setPassword(first.demo ? demoPassword : "");
+        }
         const response = await fetch("/api/me", { cache: "no-store" });
         if (response.ok) await loadSession();
         else if (response.status !== 401)
@@ -217,23 +226,7 @@ export default function App() {
             <Flower />
             suzanne<span>®</span>
           </a>
-          <div className="login-copy">
-            <span className="eyebrow">APPRENDRE. DÉCOUVRIR. GRANDIR.</span>
-            <h1>
-              La curiosité
-              <br />
-              n’a pas d’âge<span>.</span>
-            </h1>
-            <p>
-              Un nouveau regard sur le monde.
-              <br />
-              Un petit pas chaque jour. Avec Suzanne.
-            </p>
-            <Landscape />
-            <span className="story-caption">
-              De 5 à 85 ans, et bien au-delà.
-            </span>
-          </div>
+          <PublicWelcome />
           <p className="fine">
             Une IA pédagogique, au service de ton autonomie.
           </p>
@@ -241,20 +234,22 @@ export default function App() {
         <section className="login-panel">
           <span className="pill">
             <span className="dot" />
-            Bienvenue dans la démonstration
+            Bienvenue dans ton espace local
           </span>
           <h2>À chacun son chemin.</h2>
-          <p className="muted">
-            Choisis un profil fictif pour découvrir son espace.
-          </p>
-          <div className="family-tabs" aria-label="Foyer de démonstration">
-            {["Famille Atelier", "Famille Horizon"].map((f) => (
+          <p className="muted">Choisis ton profil pour retrouver Suzanne.</p>
+          <div className="family-tabs" aria-label="Choix du foyer">
+            {[...new Set(accounts.map((a) => a.household))].map((f) => (
               <button
                 key={f}
                 aria-pressed={family === f}
                 onClick={() => {
                   setFamily(f);
-                  setSelected(f === "Famille Atelier" ? "camille" : "rose");
+                  const first = accounts.find((a) => a.household === f);
+                  if (first) {
+                    setSelected(first.id);
+                    setPassword(first.demo ? demoPassword : "");
+                  }
                 }}
               >
                 {f}
@@ -276,7 +271,10 @@ export default function App() {
                       name="profile"
                       value={a.id}
                       checked={selected === a.id}
-                      onChange={() => setSelected(a.id)}
+                      onChange={() => {
+                        setSelected(a.id);
+                        setPassword(a.demo ? demoPassword : "");
+                      }}
                     />
                     <span className={`avatar color-${i % 4}`}>
                       {initials(a.name)}
@@ -297,7 +295,9 @@ export default function App() {
                 ))}
             </fieldset>
             <label className="field">
-              Mot de passe de démonstration
+              {demoSelected
+                ? "Mot de passe de démonstration"
+                : "Mot de passe local"}
               <input
                 type="password"
                 value={password}
@@ -307,7 +307,13 @@ export default function App() {
               />
             </label>
             <p className="fine">
-              Mot de passe commun : <code>{demoPassword}</code>
+              {demoSelected ? (
+                <>
+                  Mot de passe commun : <code>{demoPassword}</code>
+                </>
+              ) : (
+                "Le mot de passe de ton essai est conservé dans le dossier privé local. Il n’est pas publié."
+              )}
             </p>
             {error && (
               <p role="alert" className="error">
@@ -392,7 +398,7 @@ export default function App() {
           <div className="family-label">
             <ShieldCheck size={16} />
             {household?.name}
-            <span>Foyer fictif</span>
+            <span>{me.demo ? "Foyer fictif" : "Essai local privé"}</span>
           </div>
         </div>
       </aside>
@@ -414,7 +420,9 @@ export default function App() {
             suzanne
           </span>
           <div className="top-actions">
-            <span className="demo-label">DÉMONSTRATION</span>
+            <span className="demo-label">
+              {me.demo ? "DÉMONSTRATION" : "ESSAI LOCAL"}
+            </span>
             <button
               className="profile-button"
               onClick={() =>
@@ -891,7 +899,7 @@ export default function App() {
                 </button>
                 <p className="fine">
                   Aucun micro ni caméra activé. Les préférences sont propres à
-                  ce compte fictif.
+                  ce compte.
                 </p>
               </form>
             </>
@@ -1061,7 +1069,9 @@ export default function App() {
               <Flower />
               Un peu plus curieux qu’hier.
             </span>
-            <span>Suzanne · Prototype local · Données fictives</span>
+            <span>
+              Suzanne · Prototype local{me.demo ? " · Données fictives" : ""}
+            </span>
           </footer>
         </main>
       </div>

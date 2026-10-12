@@ -319,3 +319,73 @@ test("notebook persists privately, and live permission stays unavailable", async
     ),
   ).toBe(true);
 });
+
+test("Suzanne is visible before login, with optional motion and voice", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: "Bonjour, moi c’est Suzanne." }),
+  ).toBeVisible();
+  await expect(page.locator(".public-portrait img")).toBeVisible();
+  const animation = page.getByRole("button", {
+    name: "Animer le portrait",
+    exact: true,
+  });
+  await expect(animation).toHaveAttribute("aria-pressed", "false");
+  await animation.click();
+  await expect(page.locator(".public-portrait")).toHaveClass(/is-animated/);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator(".public-portrait img")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
+  await page
+    .getByRole("button", { name: "Arrêter l’animation", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Écouter Suzanne", exact: true }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  const audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(
+    audit.violations.map((v) => ({
+      id: v.id,
+      nodes: v.nodes.map((n) => n.target),
+    })),
+  ).toEqual([]);
+});
+
+test("private local profile selection never prefills the demo password", async ({
+  page,
+}) => {
+  await page.route("**/api/demo/accounts", (route) =>
+    route.fulfill({
+      json: [
+        {
+          id: "local-example",
+          name: "Profil test",
+          email: "local-example@local.invalid",
+          age: 40,
+          role: "guardian",
+          household: "Foyer local fictif",
+          demo: false,
+        },
+      ],
+    }),
+  );
+  await page.goto("/");
+  await expect(page.getByRole("radio", { name: /Profil test/ })).toBeChecked();
+  await expect(
+    page.getByLabel("Mot de passe local", { exact: true }),
+  ).toHaveValue("");
+  await expect(
+    page.getByText("Suzanne-demo-2026!", { exact: true }),
+  ).toHaveCount(0);
+});

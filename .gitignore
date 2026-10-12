@@ -14,3 +14,5 @@ test-results/
 .DS_Store
 coverage/
 artifacts/
+# Private local test profiles and credentials; never commit family information.
+.local/

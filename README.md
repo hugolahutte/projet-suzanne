@@ -123,3 +123,11 @@ Cette version ne propose pas encore inscription, récupération de mot de passe,
 Les comptes de démonstration sont volontairement connus. Le contrôle d'accès protège les requêtes selon l'identité authentifiée, mais ne rend pas les données de ces comptes publiques de test confidentielles. Ne saisir aucune donnée personnelle réelle. Le dépôt est public : son passage en privé et la revue de sécurité restent des prérequis avant de préparer de vrais profils.
 
 Prochaine étape : Sprint 2, objet pédagogique indépendant du format, tutorat progressif, tentatives réelles et contrôles différés, derrière une passerelle IA avec budgets et évaluation. Aucun coût cloud engagé par ce Sprint.
+
+## Profils privés pour un essai local
+
+Un import ponctuel est disponible pour un essai supervisé sur la machine : `PYTHONPATH=apps/api .venv/bin/python -m suzanne.local_profiles .local/profiles.json`. Le fichier doit rester sous `.local/` (ignoré par Git). Il contient `name` (foyer) et `people` : `name`, `age`, `role` (`guardian`, `adult`, `child`), `level`, `interests`, `subjects` et, pour chaque enfant, `guardians` (prénoms exacts des responsables explicitement désignés). Ne jamais mettre de vraies informations dans les fixtures ou les exemples versionnés.
+
+L’import crée un foyer séparé sans modifier la démonstration. Il requiert SQLite et `APP_ENV=local`, refuse de réimporter le même fichier et écrit des identifiants aléatoires dans `.local/profiles.imported.json` lisible uniquement par le propriétaire. Le mot de passe commun est destiné au test supervisé, pas à un contrôle parental de production. Le sélecteur local expose les prénoms aux personnes présentes sur cette machine ; ne pas exposer ce prototype sur Internet. Aucun fournisseur ne reçoit ces données. Les matières sont conservées dans le résumé du profil pour cette version.
+
+Suzanne est désormais visible avant connexion, avec lecture vocale après clic et animation légère du portrait activable/arrêtable. Les préférences de réduction des animations sont respectées. Cette animation de cadrage n’est pas une vidéo parlante et ne synchronise pas les lèvres.

@@ -82,9 +82,9 @@ def health(db: DB):
 
 @app.get('/demo/accounts')
 def accounts(db: DB):
-    # Only fictional names; this route disappears with the local-only app.
+    # Local-only profile chooser. Imported profiles never include passwords here.
     rows = db.execute(select(User, Membership, Household).join(Membership, User.id == Membership.user_id).join(Household, Household.id == Membership.household_id)).all()
-    return [{'id': u.id, 'name': u.name, 'email': u.email, 'age': u.age, 'role': m.role, 'household': h.name} for u, m, h in rows]
+    return [{'id': u.id, 'name': u.name, 'email': u.email, 'age': u.age, 'role': m.role, 'household': h.name, 'demo': not u.id.startswith('local-')} for u, m, h in rows]
 
 @app.post('/auth/login')
 def login(body: Login, request: Request, response: Response, db: DB):
@@ -121,7 +121,7 @@ def logout(request: Request, response: Response, db: DB):
 @app.get('/me')
 def me(user: Principal, db: DB):
     members = db.scalars(select(Membership).where(Membership.user_id == user.id)).all()
-    return {'profile': own_profile(db, user), 'households': [{'id': m.household_id, 'name': db.get(Household, m.household_id).name, 'role': m.role} for m in members], 'demo': True}
+    return {'profile': own_profile(db, user), 'households': [{'id': m.household_id, 'name': db.get(Household, m.household_id).name, 'role': m.role} for m in members], 'demo': not user.id.startswith('local-')}
 
 @app.patch('/me/profile')
 def update_profile(body: ProfileUpdate, user: Principal, db: DB):
