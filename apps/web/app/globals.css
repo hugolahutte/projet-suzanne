@@ -650,18 +650,22 @@ button:hover:not(:disabled) {
   flex-direction: column;
   align-items: center;
 }
-.companion-icon {
-  border: 1px solid #d7c4aa;
-  border-radius: 50%;
-  padding: 11px;
-  background: #f5e6ce;
-  color: #ad6746;
-  margin-bottom: 15px;
-  display: flex;
+.suzanne-portrait {
+  object-fit: cover;
+  border: 3px solid #fffaf0;
+  box-shadow: 0 3px 14px #254d4212;
 }
-.companion-icon > svg {
-  width: 40px;
-  height: 40px;
+.avatar-portrait {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  margin-bottom: 18px;
+}
+.introduction-portrait {
+  width: 200px;
+  height: 200px;
+  border-radius: 24px;
+  margin-bottom: 24px;
 }
 .companion-card .eyebrow {
   font-size: 8px;

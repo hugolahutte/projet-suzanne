@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useEffect, useState, type FormEvent } from "react";
 import {
   ArrowRight,
@@ -604,9 +606,14 @@ export default function App() {
                 </div>
                 <aside className="right-column">
                   <section className="companion-card">
-                    <div className="companion-icon">
-                      <Flower />
-                    </div>
+                    <Image
+                      className="suzanne-portrait avatar-portrait"
+                      src="/suzanne-portrait-v1.png"
+                      alt="Suzanne, personnage fictif créé par IA, aux cheveux roux bouclés"
+                      width={112}
+                      height={112}
+                      sizes="112px"
+                    />
                     <span className="eyebrow">TON IA PÉDAGOGIQUE</span>
                     <h2>Moi, c’est {me.profile.nickname}.</h2>
                     <p>
@@ -912,7 +919,14 @@ export default function App() {
                 text="Une question est souvent le début d’une belle découverte."
               />
               <section className="panel introduction">
-                <Flower />
+                <Image
+                  className="suzanne-portrait introduction-portrait"
+                  src="/suzanne-portrait-v1.png"
+                  alt="Portrait de Suzanne, personnage fictif créé par IA"
+                  width={200}
+                  height={200}
+                  sizes="200px"
+                />
                 <h2>Une présence pour apprendre.</h2>
                 <p>
                   Suzanne est une IA pédagogique fictive. Elle est pensée pour

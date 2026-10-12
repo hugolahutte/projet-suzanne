@@ -53,7 +53,7 @@ Les emails suivent `<prénom sans accent>@example.test`. Le bouton de déconnexi
 - Ouvrir les deux fiches de découverte, répondre et recevoir un indice ou une explication. Les essais ne sont pas enregistrés ni convertis en score de maîtrise.
 - Installer la PWA dans un navigateur compatible, ou voir la page de secours publique hors connexion. Pas de cache des pages personnelles.
 
-Le portrait humain configurable de Suzanne est différé : la fleur est un signe graphique provisoire, pas une personne réelle. Le profil de l'IA est explicitement fictif.
+Suzanne dispose d'un premier portrait original généré par IA, utilisé à l'accueil et dans sa présentation. Il représente une jeune adulte fictive rousse aux cheveux bouclés. La fleur reste le signe de marque ; la personnalisation du portrait est différée. Voir `docs/SUZANNE_PORTRAIT.md` pour le prompt et la provenance.
 
 ## Scripts et vérification
 

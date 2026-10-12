@@ -2,7 +2,7 @@
 
 ## Design système Sprint 1
 
-Palette crème (#f7f7f2), vert profond (#254d42), sauge et accents terracotta. Titres Georgia locaux, texte système sans téléchargement externe. Icône fleur originale et illustrations SVG originales, aucune photo de personne réelle. Suzanne se présente explicitement comme IA fictive. Portrait/personnalisation visuelle différés.
+Palette crème (#f7f7f2), vert profond (#254d42), sauge et accents terracotta. Titres Georgia locaux, texte système sans téléchargement externe. Icône fleur originale et illustrations SVG originales, aucune photo de personne réelle. Suzanne se présente explicitement comme IA fictive. Premier portrait de jeune adulte fictive généré par IA ajouté à la demande de Hugo, avec cheveux roux bouclés et palette crème/sauge. Personnalisation visuelle différée.
 
 Navigation latérale sur grand écran ; navigation horizontale tactile sur téléphone. Dashboard à trois colonnes logiques (navigation, contenu, contexte), puis deux et une selon la largeur. Cartes et boutons natifs, focus visible, lien d'évitement, labels, dialogue natif avec Escape et focus restauré, réduction des animations. Préférence de lecture agrandie persistée et activée par défaut pour les profils seniors fictifs. L'audit axe contrôle les contrastes et autres règles automatisables ; la lecture à 5 ans et l'accessibilité réelle demandent des tests humains supplémentaires. Ne pas empêcher le zoom.
 
