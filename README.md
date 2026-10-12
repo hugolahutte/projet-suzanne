@@ -1,1 +1,112 @@
-# projet-suzanne
+# Suzanne
+
+**La curiosité n’a pas d’âge.** Une plateforme d’apprentissage pour toute la vie, de 5 à 85 ans et au-delà.
+
+Sprint 1 : application locale navigable, deux foyers imaginaires, comptes enfant/adulte/parent, sessions et permissions API, objectifs et préférences persistants, vues de progression explicitement simulées. Aucun fournisseur IA, paiement ou service cloud connecté. Aucun déploiement public.
+
+## Démarrage rapide sans Docker
+
+Prérequis : Node.js 24, npm, Python 3.12. Depuis la racine du dépôt :
+
+```bash
+npm ci
+python3.12 -m venv .venv
+.venv/bin/pip install -r apps/api/requirements.txt
+cp .env.example .env
+./scripts/dev.sh
+```
+
+Ouvrir **http://localhost:3000**. Utiliser exactement cette origine (et non `127.0.0.1`) pour les contrôles CSRF. Le script applique les migrations, ajoute les fixtures manquantes sans réinitialiser les préférences et démarre les deux services. `Ctrl+C` arrête la session de développement. Aucun secret à fournir.
+
+API interactive via **http://localhost:3000/api/docs** et schéma **http://localhost:3000/api/openapi.json**. Base SQLite locale `suzanne.db`, ignorée par Git. Aucun navigateur n'a besoin d'accéder directement au port 8000.
+
+## Démarrage Docker / PostgreSQL
+
+Avec Docker Engine/Desktop et Compose v2 :
+
+```bash
+docker compose up --build
+```
+
+Puis http://localhost:3000. PostgreSQL et l'API restent internes au réseau Compose ; seul le web est publié sur l'interface locale. Le mot de passe PostgreSQL est une valeur publique de démonstration, sans accès à un service réel. Arrêter : `docker compose down`. Le volume conserve les données ; `docker compose down -v` les efface **uniquement si tu souhaites réinitialiser la démonstration**.
+
+Docker n'était pas disponible sur la machine de réalisation : l'exécution Compose est confiée à la CI, et ne doit pas être présentée comme validée localement. Consulter les résultats de la PR.
+
+## Profils fictifs
+
+Mot de passe commun prérempli : **`Suzanne-demo-2026!`**. Ces identifiants sont publics et réservés à la démonstration. Ils ne constituent pas un contrôle parental utilisable par une vraie famille.
+
+| Foyer | Profils | Rôles |
+|---|---|---|
+| Atelier | Camille, 39 ans ; Gabriel, 41 ans ; Noé, 12 ans ; Lila, 7 ans | Camille responsable de Noé et Lila ; Gabriel adulte apprenant ; deux enfants |
+| Horizon | Rose, 72 ans ; Sami, 10 ans ; Jeanne, 87 ans | Rose responsable de Sami ; Jeanne adulte apprenante ; un enfant |
+
+Les emails suivent `<prénom sans accent>@example.test`. Le bouton de déconnexion en haut à droite retourne au choix de profils. Chaque connexion crée une identité propre ; aucun paramètre navigateur ne permet de transformer un enfant en parent.
+
+## Ce que tu peux essayer
+
+- Entrer dans les deux familles et comparer les interfaces enfants, adultes et seniors.
+- Naviguer dans les sept univers et l'espace parent ; les fonctionnalités futures ont un état explicite.
+- Modifier le surnom de Suzanne et agrandir le texte, puis recharger : les préférences persistent.
+- Ajouter un objectif personnel et le marquer terminé : enregistré en base, privé au compte.
+- Consulter les résumés des seuls enfants dont le parent est responsable.
+- Ouvrir les deux fiches de découverte, répondre et recevoir un indice ou une explication. Les essais ne sont pas enregistrés ni convertis en score de maîtrise.
+- Installer la PWA dans un navigateur compatible, ou voir la page de secours publique hors connexion. Pas de cache des pages personnelles.
+
+Le portrait humain configurable de Suzanne est différé : la fleur est un signe graphique provisoire, pas une personne réelle. Le profil de l'IA est explicitement fictif.
+
+## Scripts et vérification
+
+```bash
+# API, isolation, autorisations, sessions et migrations SQLite
+PYTHONPATH=apps/api .venv/bin/pytest apps/api/tests -q
+
+# PostgreSQL dédié aux tests uniquement
+TEST_DATABASE_URL=postgresql+psycopg://user:password@localhost/suzanne_test \
+  PYTHONPATH=apps/api .venv/bin/pytest apps/api/tests -q
+
+npm run lint
+npm run typecheck
+npm run build
+npm audit --audit-level=high
+.venv/bin/pip-audit -r apps/api/requirements.txt --no-deps --disable-pip
+
+# Avec les deux serveurs déjà lancés : Chrome local requis
+npm run test:e2e
+```
+
+Les tests navigateur couvrent ordinateur 1440 px, téléphone et tablette émulés dans Chromium. En CI, Chromium est installé par Playwright. Pour reproduire la configuration CI sans Chrome installé : `npx playwright install chromium`, puis `CI=1 npm run test:e2e`. Les tests partagent les comptes fictifs : un seul worker, et limitation des connexions à 20/minute par IP. Entre deux suites complètes immédiatement successives, attendre une minute ou redémarrer l'API locale.
+
+Les tests API utilisent une base temporaire indépendante. Si `TEST_DATABASE_URL` est renseignée, cette base **doit être jetable** : le test de migration effectue un downgrade. Ne jamais pointer vers une base conservée.
+
+Build de production local : arrêter le serveur de développement, exécuter `npm run build`, puis `npm start` avec l'API toujours démarrée. La PWA requiert HTTPS ou localhost. Sur iPhone/iPad réels, prévoir ultérieurement un HTTPS local et une origine explicitement configurée ; aucun déploiement n'est réalisé ici.
+
+## Variables
+
+Le script `dev.sh` charge le fichier `.env` local. Ne jamais y copier de données familiales. Compose définit ses propres valeurs ; le proxy Next utilise `API_URL` au build.
+
+| Variable | Défaut local | Rôle |
+|---|---|---|
+| `APP_ENV` | `local` | seuls `local` et `test` sont autorisés à démarrer cette version |
+| `APP_ORIGIN` | `http://localhost:3000` | origine exacte autorisée pour les mutations |
+| `API_URL` | `http://127.0.0.1:8000` | destination interne du proxy Next, jamais un secret public |
+| `DATABASE_URL` | `sqlite:///./suzanne.db` | SQLAlchemy SQLite ou PostgreSQL + psycopg |
+| `COOKIE_SECURE` | `false` | mettre `true` dès qu'un HTTPS local est utilisé |
+| `NEXT_TELEMETRY_DISABLED` | `1` | désactive la télémétrie Next dans les scripts fournis |
+
+## Organisation
+
+- `apps/web` : Next.js, interface française responsive, styles, PWA et icônes originales.
+- `apps/api` : FastAPI, SQLAlchemy, Alembic, données fictives, tests d'accès.
+- `packages/contracts/openapi.json` : instantané du schéma de l'API ; types UI dans `apps/web/app/types.ts`.
+- `compose.yaml`, Dockerfiles : environnement local PostgreSQL/API/web.
+- `tests` : parcours Playwright et audit axe.
+- `docs` : [audit OSS](docs/OSS_AUDIT.md), [ADR](docs/ADR-001.md), [modèle de données](docs/DATA_MODEL.md), [menaces et limites](docs/SECURITY.md), [design et roadmap](docs/ROADMAP.md), [validation](docs/VALIDATION.md).
+
+## Limites avant des utilisateurs réels
+
+Cette version ne propose pas encore inscription, récupération de mot de passe, invitations, MFA, RLS PostgreSQL, gestion des consentements, export/suppression par interface, stockage documentaire, chat IA, révisions FSRS, actualités collectées, voix ou vidéo. Pas de conformité réglementaire ou d'accessibilité exhaustive revendiquée. Les tests Chromium ne remplacent pas Safari/VoiceOver sur appareils réels.
+
+Les comptes de démonstration sont volontairement connus. Le contrôle d'accès protège les requêtes selon l'identité authentifiée, mais ne rend pas les données de ces comptes publiques de test confidentielles. Ne saisir aucune donnée personnelle réelle. Le dépôt est public : son passage en privé et la revue de sécurité restent des prérequis avant de préparer de vrais profils.
+
+Prochaine étape : Sprint 2, objet pédagogique indépendant du format, tutorat progressif, tentatives réelles et contrôles différés, derrière une passerelle IA avec budgets et évaluation. Aucun coût cloud engagé par ce Sprint.

@@ -1,0 +1,21 @@
+{
+  "name": "suzanne",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w apps/web",
+    "build": "npm run build -w apps/web",
+    "start": "npm run start -w apps/web",
+    "typecheck": "npm run typecheck -w apps/web",
+    "lint": "npm run lint -w apps/web",
+    "test:e2e": "playwright test",
+    "format": "prettier --write apps/web tests playwright.config.ts compose.yaml package.json .github/workflows/ci.yml"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/test": "1.64.0",
+    "prettier": "^3.9.10"
+  }
+}
