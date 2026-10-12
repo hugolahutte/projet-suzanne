@@ -6,20 +6,70 @@ async function login(page: Page, name = "Camille") {
     .getByRole("button", { name: "Famille Atelier", exact: true })
     .click();
   await page.getByRole("radio", { name: new RegExp(name) }).check();
-  await page.getByRole("button", { name: "Entrer dans mon espace" }).click();
+  const attempt = () =>
+    Promise.all([
+      page.waitForResponse(
+        (response) =>
+          response.url().endsWith("/api/auth/login") &&
+          response.request().method() === "POST",
+      ),
+      page.getByRole("button", { name: "Entrer dans mon espace" }).click(),
+    ]);
+  let [response] = await attempt();
+  if (response.status() === 429) {
+    // The complete responsive suite can exceed 20 logins per minute.
+    // Respect the real limiter rather than disabling production protection.
+    test.setTimeout(95_000);
+    await expect(
+      page.getByRole("alert").filter({ hasText: "Patiente une minute" }),
+    ).toContainText("Patiente une minute");
+    await page.waitForTimeout(60_100);
+    [response] = await attempt();
+  }
+  expect(response.ok()).toBe(true);
   await expect(
     page.getByRole("heading", { name: `Bonjour ${name}.` }),
   ).toBeVisible();
+}
+
+async function navigate(page: Page, name: string) {
+  const sidebar = page
+    .locator(".club-sidebar")
+    .getByRole("link", { name, exact: true });
+  if (await sidebar.isVisible()) {
+    await sidebar.click();
+    return;
+  }
+  const mobile = page.getByRole("button", {
+    name: "Ouvrir le menu",
+    exact: true,
+  });
+  if (await mobile.isVisible()) {
+    await mobile.click();
+    await page
+      .getByRole("navigation", { name: "Tous les espaces", exact: true })
+      .getByRole("link", { name, exact: true })
+      .click();
+  } else {
+    await page
+      .getByRole("button", { name: "Rechercher un espace", exact: true })
+      .click();
+    await page
+      .getByRole("textbox", { name: "Rechercher un espace" })
+      .fill(name);
+    await page
+      .getByRole("navigation", { name: "Résultats de recherche" })
+      .getByRole("link")
+      .first()
+      .click();
+  }
 }
 
 test("adult: navigation, persistent preferences and goals, family, guided discovery", async ({
   page,
 }) => {
   await login(page);
-  await expect(
-    page.getByRole("link", { name: "Espace famille" }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Espace famille" }).click();
+  await navigate(page, "Espace famille");
   await expect(
     page.getByRole("heading", { name: "Noé", exact: true }),
   ).toBeVisible();
@@ -27,7 +77,7 @@ test("adult: navigation, persistent preferences and goals, family, guided discov
     page.getByRole("heading", { name: "Lila", exact: true }),
   ).toBeVisible();
   await expect(page.getByText("Sami", { exact: true })).toHaveCount(0);
-  await page.getByRole("link", { name: "Mes préférences" }).click();
+  await navigate(page, "Préférences");
   await page
     .getByLabel("Comment veux-tu appeler Suzanne ?")
     .fill("Suzanne test");
@@ -44,17 +94,24 @@ test("adult: navigation, persistent preferences and goals, family, guided discov
     .getByRole("button", { name: "Enregistrer mes préférences" })
     .click();
   await expect(page.getByRole("status")).toBeVisible();
-  await page.getByRole("link", { name: "Mes petits pas", exact: true }).click();
-  const goal = `Lire un chapitre ${Date.now()}`;
-  await page.getByLabel("Un prochain petit pas").fill(goal);
-  await page.getByRole("button", { name: "Ajouter", exact: true }).click();
-  await expect(page.getByRole("button", { name: goal })).toBeVisible();
-  await page.getByRole("button", { name: goal }).click();
+  await navigate(page, "Progression");
+  const goal = `[E2E] Lire un chapitre (${test.info().project.name})`;
+  const goalButton = page.getByRole("button", { name: goal, exact: true });
+  if ((await goalButton.count()) === 0) {
+    await page.getByLabel("Un prochain petit pas").fill(goal);
+    await page.getByRole("button", { name: "Ajouter", exact: true }).click();
+  }
+  await expect(goalButton).toBeVisible();
+  if ((await goalButton.getAttribute("aria-pressed")) === "true") {
+    await goalButton.click();
+    await expect(goalButton).toHaveAttribute("aria-pressed", "false");
+  }
+  await goalButton.click();
   await expect(page.getByRole("button", { name: goal })).toHaveAttribute(
     "aria-pressed",
     "true",
   );
-  await page.getByRole("link", { name: "Découvertes", exact: true }).click();
+  await navigate(page, "Découvertes");
   await page.getByRole("button", { name: /Les visages de la Lune/ }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page
@@ -65,15 +122,16 @@ test("adult: navigation, persistent preferences and goals, family, guided discov
   await expect(page.getByRole("status")).toContainText("Exactement");
   await page.getByRole("button", { name: "Fermer la découverte" }).click();
   for (const [link, heading] of [
-    ["Le monde aujourd’hui", "Le monde aujourd’hui."],
-    ["Mes lectures", "Mes lectures."],
-    ["Le studio", "Le studio de Suzanne."],
+    ["Actualités", "Le monde aujourd’hui."],
+    ["Lectures", "Mes lectures."],
+    ["Studio", "Le studio de Suzanne."],
   ]) {
-    await page.getByRole("link", { name: link, exact: true }).click();
+    await navigate(page, link);
     await expect(
       page.getByRole("heading", { name: heading, exact: true }),
     ).toBeVisible();
   }
+  await page.getByRole("button", { name: "Menu du profil Camille" }).click();
   await page
     .getByRole("button", { name: "Se déconnecter et changer de profil" })
     .click();
@@ -141,7 +199,7 @@ test("second household and senior reading size", async ({ page }) => {
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBe(true);
-  await page.getByRole("link", { name: "Espace famille" }).click();
+  await navigate(page, "Espace famille");
   await expect(
     page.getByRole("heading", { name: "Sami", exact: true }),
   ).toBeVisible();
@@ -177,7 +235,7 @@ test("capitales: two players receive five distinct questions and fair scores", a
   page,
 }) => {
   await login(page);
-  await page.getByRole("link", { name: "Jouer ensemble", exact: true }).click();
+  await navigate(page, "Jeux");
   await page.getByLabel("Nombre de joueurs").selectOption("2");
   await page.getByRole("button", { name: "Commencer la partie" }).click();
   const seen = new Set<string>();
@@ -231,7 +289,7 @@ test("petit bac: hidden turns and collective validation for four players", async
   page,
 }) => {
   await login(page);
-  await page.getByRole("link", { name: "Jouer ensemble", exact: true }).click();
+  await navigate(page, "Jeux");
   await page.getByRole("button", { name: /Le petit bac/ }).click();
   await page.getByLabel("Nombre de joueurs").selectOption("4");
   await page.getByRole("button", { name: "Commencer la partie" }).click();
@@ -279,7 +337,7 @@ test("notebook persists privately, and live permission stays unavailable", async
   page,
 }) => {
   await login(page);
-  await page.getByRole("link", { name: "Mon carnet", exact: true }).click();
+  await navigate(page, "Carnet");
   const title = `Lecture fictive ${Date.now()}`;
   await page.getByLabel("Titre", { exact: true }).fill(title);
   await page.getByLabel("Matière ou auteur").fill("Auteur fictif");
@@ -291,7 +349,7 @@ test("notebook persists privately, and live permission stays unavailable", async
     .getByRole("button", { name: `Supprimer ${title}`, exact: true })
     .click();
   await expect(page.getByRole("heading", { name: title })).toHaveCount(0);
-  await page.getByRole("link", { name: "Espace famille" }).click();
+  await navigate(page, "Espace famille");
   const allow = page.getByLabel("Autoriser le futur mode vidéo dans ce foyer");
   await allow.check();
   await expect(allow).toBeEnabled();
@@ -302,9 +360,7 @@ test("notebook persists privately, and live permission stays unavailable", async
   ).toBeVisible();
   await allow.uncheck();
   await expect(allow).toBeEnabled();
-  await page
-    .getByRole("link", { name: "Cours et programmes", exact: true })
-    .click();
+  await navigate(page, "Programmes");
   await page
     .getByRole("combobox", { name: "Classe", exact: true })
     .selectOption("4e");
@@ -391,4 +447,93 @@ test("private local profile selection never prefills the demo password", async (
   await expect(
     page.getByText("Suzanne-demo-2026!", { exact: true }),
   ).toHaveCount(0);
+});
+
+test("wardrobe persists per profile, updates the welcome and supports seasonal mode", async ({
+  page,
+}) => {
+  await login(page);
+  await navigate(page, "Vestiaire");
+  await expect(
+    page.getByRole("heading", { name: "Le vestiaire de Suzanne." }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Porter la tenue Noël" }).click();
+  await expect(
+    page.getByRole("button", { name: "Porter la tenue Noël" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByLabel("Au rythme des saisons")).not.toBeChecked();
+  await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Porter la tenue Noël" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await navigate(page, "Accueil");
+  await expect(page.locator(".welcome-photo img")).toHaveAttribute(
+    "alt",
+    /Noël/,
+  );
+  await navigate(page, "Vestiaire");
+  await page.getByLabel("Portrait réaliste", { exact: true }).check();
+  await navigate(page, "Accueil");
+  await expect(page.locator(".welcome-photo img")).toHaveAttribute(
+    "alt",
+    /personnage fictif/,
+  );
+  await navigate(page, "Vestiaire");
+  await page.getByLabel("Dessin animé", { exact: true }).check();
+  await page.getByLabel("Au rythme des saisons").check();
+  await expect(page.getByRole("status")).toContainText("mode saisonnier");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  const audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(
+    audit.violations.map((v) => ({
+      id: v.id,
+      nodes: v.nodes.map((n) => n.target),
+    })),
+  ).toEqual([]);
+  const download = page.waitForEvent("download");
+  await page
+    .getByRole("link", { name: "Le pack graphique", exact: true })
+    .click();
+  expect((await download).suggestedFilename()).toBe("suzanne-pack-v1.zip");
+});
+
+test("navigation search, active destination, history and mobile menu are usable", async ({
+  page,
+}) => {
+  await login(page);
+  const search = page.getByRole("button", {
+    name: "Rechercher un espace",
+    exact: true,
+  });
+  await search.click();
+  await page
+    .getByRole("textbox", { name: "Rechercher un espace" })
+    .fill("tenues");
+  await page
+    .getByRole("navigation", { name: "Résultats de recherche" })
+    .getByRole("link", { name: /Vestiaire/ })
+    .click();
+  await expect(page).toHaveURL(/#vestiaire$/);
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await navigate(page, "Jeux");
+  await page.goBack();
+  await expect(
+    page.getByRole("heading", { name: "Le vestiaire de Suzanne." }),
+  ).toBeVisible();
+  await search.click();
+  await page
+    .getByRole("textbox", { name: "Rechercher un espace" })
+    .fill("zzzxxyy");
+  await expect(
+    page.getByText("Aucun espace trouvé. Essaie « jeux » ou « cours »."),
+  ).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(search).toBeFocused();
 });

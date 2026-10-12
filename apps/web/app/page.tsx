@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 import { useEffect, useState, type FormEvent } from "react";
 import {
   ArrowRight,
@@ -9,63 +7,29 @@ import {
   BookOpen,
   Check,
   Compass,
-  Globe2,
   Dices,
+  Globe2,
   GraduationCap,
   Headphones,
-  Home,
   Leaf,
-  LogOut,
   Plus,
-  Settings,
   ShieldCheck,
   Sparkles,
   Sprout,
-  TrendingUp,
-  Users,
   X,
 } from "lucide-react";
 import { Notebook, LiveSettings } from "./notebook";
-import { PublicWelcome } from "./presence";
+import { PublicWelcome, SuzannePortrait } from "./presence";
 import { Welcome } from "./welcome";
+import { Navigation, Brand, destinations, type Section } from "./navigation";
+import { LookProvider, Wardrobe } from "./wardrobe";
 import { Games } from "./games";
 import { Curriculum } from "./curriculum";
 import { api } from "./api";
 import { Flower, Landscape } from "./art";
 import type { Account, Child, Dashboard, Me } from "./types";
 
-type Section =
-  | "carnet"
-  | "jeux"
-  | "programmes"
-  | "accueil"
-  | "apprendre"
-  | "decouvertes"
-  | "actualites"
-  | "lectures"
-  | "studio"
-  | "progression"
-  | "famille"
-  | "reglages"
-  | "suzanne";
-const nav = [
-  { id: "accueil", label: "Mon espace", icon: Home },
-  { id: "apprendre", label: "Apprendre", icon: GraduationCap },
-  { id: "programmes", label: "Cours et programmes", icon: BookOpen },
-  { id: "jeux", label: "Jouer ensemble", icon: Dices },
-  { id: "decouvertes", label: "Découvertes", icon: Compass },
-  { id: "actualites", label: "Le monde aujourd’hui", icon: Globe2 },
-  { id: "carnet", label: "Mon carnet", icon: BookOpen },
-  { id: "lectures", label: "Mes lectures", icon: BookOpen },
-  { id: "studio", label: "Le studio", icon: Headphones },
-  { id: "progression", label: "Mes petits pas", icon: TrendingUp },
-] as const;
-const allSections: string[] = [
-  ...nav.map((n) => n.id),
-  "famille",
-  "reglages",
-  "suzanne",
-];
+const allSections = destinations.map((d) => d.id);
 const demoPassword = "Suzanne-demo-2026!";
 const initials = (name: string) => name.slice(0, 1);
 
@@ -229,10 +193,7 @@ export default function App() {
     return (
       <main className="login-page">
         <div className="login-story">
-          <a className="brand" href="#accueil">
-            <Flower />
-            suzanne<span className="brand-dot">.</span>
-          </a>
+          <Brand />
           <PublicWelcome />
           <p className="fine">
             Une IA pédagogique, au service de ton autonomie.
@@ -366,732 +327,660 @@ export default function App() {
     );
 
   return (
-    <div className={`shell ${me.profile.large_text ? "large-text" : ""}`}>
-      <a className="skip" href="#main-content">
-        Aller au contenu
-      </a>
-      <aside className="sidebar">
-        <a href="#accueil" className="brand">
-          <Flower />
-          suzanne<span className="brand-dot">.</span>
+    <LookProvider key={me.profile.id} profileId={me.profile.id}>
+      <div className={`shell ${me.profile.large_text ? "large-text" : ""}`}>
+        <a className="skip" href="#main-content">
+          Aller au contenu
         </a>
-        <p className="brand-subtitle">La curiosité n’a pas d’âge.</p>
-        <nav aria-label="Navigation principale">
-          {nav.map((n) => (
-            <a
-              href={`#${n.id}`}
-              key={n.id}
-              className={section === n.id ? "active" : ""}
-              aria-current={section === n.id ? "page" : undefined}
-            >
-              <n.icon size={20} />
-              <span>{n.label}</span>
-              {n.id === "decouvertes" && <span className="new-dot" />}
-            </a>
-          ))}
-        </nav>
-        <a href="#suzanne" className="suzanne-nav">
-          <Sparkles size={19} />
-          Un moment avec {me.profile.nickname}
-          <ArrowUpRight size={16} />
-        </a>
-        <div className="sidebar-bottom">
-          {household?.role === "guardian" && (
-            <a
-              href="#famille"
-              className={section === "famille" ? "active" : ""}
-            >
-              <Users size={19} />
-              Espace famille
-            </a>
-          )}
-          <a
-            href="#reglages"
-            className={section === "reglages" ? "active" : ""}
-          >
-            <Settings size={19} />
-            Mes préférences
-          </a>
-          <div className="family-label">
-            <ShieldCheck size={16} />
-            {household?.name}
-            <span>{me.demo ? "Foyer fictif" : "Essai local privé"}</span>
-          </div>
-        </div>
-      </aside>
-      <div className="main-shell">
-        <header className="topbar">
-          <span className="breadcrumb">
-            Ton espace personnel <span>/</span>{" "}
-            {nav.find((n) => n.id === section)?.label ||
-              (
-                {
-                  famille: "Espace famille",
-                  reglages: "Mes préférences",
-                  suzanne: me.profile.nickname,
-                } as Record<string, string>
-              )[section]}
-          </span>
-          <span className="mobile-brand">
-            <Flower />
-            suzanne
-          </span>
-          <div className="top-actions">
-            <span className="demo-label">
-              {me.demo ? "DÉMONSTRATION" : "ESSAI LOCAL"}
-            </span>
-            <button
-              className="profile-button"
-              onClick={() =>
-                void act(async () => {
-                  await api("/auth/logout", { method: "POST" });
-                  setMe(null);
-                  setDashboard(null);
-                  setChildren([]);
-                  setLesson(null);
-                  setError("");
-                })
-              }
-              disabled={busy}
-              aria-label="Se déconnecter et changer de profil"
-            >
-              <span className="avatar small color-0">
-                {initials(me.profile.name)}
-              </span>
-              <span>{me.profile.name}</span>
-              <LogOut size={16} />
-            </button>
-          </div>
-        </header>
-        <main id="main-content" tabIndex={-1} className="content">
-          {error && (
-            <div role="alert" className="error">
-              {error}
-              <button onClick={() => void act(loadSession)}>Réessayer</button>
-            </div>
-          )}
-          {notice && (
-            <p className="notice" role="status">
-              <Check size={16} />
-              {notice}
-            </p>
-          )}
-          {section === "carnet" && household && (
-            <Notebook key={me.profile.id} hid={household.id} />
-          )}
-          {section === "jeux" && <Games />}
-          {section === "programmes" && (
-            <Curriculum initialLevel={me.profile.level} />
-          )}
-          {section === "accueil" && (
-            <>
-              <div className="page-heading">
-                <div>
-                  <div className="eyebrow">
-                    <span className="tiny-sun">✳</span> UN PEU DE CURIOSITÉ,
-                    CHAQUE JOUR
-                  </div>
-                  <h1>
-                    Bonjour {me.profile.name}
-                    <span className="heading-dot">.</span>
-                  </h1>
-                  <p>
-                    {isChild
-                      ? "Qu’est-ce qu’on découvre ensemble aujourd’hui ?"
-                      : "Le monde a encore tant de choses à t’apprendre."}
-                  </p>
-                </div>
-                <div className="today-note">
-                  <Leaf size={18} />
-                  <span>
-                    À ton rythme.
-                    <br />
-                    <strong>Pour le plaisir d’apprendre.</strong>
-                  </span>
-                </div>
+        <Navigation
+          me={me}
+          section={section}
+          busy={busy}
+          onLogout={() =>
+            void act(async () => {
+              await api("/auth/logout", { method: "POST" });
+              setMe(null);
+              setDashboard(null);
+              setChildren([]);
+              setLesson(null);
+              setError("");
+            })
+          }
+        />
+        <div className="main-shell">
+          <main id="main-content" tabIndex={-1} className="content">
+            {error && (
+              <div role="alert" className="error">
+                {error}
+                <button onClick={() => void act(loadSession)}>Réessayer</button>
               </div>
-              <div className="dashboard-grid">
-                <div className="main-column">
-                  <Welcome profile={me.profile} dashboard={dashboard} />
-                  <div className="section-heading">
-                    <h2>
-                      {isChild
-                        ? "À toi de jouer"
-                        : "Une envie pour aujourd’hui ?"}
-                    </h2>
-                    <span>Choisis ton prochain pas</span>
-                  </div>
-                  <div className="quick-grid">
-                    <a href="#apprendre">
-                      <span className="icon-tile peach">
-                        <GraduationCap />
-                      </span>
-                      <strong>
-                        {isChild
-                          ? "Un coup de pouce"
-                          : "Apprendre à mon rythme"}
-                      </strong>
-                      <span>
-                        {isChild
-                          ? "Comprendre, pas à pas"
-                          : "Faire grandir mes compétences"}
-                      </span>
-                      <ArrowUpRight size={17} />
-                    </a>
-                    <a href="#decouvertes">
-                      <span className="icon-tile sage">
-                        <Compass />
-                      </span>
-                      <strong>Ouvrir mes horizons</strong>
-                      <span>Se laisser surprendre</span>
-                      <ArrowUpRight size={17} />
-                    </a>
-                    <a href="#studio">
-                      <span className="icon-tile lavender">
-                        <Headphones />
-                      </span>
-                      <strong>Une pause à écouter</strong>
-                      <span>Le studio prend forme</span>
-                      <ArrowUpRight size={17} />
-                    </a>
-                  </div>
-                  <div className="section-heading">
-                    <h2>La sélection de Suzanne</h2>
-                    <a href="#decouvertes">
-                      Tout explorer
-                      <ArrowRight size={15} />
-                    </a>
-                  </div>
-                  <div className="discovery-grid">
-                    <button
-                      className="discovery-card"
-                      onClick={() =>
-                        openLesson("Pourquoi la Lune change-t-elle de forme ?")
-                      }
-                    >
-                      <div className="card-art">
-                        <Landscape />
-                        <span className="art-badge">
-                          SCIENCES & ÉMERVEILLEMENT
-                        </span>
-                      </div>
-                      <div className="card-copy">
-                        <span className="fine">
-                          Une première découverte · 3 min
-                        </span>
-                        <h3>
-                          La Lune a-t-elle vraiment
-                          <br />
-                          plusieurs visages ?
-                        </h3>
-                        <span className="card-link">
-                          Explorer la question <ArrowUpRight size={17} />
-                        </span>
-                      </div>
-                    </button>
-                    <button
-                      className="discovery-card"
-                      onClick={() => openLesson("Le voyage de l’eau")}
-                    >
-                      <div className="card-art">
-                        <Landscape variant="earth" />
-                        <span className="art-badge">NOTRE PLANÈTE</span>
-                      </div>
-                      <div className="card-copy">
-                        <span className="fine">
-                          Une première découverte · 3 min
-                        </span>
-                        <h3>
-                          Une goutte d’eau,
-                          <br />
-                          un incroyable voyage.
-                        </h3>
-                        <span className="card-link">
-                          Suivre le voyage <ArrowUpRight size={17} />
-                        </span>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-                <aside className="right-column">
-                  <section className="family-play-card">
-                    <span className="eyebrow">UN MOMENT À PARTAGER</span>
-                    <div className="play-mark" aria-hidden="true">
-                      <Dices size={34} />
-                    </div>
-                    <h2>On joue ?</h2>
-                    <p>
-                      Capitales ou petit bac : la curiosité se partage, de 1 à 4
-                      joueurs.
-                    </p>
-                    <a href="#jeux">
-                      Choisir un jeu <ArrowUpRight size={18} />
-                    </a>
-                  </section>
-                  <section className="week-card">
-                    <div className="section-heading">
-                      <h2>Chaque petit pas compte</h2>
-                      <Sprout size={20} />
-                    </div>
-                    <p className="simulation">APERÇU · ACTIVITÉ SIMULÉE</p>
-                    <div className="stat">
-                      <strong>
-                        {dashboard?.minutes}
-                        <span>min</span>
-                      </strong>
-                      <span>
-                        de curiosité
-                        <br />
-                        cette semaine
-                      </span>
-                    </div>
-                    <div
-                      className="week-chart"
-                      aria-label="Activité fictive : lundi 15, mardi 8, mercredi 0, jeudi 12, vendredi 10, samedi 0, dimanche 0 minutes"
-                    >
-                      {dashboard?.week.map((v, i) => (
-                        <div key={i}>
-                          <div className="bar-track">
-                            <span
-                              style={{ height: `${Math.max(v * 5, 5)}%` }}
-                            />
-                          </div>
-                          <span>{["L", "M", "M", "J", "V", "S", "D"][i]}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <a href="#progression" className="subtle-link">
-                      Voir mes petits pas
-                      <ArrowRight size={15} />
-                    </a>
-                  </section>
-                  <section className="goals-card">
-                    <div className="section-heading">
-                      <h2>Mon cap du moment</h2>
-                      <span>↗</span>
-                    </div>
-                    {goalList}
-                    <a href="#progression" className="subtle-link">
-                      <Plus size={15} />
-                      Choisir un objectif
-                    </a>
-                  </section>
-                  <p className="gentle-note">
-                    <Leaf size={16} />
-                    L’essentiel, c’est le chemin.
-                    <br />
-                    Pas la course.
-                  </p>
-                </aside>
-              </div>
-            </>
-          )}
-          {section === "decouvertes" && (
-            <>
-              <PageTitle
-                eyebrow="LE MONDE EST UN TERRAIN DE JEU"
-                title="Cultivons la curiosité."
-                text="Des questions toutes simples. Des horizons tout neufs."
-              />
-              <div className="discovery-grid wide">
-                <button
-                  className="discovery-card"
-                  onClick={() =>
-                    openLesson("Pourquoi la Lune change-t-elle de forme ?")
-                  }
-                >
-                  <Landscape />
-                  <div className="card-copy">
-                    <span className="eyebrow">SCIENCES · 3 MIN</span>
-                    <h2>Les visages de la Lune</h2>
-                    <p>Une fiche et une question pour comprendre.</p>
-                    <span className="card-link">
-                      Je découvre <ArrowRight size={18} />
-                    </span>
-                  </div>
-                </button>
-                <button
-                  className="discovery-card"
-                  onClick={() => openLesson("Le voyage de l’eau")}
-                >
-                  <Landscape variant="earth" />
-                  <div className="card-copy">
-                    <span className="eyebrow">NATURE · 3 MIN</span>
-                    <h2>Le voyage de l’eau</h2>
-                    <p>Du nuage à l’océan, et retour.</p>
-                    <span className="card-link">
-                      Je découvre <ArrowRight size={18} />
-                    </span>
-                  </div>
-                </button>
-              </div>
-              <p className="fine">
-                Fiches de démonstration écrites pour Suzanne. Les réponses ne
-                mesurent pas encore ta progression.
+            )}
+            {notice && (
+              <p className="notice" role="status">
+                <Check size={16} />
+                {notice}
               </p>
-            </>
-          )}
-          {section === "progression" && (
-            <>
-              <PageTitle
-                eyebrow="AVANCER, À SA FAÇON"
-                title="Mes petits pas."
-                text="Tes envies comptent autant que le chemin parcouru."
-              />
-              <div className="two-columns">
-                <section className="panel">
-                  <h2>Mes objectifs personnels</h2>
-                  <p className="muted">
-                    Ces objectifs sont enregistrés dans ton espace.
-                  </p>
-                  {goalList}
-                  <form className="goal-form" onSubmit={addGoal}>
-                    <label className="field">
-                      Un prochain petit pas
-                      <input
-                        value={goal}
-                        onChange={(e) => setGoal(e.target.value)}
-                        placeholder="Lire dix minutes, découvrir le japonais…"
-                        maxLength={120}
-                        required
-                      />
-                    </label>
-                    <button className="primary" disabled={busy}>
-                      <Plus size={18} />
-                      Ajouter
-                    </button>
-                  </form>
-                </section>
-                <section className="panel">
-                  <span className="pill">Données simulées</span>
-                  <h2>Un aperçu du chemin</h2>
-                  <div className="big-stat">
-                    {dashboard?.minutes}
-                    <small> minutes d’activité</small>
+            )}
+            {section === "vestiaire" && <Wardrobe />}
+            {section === "carnet" && household && (
+              <Notebook key={me.profile.id} hid={household.id} />
+            )}
+            {section === "jeux" && <Games />}
+            {section === "programmes" && (
+              <Curriculum initialLevel={me.profile.level} />
+            )}
+            {section === "accueil" && (
+              <>
+                <div className="page-heading">
+                  <div>
+                    <div className="eyebrow">
+                      <span className="tiny-sun">✳</span> UN PEU DE CURIOSITÉ,
+                      CHAQUE JOUR
+                    </div>
+                    <h1>
+                      Bonjour {me.profile.name}
+                      <span className="heading-dot">.</span>
+                    </h1>
+                    <p>
+                      {isChild
+                        ? "Qu’est-ce qu’on découvre ensemble aujourd’hui ?"
+                        : "Le monde a encore tant de choses à t’apprendre."}
+                    </p>
                   </div>
-                  <p>3 découvertes dans cet exemple de semaine.</p>
-                  <p className="muted">
-                    Aucun niveau de maîtrise n’est encore calculé. Les
-                    tentatives et vérifications différées alimenteront bientôt
-                    cette vue.
-                  </p>
-                </section>
-              </div>
-            </>
-          )}
-          {section === "famille" && (
-            <>
-              <PageTitle
-                eyebrow="GRANDIR ENSEMBLE"
-                title="L’espace famille."
-                text="Accompagner avec attention, laisser de la place à l’autonomie."
-              />
-              {household?.role !== "guardian" ? (
-                <section className="panel">
-                  <ShieldCheck />
-                  <h2>Un espace réservé aux responsables légaux.</h2>
-                  <p>
-                    Connecte-toi avec un profil parent pour consulter les
-                    résumés autorisés.
-                  </p>
-                </section>
-              ) : (
-                <>
-                  <div className="info-strip">
-                    <ShieldCheck size={21} />
+                  <div className="today-note">
+                    <Leaf size={18} />
                     <span>
-                      Tu vois les activités et prochaines étapes des enfants
-                      dont tu es responsable. Leurs conversations privées ne
-                      sont pas affichées.
+                      À ton rythme.
+                      <br />
+                      <strong>Pour le plaisir d’apprendre.</strong>
                     </span>
                   </div>
-                  {household && <LiveSettings hid={household.id} />}
-                  <div className="two-columns">
-                    {children.map((child, i) => (
-                      <section className="panel child-card" key={child.id}>
-                        <div className="child-title">
-                          <span className={`avatar color-${i + 1}`}>
-                            {initials(child.name)}
+                </div>
+                <div className="dashboard-grid">
+                  <div className="main-column">
+                    <Welcome profile={me.profile} dashboard={dashboard} />
+                    <div className="section-heading">
+                      <h2>
+                        {isChild
+                          ? "À toi de jouer"
+                          : "Une envie pour aujourd’hui ?"}
+                      </h2>
+                      <span>Choisis ton prochain pas</span>
+                    </div>
+                    <div className="quick-grid">
+                      <a href="#apprendre">
+                        <span className="icon-tile peach">
+                          <GraduationCap />
+                        </span>
+                        <strong>
+                          {isChild
+                            ? "Un coup de pouce"
+                            : "Apprendre à mon rythme"}
+                        </strong>
+                        <span>
+                          {isChild
+                            ? "Comprendre, pas à pas"
+                            : "Faire grandir mes compétences"}
+                        </span>
+                        <ArrowUpRight size={17} />
+                      </a>
+                      <a href="#decouvertes">
+                        <span className="icon-tile sage">
+                          <Compass />
+                        </span>
+                        <strong>Ouvrir mes horizons</strong>
+                        <span>Se laisser surprendre</span>
+                        <ArrowUpRight size={17} />
+                      </a>
+                      <a href="#vestiaire">
+                        <span className="icon-tile lavender">
+                          <Sparkles />
+                        </span>
+                        <strong>Le look de Suzanne</strong>
+                        <span>Cinq tenues à essayer</span>
+                        <ArrowUpRight size={17} />
+                      </a>
+                    </div>
+                    <div className="section-heading">
+                      <h2>La sélection de Suzanne</h2>
+                      <a href="#decouvertes">
+                        Tout explorer
+                        <ArrowRight size={15} />
+                      </a>
+                    </div>
+                    <div className="discovery-grid">
+                      <button
+                        className="discovery-card"
+                        onClick={() =>
+                          openLesson(
+                            "Pourquoi la Lune change-t-elle de forme ?",
+                          )
+                        }
+                      >
+                        <div className="card-art">
+                          <Landscape />
+                          <span className="art-badge">
+                            SCIENCES & ÉMERVEILLEMENT
                           </span>
-                          <div>
-                            <h2>{child.name}</h2>
+                        </div>
+                        <div className="card-copy">
+                          <span className="fine">
+                            Une première découverte · 3 min
+                          </span>
+                          <h3>
+                            La Lune a-t-elle vraiment
+                            <br />
+                            plusieurs visages ?
+                          </h3>
+                          <span className="card-link">
+                            Explorer la question <ArrowUpRight size={17} />
+                          </span>
+                        </div>
+                      </button>
+                      <button
+                        className="discovery-card"
+                        onClick={() => openLesson("Le voyage de l’eau")}
+                      >
+                        <div className="card-art">
+                          <Landscape variant="earth" />
+                          <span className="art-badge">NOTRE PLANÈTE</span>
+                        </div>
+                        <div className="card-copy">
+                          <span className="fine">
+                            Une première découverte · 3 min
+                          </span>
+                          <h3>
+                            Une goutte d’eau,
+                            <br />
+                            un incroyable voyage.
+                          </h3>
+                          <span className="card-link">
+                            Suivre le voyage <ArrowUpRight size={17} />
+                          </span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                  <aside className="right-column">
+                    <section className="family-play-card">
+                      <span className="eyebrow">UN MOMENT À PARTAGER</span>
+                      <div className="play-mark" aria-hidden="true">
+                        <Dices size={34} />
+                      </div>
+                      <h2>On joue ?</h2>
+                      <p>
+                        Capitales ou petit bac : la curiosité se partage, de 1 à
+                        4 joueurs.
+                      </p>
+                      <a href="#jeux">
+                        Choisir un jeu <ArrowUpRight size={18} />
+                      </a>
+                    </section>
+                    <section className="week-card">
+                      <div className="section-heading">
+                        <h2>Chaque petit pas compte</h2>
+                        <Sprout size={20} />
+                      </div>
+                      <p className="simulation">APERÇU · ACTIVITÉ SIMULÉE</p>
+                      <div className="stat">
+                        <strong>
+                          {dashboard?.minutes}
+                          <span>min</span>
+                        </strong>
+                        <span>
+                          de curiosité
+                          <br />
+                          cette semaine
+                        </span>
+                      </div>
+                      <div
+                        className="week-chart"
+                        aria-label="Activité fictive : lundi 15, mardi 8, mercredi 0, jeudi 12, vendredi 10, samedi 0, dimanche 0 minutes"
+                      >
+                        {dashboard?.week.map((v, i) => (
+                          <div key={i}>
+                            <div className="bar-track">
+                              <span
+                                style={{ height: `${Math.max(v * 5, 5)}%` }}
+                              />
+                            </div>
                             <span>
-                              {child.level} · {household?.name}
+                              {["L", "M", "M", "J", "V", "S", "D"][i]}
                             </span>
                           </div>
-                        </div>
-                        <p className="simulation">
-                          DONNÉES DE PROGRESSION SIMULÉES
-                        </p>
-                        <div className="big-stat">
-                          {child.minutes}
-                          <small> min cette semaine</small>
-                        </div>
-                        <p>
-                          Thème exploré : <strong>{child.topic}</strong>
-                        </p>
-                        <div className="next-step">
-                          <Sprout size={20} />
-                          <span>
-                            Prochaine étape proposée :<br />
-                            <strong>
-                              Revenir sur une découverte ensemble.
-                            </strong>
-                          </span>
-                        </div>
-                        <p className="fine">
-                          Les réglages de durée et les révisions personnalisées
-                          arriveront avec les activités réelles.
-                        </p>
-                      </section>
-                    ))}
-                  </div>
-                </>
-              )}
-            </>
-          )}
-          {section === "reglages" && (
-            <>
-              <PageTitle
-                eyebrow="UNE SUZANNE QUI TE RESSEMBLE"
-                title="Mes préférences."
-                text="Quelques détails pour te sentir bien dans ton espace."
-              />
-              <form
-                className="panel settings-panel"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  void act(async () => {
-                    await api("/me/profile", {
-                      method: "PATCH",
-                      body: JSON.stringify({ nickname, large_text: large }),
-                    });
-                    await loadSession();
-                    setNotice("Tes préférences ont été enregistrées.");
-                  });
-                }}
-              >
-                <h2>À ta façon</h2>
-                <label className="field">
-                  Comment veux-tu appeler Suzanne ?
-                  <input
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
-                    minLength={1}
-                    maxLength={30}
-                    required
-                  />
-                </label>
-                <label className="toggle-row">
-                  <span>
-                    <strong>Un texte plus grand</strong>
-                    <small>Pour un meilleur confort de lecture.</small>
-                  </span>
-                  <input
-                    type="checkbox"
-                    checked={large}
-                    onChange={(e) => setLarge(e.target.checked)}
-                  />
-                </label>
-                <div className="profile-info">
-                  <span>Ton profil</span>
-                  <strong>
-                    {me.profile.name} · {me.profile.age} ans
-                  </strong>
-                  <span>Centres d’intérêt</span>
-                  <strong>{me.profile.interest}</strong>
+                        ))}
+                      </div>
+                      <a href="#progression" className="subtle-link">
+                        Voir mes petits pas
+                        <ArrowRight size={15} />
+                      </a>
+                    </section>
+                    <section className="goals-card">
+                      <div className="section-heading">
+                        <h2>Mon cap du moment</h2>
+                        <span>↗</span>
+                      </div>
+                      {goalList}
+                      <a href="#progression" className="subtle-link">
+                        <Plus size={15} />
+                        Choisir un objectif
+                      </a>
+                    </section>
+                    <p className="gentle-note">
+                      <Leaf size={16} />
+                      L’essentiel, c’est le chemin.
+                      <br />
+                      Pas la course.
+                    </p>
+                  </aside>
                 </div>
-                <button className="primary" disabled={busy}>
-                  Enregistrer mes préférences
-                  <Check size={17} />
-                </button>
-                <p className="fine">
-                  Aucun micro ni caméra activé. Les préférences sont propres à
-                  ce compte.
-                </p>
-              </form>
-            </>
-          )}
-          {section === "suzanne" && (
-            <>
-              <PageTitle
-                eyebrow="COMPRENDRE ENSEMBLE"
-                title={`Un moment avec ${me.profile.nickname}.`}
-                text="Une question est souvent le début d’une belle découverte."
-              />
-              <section className="panel introduction">
-                <Image
-                  className="suzanne-portrait introduction-portrait"
-                  src="/suzanne-portrait-v2.png"
-                  alt="Portrait de Suzanne, personnage fictif créé par IA"
-                  width={200}
-                  height={200}
-                  sizes="200px"
+              </>
+            )}
+            {section === "decouvertes" && (
+              <>
+                <PageTitle
+                  eyebrow="LE MONDE EST UN TERRAIN DE JEU"
+                  title="Cultivons la curiosité."
+                  text="Des questions toutes simples. Des horizons tout neufs."
                 />
-                <h2>Une présence pour apprendre.</h2>
-                <p>
-                  Suzanne est une IA pédagogique fictive. Elle est pensée pour
-                  t’aider à réfléchir, te donner un indice, essayer une autre
-                  explication et vérifier avec toi ce que tu as compris.
-                </p>
-                <div className="info-strip">
-                  Le dialogue IA n’est pas encore connecté. Aucun message n’est
-                  envoyé à un fournisseur et aucun micro n’est enregistré.
-                </div>
-                <button
-                  className="primary"
-                  onClick={() =>
-                    openLesson("Pourquoi la Lune change-t-elle de forme ?")
-                  }
-                >
-                  Essayer une découverte guidée
-                  <ArrowRight size={18} />
-                </button>
-              </section>
-            </>
-          )}
-          {section === "apprendre" && (
-            <>
-              <PageTitle
-                eyebrow={
-                  isChild
-                    ? "COMPRENDRE, PAS À PAS"
-                    : "IL N’EST JAMAIS TROP TARD"
-                }
-                title={
-                  isChild ? "On apprend ensemble." : "Apprendre à mon rythme."
-                }
-                text={
-                  isChild
-                    ? "Un indice, une autre explication, puis à toi d’essayer."
-                    : "Des langues, des sciences, un projet qui te tient à cœur."
-                }
-              />
-              <div className="two-columns">
-                <section className="panel">
-                  <span className="icon-tile peach">
-                    <GraduationCap />
-                  </span>
-                  <h2>
-                    {isChild
-                      ? `Mon parcours · ${me.profile.level}`
-                      : "Mes envies d’apprendre"}
-                  </h2>
-                  <p>{me.profile.interest}</p>
-                  <p className="muted">
-                    Le tutorat, les documents et les exercices adaptés arrivent
-                    dans une prochaine version.
-                  </p>
-                  <a className="primary" href="#progression">
-                    Définir mon premier objectif
-                    <ArrowRight size={18} />
-                  </a>
-                </section>
-                <section className="panel">
-                  <span className="icon-tile sage">
-                    <Compass />
-                  </span>
-                  <h2>Commencer par une question</h2>
-                  <p>
-                    Un exemple de fiche, une explication, une mini-vérification.
-                  </p>
+                <div className="discovery-grid wide">
                   <button
-                    className="text-button"
+                    className="discovery-card"
+                    onClick={() =>
+                      openLesson("Pourquoi la Lune change-t-elle de forme ?")
+                    }
+                  >
+                    <Landscape />
+                    <div className="card-copy">
+                      <span className="eyebrow">SCIENCES · 3 MIN</span>
+                      <h2>Les visages de la Lune</h2>
+                      <p>Une fiche et une question pour comprendre.</p>
+                      <span className="card-link">
+                        Je découvre <ArrowRight size={18} />
+                      </span>
+                    </div>
+                  </button>
+                  <button
+                    className="discovery-card"
                     onClick={() => openLesson("Le voyage de l’eau")}
                   >
-                    Où va l’eau après la pluie ?<ArrowRight size={18} />
+                    <Landscape variant="earth" />
+                    <div className="card-copy">
+                      <span className="eyebrow">NATURE · 3 MIN</span>
+                      <h2>Le voyage de l’eau</h2>
+                      <p>Du nuage à l’océan, et retour.</p>
+                      <span className="card-link">
+                        Je découvre <ArrowRight size={18} />
+                      </span>
+                    </div>
+                  </button>
+                </div>
+                <p className="fine">
+                  Fiches de démonstration écrites pour Suzanne. Les réponses ne
+                  mesurent pas encore ta progression.
+                </p>
+              </>
+            )}
+            {section === "progression" && (
+              <>
+                <PageTitle
+                  eyebrow="AVANCER, À SA FAÇON"
+                  title="Mes petits pas."
+                  text="Tes envies comptent autant que le chemin parcouru."
+                />
+                <div className="two-columns">
+                  <section className="panel">
+                    <h2>Mes objectifs personnels</h2>
+                    <p className="muted">
+                      Ces objectifs sont enregistrés dans ton espace.
+                    </p>
+                    {goalList}
+                    <form className="goal-form" onSubmit={addGoal}>
+                      <label className="field">
+                        Un prochain petit pas
+                        <input
+                          value={goal}
+                          onChange={(e) => setGoal(e.target.value)}
+                          placeholder="Lire dix minutes, découvrir le japonais…"
+                          maxLength={120}
+                          required
+                        />
+                      </label>
+                      <button className="primary" disabled={busy}>
+                        <Plus size={18} />
+                        Ajouter
+                      </button>
+                    </form>
+                  </section>
+                  <section className="panel">
+                    <span className="pill">Données simulées</span>
+                    <h2>Un aperçu du chemin</h2>
+                    <div className="big-stat">
+                      {dashboard?.minutes}
+                      <small> minutes d’activité</small>
+                    </div>
+                    <p>3 découvertes dans cet exemple de semaine.</p>
+                    <p className="muted">
+                      Aucun niveau de maîtrise n’est encore calculé. Les
+                      tentatives et vérifications différées alimenteront bientôt
+                      cette vue.
+                    </p>
+                  </section>
+                </div>
+              </>
+            )}
+            {section === "famille" && (
+              <>
+                <PageTitle
+                  eyebrow="GRANDIR ENSEMBLE"
+                  title="L’espace famille."
+                  text="Accompagner avec attention, laisser de la place à l’autonomie."
+                />
+                {household?.role !== "guardian" ? (
+                  <section className="panel">
+                    <ShieldCheck />
+                    <h2>Un espace réservé aux responsables légaux.</h2>
+                    <p>
+                      Connecte-toi avec un profil parent pour consulter les
+                      résumés autorisés.
+                    </p>
+                  </section>
+                ) : (
+                  <>
+                    <div className="info-strip">
+                      <ShieldCheck size={21} />
+                      <span>
+                        Tu vois les activités et prochaines étapes des enfants
+                        dont tu es responsable. Leurs conversations privées ne
+                        sont pas affichées.
+                      </span>
+                    </div>
+                    {household && <LiveSettings hid={household.id} />}
+                    <div className="two-columns">
+                      {children.map((child, i) => (
+                        <section className="panel child-card" key={child.id}>
+                          <div className="child-title">
+                            <span className={`avatar color-${i + 1}`}>
+                              {initials(child.name)}
+                            </span>
+                            <div>
+                              <h2>{child.name}</h2>
+                              <span>
+                                {child.level} · {household?.name}
+                              </span>
+                            </div>
+                          </div>
+                          <p className="simulation">
+                            DONNÉES DE PROGRESSION SIMULÉES
+                          </p>
+                          <div className="big-stat">
+                            {child.minutes}
+                            <small> min cette semaine</small>
+                          </div>
+                          <p>
+                            Thème exploré : <strong>{child.topic}</strong>
+                          </p>
+                          <div className="next-step">
+                            <Sprout size={20} />
+                            <span>
+                              Prochaine étape proposée :<br />
+                              <strong>
+                                Revenir sur une découverte ensemble.
+                              </strong>
+                            </span>
+                          </div>
+                          <p className="fine">
+                            Les réglages de durée et les révisions
+                            personnalisées arriveront avec les activités
+                            réelles.
+                          </p>
+                        </section>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+            {section === "reglages" && (
+              <>
+                <PageTitle
+                  eyebrow="UNE SUZANNE QUI TE RESSEMBLE"
+                  title="Mes préférences."
+                  text="Quelques détails pour te sentir bien dans ton espace."
+                />
+                <form
+                  className="panel settings-panel"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    void act(async () => {
+                      await api("/me/profile", {
+                        method: "PATCH",
+                        body: JSON.stringify({ nickname, large_text: large }),
+                      });
+                      await loadSession();
+                      setNotice("Tes préférences ont été enregistrées.");
+                    });
+                  }}
+                >
+                  <h2>À ta façon</h2>
+                  <label className="field">
+                    Comment veux-tu appeler Suzanne ?
+                    <input
+                      value={nickname}
+                      onChange={(e) => setNickname(e.target.value)}
+                      minLength={1}
+                      maxLength={30}
+                      required
+                    />
+                  </label>
+                  <label className="toggle-row">
+                    <span>
+                      <strong>Un texte plus grand</strong>
+                      <small>Pour un meilleur confort de lecture.</small>
+                    </span>
+                    <input
+                      type="checkbox"
+                      checked={large}
+                      onChange={(e) => setLarge(e.target.checked)}
+                    />
+                  </label>
+                  <div className="profile-info">
+                    <span>Ton profil</span>
+                    <strong>
+                      {me.profile.name} · {me.profile.age} ans
+                    </strong>
+                    <span>Centres d’intérêt</span>
+                    <strong>{me.profile.interest}</strong>
+                  </div>
+                  <button className="primary" disabled={busy}>
+                    Enregistrer mes préférences
+                    <Check size={17} />
+                  </button>
+                  <p className="fine">
+                    Aucun micro ni caméra activé. Les préférences sont propres à
+                    ce compte.
+                  </p>
+                </form>
+              </>
+            )}
+            {section === "suzanne" && (
+              <>
+                <PageTitle
+                  eyebrow="COMPRENDRE ENSEMBLE"
+                  title={`Un moment avec ${me.profile.nickname}.`}
+                  text="Une question est souvent le début d’une belle découverte."
+                />
+                <section className="panel introduction">
+                  <div className="introduction-companion">
+                    <SuzannePortrait />
+                  </div>
+                  <h2>Une présence pour apprendre.</h2>
+                  <p>
+                    Suzanne est une IA pédagogique fictive. Elle est pensée pour
+                    t’aider à réfléchir, te donner un indice, essayer une autre
+                    explication et vérifier avec toi ce que tu as compris.
+                  </p>
+                  <div className="info-strip">
+                    Le dialogue IA n’est pas encore connecté. Aucun message
+                    n’est envoyé à un fournisseur et aucun micro n’est
+                    enregistré.
+                  </div>
+                  <button
+                    className="primary"
+                    onClick={() =>
+                      openLesson("Pourquoi la Lune change-t-elle de forme ?")
+                    }
+                  >
+                    Essayer une découverte guidée
+                    <ArrowRight size={18} />
                   </button>
                 </section>
-              </div>
-            </>
-          )}
-          {section === "actualites" && (
-            <>
-              <PageTitle
-                eyebrow="COMPRENDRE LE MONDE"
-                title="Le monde aujourd’hui."
-                text="Des faits, du contexte et des sources. À hauteur de regard."
-              />
-              <Empty
-                icon={<Globe2 size={38} />}
-                title="L’actualité se prépare avec soin."
-                text="Aucun flux d’actualité n’est connecté. Les articles seront datés, sourcés, recoupés et adaptés à l’âge avant d’apparaître ici."
-              />
-              <a className="text-button" href="#decouvertes">
-                En attendant, explorer une découverte
-                <ArrowRight size={17} />
-              </a>
-            </>
-          )}
-          {section === "lectures" && (
-            <>
-              <PageTitle
-                eyebrow="UNE PAGE, UN NOUVEL HORIZON"
-                title="Mes lectures."
-                text="Lire pour rêver, comprendre, et parfois changer de regard."
-              />
-              <div className="reading-layout">
-                <Landscape variant="words" />
-                <Empty
-                  icon={<BookOpen size={36} />}
-                  title="Chaque livre ouvre un nouveau monde."
-                  text="Ajoute tes livres et tes impressions dans ton carnet. L’import de fichiers et les échanges avec Suzanne autour de tes lectures arrivent ensuite."
+              </>
+            )}
+            {section === "apprendre" && (
+              <>
+                <PageTitle
+                  eyebrow={
+                    isChild
+                      ? "COMPRENDRE, PAS À PAS"
+                      : "IL N’EST JAMAIS TROP TARD"
+                  }
+                  title={
+                    isChild ? "On apprend ensemble." : "Apprendre à mon rythme."
+                  }
+                  text={
+                    isChild
+                      ? "Un indice, une autre explication, puis à toi d’essayer."
+                      : "Des langues, des sciences, un projet qui te tient à cœur."
+                  }
                 />
-              </div>
-              <a className="primary" href="#carnet">
-                Ajouter un livre
-                <ArrowRight size={17} />
-              </a>
-            </>
-          )}
-          {section === "studio" && (
-            <>
-              <PageTitle
-                eyebrow="APPRENDRE AUTREMENT"
-                title="Le studio de Suzanne."
-                text="Fermer les yeux. Tendre l’oreille. Ouvrir ses horizons."
-              />
-              <div className="studio-preview">
-                <Headphones size={60} />
-                <div className="soundwave" aria-hidden="true">
-                  {[20, 40, 28, 68, 90, 44, 70, 35, 85, 56, 26, 44, 20].map(
-                    (h, i) => (
-                      <span key={i} style={{ height: h }} />
-                    ),
-                  )}
+                <div className="two-columns">
+                  <section className="panel">
+                    <span className="icon-tile peach">
+                      <GraduationCap />
+                    </span>
+                    <h2>
+                      {isChild
+                        ? `Mon parcours · ${me.profile.level}`
+                        : "Mes envies d’apprendre"}
+                    </h2>
+                    <p>{me.profile.interest}</p>
+                    <p className="muted">
+                      Le tutorat, les documents et les exercices adaptés
+                      arrivent dans une prochaine version.
+                    </p>
+                    <a className="primary" href="#progression">
+                      Définir mon premier objectif
+                      <ArrowRight size={18} />
+                    </a>
+                  </section>
+                  <section className="panel">
+                    <span className="icon-tile sage">
+                      <Compass />
+                    </span>
+                    <h2>Commencer par une question</h2>
+                    <p>
+                      Un exemple de fiche, une explication, une
+                      mini-vérification.
+                    </p>
+                    <button
+                      className="text-button"
+                      onClick={() => openLesson("Le voyage de l’eau")}
+                    >
+                      Où va l’eau après la pluie ?<ArrowRight size={18} />
+                    </button>
+                  </section>
                 </div>
-                <h2>De belles idées à écouter.</h2>
-                <p>
-                  Podcasts, langues à l’oral et petites capsules vidéo.
-                  <br />
-                  Le studio se prépare, avec transcriptions et sources.
-                </p>
-                <span className="pill">
-                  Aucun média généré dans cette version
-                </span>
-              </div>
-            </>
-          )}
-          <footer className="footer">
-            <span>
-              <Flower />
-              Un peu plus curieux qu’hier.
-            </span>
-            <span>
-              Suzanne · Prototype local{me.demo ? " · Données fictives" : ""}
-            </span>
-          </footer>
-        </main>
+              </>
+            )}
+            {section === "actualites" && (
+              <>
+                <PageTitle
+                  eyebrow="COMPRENDRE LE MONDE"
+                  title="Le monde aujourd’hui."
+                  text="Des faits, du contexte et des sources. À hauteur de regard."
+                />
+                <Empty
+                  icon={<Globe2 size={38} />}
+                  title="L’actualité se prépare avec soin."
+                  text="Aucun flux d’actualité n’est connecté. Les articles seront datés, sourcés, recoupés et adaptés à l’âge avant d’apparaître ici."
+                />
+                <a className="text-button" href="#decouvertes">
+                  En attendant, explorer une découverte
+                  <ArrowRight size={17} />
+                </a>
+              </>
+            )}
+            {section === "lectures" && (
+              <>
+                <PageTitle
+                  eyebrow="UNE PAGE, UN NOUVEL HORIZON"
+                  title="Mes lectures."
+                  text="Lire pour rêver, comprendre, et parfois changer de regard."
+                />
+                <div className="reading-layout">
+                  <Landscape variant="words" />
+                  <Empty
+                    icon={<BookOpen size={36} />}
+                    title="Chaque livre ouvre un nouveau monde."
+                    text="Ajoute tes livres et tes impressions dans ton carnet. L’import de fichiers et les échanges avec Suzanne autour de tes lectures arrivent ensuite."
+                  />
+                </div>
+                <a className="primary" href="#carnet">
+                  Ajouter un livre
+                  <ArrowRight size={17} />
+                </a>
+              </>
+            )}
+            {section === "studio" && (
+              <>
+                <PageTitle
+                  eyebrow="APPRENDRE AUTREMENT"
+                  title="Le studio de Suzanne."
+                  text="Fermer les yeux. Tendre l’oreille. Ouvrir ses horizons."
+                />
+                <div className="studio-preview">
+                  <Headphones size={60} />
+                  <div className="soundwave" aria-hidden="true">
+                    {[20, 40, 28, 68, 90, 44, 70, 35, 85, 56, 26, 44, 20].map(
+                      (h, i) => (
+                        <span key={i} style={{ height: h }} />
+                      ),
+                    )}
+                  </div>
+                  <h2>De belles idées à écouter.</h2>
+                  <p>
+                    Podcasts, langues à l’oral et petites capsules vidéo.
+                    <br />
+                    Le studio se prépare, avec transcriptions et sources.
+                  </p>
+                  <span className="pill">
+                    Aucun média généré dans cette version
+                  </span>
+                </div>
+              </>
+            )}
+            <footer className="footer">
+              <span>
+                <Flower />
+                Un peu plus curieux qu’hier.
+              </span>
+              <span>
+                Suzanne · Prototype local{me.demo ? " · Données fictives" : ""}
+              </span>
+            </footer>
+          </main>
+        </div>
+        {lesson && (
+          <Lesson
+            title={lesson}
+            answer={answer}
+            setAnswer={setAnswer}
+            close={() => setLesson(null)}
+          />
+        )}
       </div>
-      {lesson && (
-        <Lesson
-          title={lesson}
-          answer={answer}
-          setAnswer={setAnswer}
-          close={() => setLesson(null)}
-        />
-      )}
-    </div>
+    </LookProvider>
   );
 }
 

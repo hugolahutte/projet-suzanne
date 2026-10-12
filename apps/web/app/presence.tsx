@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useSuzanneLook, outfits } from "./wardrobe";
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, Square } from "lucide-react";
 
@@ -9,13 +10,22 @@ export function SuzannePortrait({
   publicWelcome?: boolean;
 }) {
   const [animated, setAnimated] = useState(false);
+  const { look, current } = useSuzanneLook();
+  const cartoon = publicWelcome || look.style === "toon";
+  const outfit = publicWelcome ? "rentree" : current;
   return (
     <div
-      className={`suzanne-presence ${animated ? "is-animated" : ""} ${publicWelcome ? "public-portrait" : ""}`}
+      className={`suzanne-presence ${cartoon ? "toon-presence" : "photo-presence"} ${animated ? "is-animated" : ""} ${publicWelcome ? "public-portrait" : ""}`}
     >
       <Image
-        src="/suzanne-portrait-v2.png"
-        alt="Suzanne, personnage fictif créé par IA, aux cheveux roux"
+        src={
+          cartoon ? `/brand/suzanne-${outfit}.png` : "/suzanne-portrait-v2.png"
+        }
+        alt={
+          cartoon
+            ? `Suzanne en dessin animé, tenue ${outfits.find((o) => o.id === outfit)?.name}`
+            : "Suzanne, personnage fictif créé par IA, aux cheveux roux"
+        }
         width={640}
         height={640}
         sizes="(max-width: 760px) 90vw, 440px"
@@ -113,8 +123,8 @@ export function PublicWelcome() {
         </p>
         <SpeechButton text={text} />
         <p className="presence-note">
-          Portrait avec animation légère à la demande · voix de ton appareil. La
-          vidéo parlante n’est pas encore connectée.
+          Une complice pour les grandes questions et les petites victoires. Voix
+          de ton appareil · vidéo parlante à venir.
         </p>
       </div>
     </div>

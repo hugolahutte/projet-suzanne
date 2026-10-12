@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { GameCompanion } from "./wardrobe";
 import { Globe2, Pencil, ArrowRight, RotateCcw } from "lucide-react";
 
 // Original compact question bank: one unambiguous national capital per country.
@@ -102,7 +103,8 @@ export function Games() {
   }
   return (
     <div className="games-view">
-      <div className="page-heading">
+      <div className="page-heading games-heading">
+        <GameCompanion />
         <div>
           <span className="eyebrow">LA CURIOSITÉ SE PARTAGE</span>
           <h1>À toi de jouer.</h1>
@@ -201,6 +203,7 @@ export function Games() {
           </div>
           {finished ? (
             <>
+              <GameCompanion />
               <h2>
                 {kind === "bac"
                   ? "À vous de vérifier !"
