@@ -2,6 +2,9 @@ import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 async function login(page: Page, name = "Camille") {
   await page.goto("/");
+  await page
+    .getByRole("button", { name: "Famille Atelier", exact: true })
+    .click();
   await page.getByRole("radio", { name: new RegExp(name) }).check();
   await page.getByRole("button", { name: "Entrer dans mon espace" }).click();
   await expect(

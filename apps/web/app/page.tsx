@@ -185,9 +185,16 @@ export default function App() {
       setNotice("Ton objectif a été ajouté.");
     });
   }
+  const visibleGoals =
+    section === "accueil"
+      ? dashboard?.goals.filter((goal) => !goal.done).slice(0, 3)
+      : dashboard?.goals;
   const goalList = (
     <div className="goal-list">
-      {dashboard?.goals.map((g) => (
+      {section === "accueil" && !visibleGoals?.length && (
+        <p className="muted">Une envie ? Choisis ton prochain objectif.</p>
+      )}
+      {visibleGoals?.map((g) => (
         <button
           key={g.id}
           className={`goal ${g.done ? "done" : ""}`}
@@ -224,7 +231,7 @@ export default function App() {
         <div className="login-story">
           <a className="brand" href="#accueil">
             <Flower />
-            suzanne<span>®</span>
+            suzanne<span className="brand-dot">.</span>
           </a>
           <PublicWelcome />
           <p className="fine">
@@ -236,7 +243,7 @@ export default function App() {
             <span className="dot" />
             Bienvenue dans ton espace local
           </span>
-          <h2>À chacun son chemin.</h2>
+          <h2>Ton espace. Tes envies.</h2>
           <p className="muted">Choisis ton profil pour retrouver Suzanne.</p>
           <div className="family-tabs" aria-label="Choix du foyer">
             {[...new Set(accounts.map((a) => a.household))].map((f) => (
@@ -366,7 +373,7 @@ export default function App() {
       <aside className="sidebar">
         <a href="#accueil" className="brand">
           <Flower />
-          suzanne<span>®</span>
+          suzanne<span className="brand-dot">.</span>
         </a>
         <p className="brand-subtitle">La curiosité n’a pas d’âge.</p>
         <nav aria-label="Navigation principale">
@@ -415,7 +422,7 @@ export default function App() {
       <div className="main-shell">
         <header className="topbar">
           <span className="breadcrumb">
-            Mon carnet de curiosité <span>/</span>{" "}
+            Ton espace personnel <span>/</span>{" "}
             {nav.find((n) => n.id === section)?.label ||
               (
                 {
@@ -512,7 +519,7 @@ export default function App() {
                         ? "À toi de jouer"
                         : "Une envie pour aujourd’hui ?"}
                     </h2>
-                    <span>Petits formats, grandes découvertes</span>
+                    <span>Choisis ton prochain pas</span>
                   </div>
                   <div className="quick-grid">
                     <a href="#apprendre">
@@ -607,28 +614,19 @@ export default function App() {
                   </div>
                 </div>
                 <aside className="right-column">
-                  <section className="companion-card">
-                    <Image
-                      className="suzanne-portrait avatar-portrait"
-                      src="/suzanne-portrait-v2.png"
-                      alt="Suzanne, personnage fictif créé par IA, aux cheveux roux bouclés"
-                      width={112}
-                      height={112}
-                      sizes="112px"
-                    />
-                    <span className="eyebrow">TON IA PÉDAGOGIQUE</span>
-                    <h2>Moi, c’est {me.profile.nickname}.</h2>
+                  <section className="family-play-card">
+                    <span className="eyebrow">UN MOMENT À PARTAGER</span>
+                    <div className="play-mark" aria-hidden="true">
+                      <Dices size={34} />
+                    </div>
+                    <h2>On joue ?</h2>
                     <p>
-                      Je t’accompagnerai pour comprendre, explorer et trouver
-                      ton propre chemin.
+                      Capitales ou petit bac : la curiosité se partage, de 1 à 4
+                      joueurs.
                     </p>
-                    <a href="#suzanne">
-                      Faisons connaissance
-                      <ArrowRight size={16} />
+                    <a href="#jeux">
+                      Choisir un jeu <ArrowUpRight size={18} />
                     </a>
-                    <span className="fine">
-                      Le dialogue personnalisé arrive bientôt.
-                    </span>
                   </section>
                   <section className="week-card">
                     <div className="section-heading">

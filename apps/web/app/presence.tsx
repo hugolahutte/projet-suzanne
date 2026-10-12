@@ -102,16 +102,21 @@ export function PublicWelcome() {
   return (
     <div className="login-copy public-welcome">
       <SuzannePortrait publicWelcome />
-      <span className="eyebrow">TA CURIOSITÉ A RENDEZ-VOUS</span>
-      <h1>
-        Bonjour, moi c’est Suzanne<span>.</span>
-      </h1>
-      <p>{text}</p>
-      <SpeechButton text={text} />
-      <p className="presence-note">
-        Portrait avec animation légère à la demande · voix de ton appareil. La
-        vidéo parlante n’est pas encore connectée.
-      </p>
+      <div className="public-intro">
+        <span className="eyebrow">APPRENDRE. EXPLORER. GRANDIR.</span>
+        <h1>
+          Bonjour, moi c’est Suzanne<span>.</span>
+        </h1>
+        <p>
+          Un coup de pouce pour tes cours. Une découverte inattendue. Un jeu en
+          famille. On commence par quoi ?
+        </p>
+        <SpeechButton text={text} />
+        <p className="presence-note">
+          Portrait avec animation légère à la demande · voix de ton appareil. La
+          vidéo parlante n’est pas encore connectée.
+        </p>
+      </div>
     </div>
   );
 }

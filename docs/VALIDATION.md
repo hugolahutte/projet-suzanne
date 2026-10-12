@@ -18,7 +18,7 @@ Trois jobs : API SQLite + PostgreSQL et audit Python ; typecheck/lint/build/audi
 
 ## Limites explicites
 
-Docker/PostgreSQL ne sont pas installés sur la machine locale ; ne pas annoncer une exécution locale de Compose. Aucun iPhone/iPad physique, Safari ou VoiceOver testé. Aucun audit de sécurité complet, certification WCAG/RGAA ou validation juridique. L'app n'est pas ouverte à de vrais utilisateurs. Pas de donnée réelle, hébergement public ni appel IA payant. Portraits générés avec l’outil intégré ImageGen, provenance documentée.
+Docker/PostgreSQL ne sont pas installés sur la machine locale ; ne pas annoncer une exécution locale de Compose. Aucun iPhone/iPad physique, Safari ou VoiceOver testé. Aucun audit de sécurité complet, certification WCAG/RGAA ou validation juridique. L'app n'est pas ouverte à de vrais utilisateurs. Aucune donnée familiale réelle dans Git, aucun hébergement public ni appel IA payant. Les profils privés de test restent dans la base locale ignorée par Git. Portraits générés avec l’outil intégré ImageGen, provenance documentée.
 
 
 ## Extension apprentissage et jeux
@@ -32,3 +32,12 @@ La nouvelle migration a été appliquée localement. Build, TypeScript et ESLint
 Le contrôle Compose précédent était parfois lancé avant l’écoute HTTP du frontend (`Connection reset by peer`). Un healthcheck web via `/api/health` a été ajouté : `docker compose --wait` attend désormais le proxy Next et l’API, pas seulement le démarrage du conteneur. Validation distante sur la nouvelle révision requise.
 
 Corpus final : **308 entrées**, dont 280 programmes/versions et 28 index ; **166 PDF** officiels (3 336 pages), SHA-256 contrôlés, fichiers ouverts et calendriers de transition validés, y compris lycée mathématiques, EPS et LSF. Voir les exclusions dans `curriculum/README.md`.
+
+
+## Refonte visuelle et profils locaux
+
+Interface commune repensée : typographie sans sérif, bleu nuit/corail, nouvel accueil avant connexion, portrait et actions côte à côte sur ordinateur, empilés sur téléphone, cartes et navigation homogènes. Le second portrait redondant de l’accueil devient un accès aux jeux ; seuls trois objectifs non terminés y sont présentés, la liste complète reste dans la progression.
+
+La suite de 27 parcours est passée après refonte ; neuf parcours accueil, adulte et accessibilité ont été repris avec succès après ajustement du cadrage et présence d’un foyer privé. Lint, TypeScript et builds de production réussis. Vérifications visuelles sur ordinateur et viewport mobile. La CI vérifie la révision finale.
+
+Quatre connexions de profils privés et les deux liens enfants de chacun des responsables ont été vérifiés via l’API locale, sans afficher les identifiants. Fichiers d’import, identifiants et base SQLite confirmés ignorés par Git. Aucun bulletin scolaire importé ni transmis à un fournisseur IA.

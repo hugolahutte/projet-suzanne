@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./refresh.css";
 export const metadata: Metadata = {
   title: "Suzanne — La curiosité n’a pas d’âge",
   description:

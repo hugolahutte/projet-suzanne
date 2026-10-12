@@ -18,8 +18,8 @@ export function Welcome({
         <SuzannePortrait />
       </div>
       <div className="welcome-copy">
-        <span className="eyebrow">ON PREND UN MOMENT ?</span>
-        <h2>Heureuse de te retrouver.</h2>
+        <span className="eyebrow">TON RENDEZ-VOUS AVEC SUZANNE</span>
+        <h2>Et si on apprenait quelque chose ?</h2>
         <p>{greeting}</p>
         <SpeechButton text={greeting} />
         <p className="fine">
