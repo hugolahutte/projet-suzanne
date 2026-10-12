@@ -49,3 +49,20 @@ class Goal(Base):
     user_id: Mapped[str] = mapped_column(ForeignKey('users.id'), index=True)
     title: Mapped[str] = mapped_column(String)
     done: Mapped[bool] = mapped_column(Boolean, default=False)
+
+class NotebookEntry(Base):
+    __tablename__ = 'notebook_entries'
+    __table_args__ = (CheckConstraint("kind IN ('book','grade','homework')"),)
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey('users.id'), index=True)
+    kind: Mapped[str] = mapped_column(String)
+    title: Mapped[str] = mapped_column(String(120))
+    subject: Mapped[str] = mapped_column(String(60))
+    details: Mapped[str] = mapped_column(String(2000))
+    created_at: Mapped[int] = mapped_column(Integer)
+
+class HouseholdSettings(Base):
+    __tablename__ = 'household_settings'
+    household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), primary_key=True)
+    live_allowed: Mapped[bool] = mapped_column(Boolean, default=False)

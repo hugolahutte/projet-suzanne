@@ -15,3 +15,14 @@ Composition: square portrait from mid chest up, facing camera, full hair and hea
 Lighting: beautiful soft daylight, contemporary understated editorial photography, realistic rather than glamour retouching, approachable and cultivated.
 Constraints: a single person, unmistakably young adult, no text, no logo, no watermark, no collage. This is a fictional AI character, not a real celebrity photograph.
 ```
+
+
+## Portrait V2 — rendu plus réaliste
+
+Créé le 12 octobre 2026 avec ImageGen en retouche du portrait V1. Original conservé sans modification dans `apps/web/public/suzanne-portrait-v2.png`. V2 remplace V1 dans l’accueil et la présentation ; V1 reste disponible pour comparaison. Aucun portrait photographique réel fourni.
+
+### Prompt exact V2
+
+```text
+Edit the reference portrait of Suzanne. Preserve the identity, adult age around 18–20, copper-red curly hair, pale skin, green eyes, modest cream top and sage cardigan. The user wants a much more realistic result: a believable candid photograph of a real-looking fictional young adult student, not a polished AI avatar or fashion campaign. Remove the glossy, idealized beauty treatment, the perfectly symmetric face and the excessively uniform freckles. Natural subtle asymmetry, uneven few freckles, visible natural pores, realistic fine facial hairs, ordinary lightly tired bright eyes, natural lips, imperfect loose hair. A relaxed attentive expression mid-conversation, slight small smile, no glamour posing. Environmental portrait from chest up, looking towards the viewer, taken on a good ordinary camera in soft window light, neutral realistic white balance, subtle natural shadows, no orange filter, no oversoftening, no HDR. Background: a quiet real study room with a barely blurred bookshelf and pale warm wall. Normal depth of field rather than extreme cinematic bokeh. Keep face large enough for an app avatar. Square image, no text, no logos.
+```

@@ -170,6 +170,7 @@ button:hover:not(:disabled) {
 }
 .sidebar {
   width: 242px;
+  overflow-y: auto;
   position: fixed;
   inset: 0 auto 0 0;
   padding: 32px 22px 24px;
@@ -2076,5 +2077,267 @@ button:hover:not(:disabled) {
   }
   .large-text .hero-card h2 {
     max-width: 100%;
+  }
+}
+
+/* Suzanne's spoken welcome and shared learning spaces. */
+.welcome-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.85fr) 1.25fr;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #edf1e7;
+  border: 1px solid #dce3d4;
+}
+.welcome-photo {
+  position: relative;
+  min-height: 390px;
+  background: #dadbd1;
+}
+.welcome-photo img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  object-position: 48% center;
+}
+.welcome-photo > span {
+  position: absolute;
+  bottom: 16px;
+  left: 12px;
+  right: 12px;
+  border-radius: 18px;
+  padding: 9px 10px;
+  background: #fffdf3ed;
+  font-size: 11px;
+  color: #294439;
+  text-align: center;
+}
+.welcome-copy {
+  padding: 30px 25px;
+}
+.welcome-copy h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.15;
+  margin: 16px 0;
+}
+.welcome-copy > p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.welcome-copy .fine {
+  font-size: 11px;
+  color: #56614d;
+}
+.welcome-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+}
+.welcome-actions a {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 11px 12px;
+  border: 1px solid #c8d3bd;
+  border-radius: 10px;
+  font-size: 12px;
+  background: #fafcf4;
+}
+.curriculum-filters,
+.players-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.curriculum-filters label,
+.game-setup label,
+.game-board label,
+.notebook label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 150px;
+}
+.curriculum-filters select,
+.game-setup select,
+.game-setup input,
+.game-board input:not([type="checkbox"]),
+.notebook input,
+.notebook select,
+.notebook textarea {
+  width: 100%;
+  border: 1px solid #b8c4b0;
+  border-radius: 9px;
+  background: #fffefa;
+  color: #253e31;
+  padding: 12px;
+  font: inherit;
+}
+.curriculum-filters .check-line {
+  flex-direction: row;
+  align-items: center;
+}
+.curriculum-list,
+.game-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 20px 0;
+}
+.curriculum-list .panel {
+  padding: 24px;
+}
+.curriculum-list h2 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 19px;
+}
+.curriculum-list p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  margin-top: 15px;
+}
+.source-links a {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.game-picker .panel {
+  text-align: left;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+.game-picker .panel.selected {
+  border-color: #416344;
+  background: #edf1e7;
+}
+.game-setup,
+.game-board {
+  max-width: 800px;
+}
+.game-setup .players-inputs,
+.game-board .players-inputs {
+  margin: 20px 0;
+}
+.game-setup > label {
+  max-width: 260px;
+}
+.game-board form > label {
+  margin: 24px 0;
+}
+.game-symbol {
+  font-size: 70px;
+  color: #7b472e;
+}
+.country-name {
+  font-family: Georgia, serif;
+  font-size: 36px;
+}
+.score-list {
+  margin: 24px 0;
+}
+.score-list p {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 10px;
+  background: #edf1e7;
+}
+.bac-review {
+  display: grid;
+  gap: 18px;
+}
+.bac-review fieldset {
+  border: 1px solid #c3cbbb;
+  border-radius: 12px;
+  padding: 18px;
+}
+.bac-review label {
+  flex-direction: row;
+  min-height: 42px;
+  align-items: center;
+}
+.bac-review input {
+  width: 20px;
+  height: 20px;
+}
+.notebook {
+  max-width: 850px;
+}
+.notebook form {
+  display: grid;
+  gap: 16px;
+}
+.notebook-items {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+.notebook-item {
+  border: 1px solid #dce3d4;
+  padding: 18px;
+  border-radius: 12px;
+}
+.notebook-item p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.live-settings {
+  margin-top: 24px;
+}
+.live-settings label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.live-settings input {
+  width: 20px;
+  height: 20px;
+}
+@media (max-width: 1200px) {
+  .welcome-card {
+    grid-template-columns: 1fr;
+  }
+  .welcome-photo {
+    min-height: 270px;
+  }
+  .welcome-photo img {
+    object-position: 50% 38%;
+  }
+}
+@media (max-width: 600px) {
+  .welcome-photo {
+    min-height: 310px;
+  }
+  .welcome-copy {
+    padding: 24px;
+  }
+  .curriculum-list,
+  .game-picker {
+    grid-template-columns: 1fr;
+  }
+  .curriculum-filters {
+    flex-direction: column;
+  }
+  .players-inputs {
+    flex-direction: column;
+  }
+  .game-board .section-heading {
+    flex-wrap: wrap;
   }
 }

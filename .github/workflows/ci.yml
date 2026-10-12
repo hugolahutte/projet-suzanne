@@ -27,6 +27,8 @@ jobs:
           cache: pip
           cache-dependency-path: apps/api/requirements.txt
       - run: pip install -r apps/api/requirements.txt
+      - name: Official curriculum integrity and transitions
+        run: python packages/curriculum/validate_catalog.py
       - name: SQLite access and migrations
         run: PYTHONPATH=apps/api pytest apps/api/tests -q
       - name: PostgreSQL access and migrations

@@ -318,6 +318,211 @@
           }
         }
       }
+    },
+    "/households/{hid}/notebook": {
+      "get": {
+        "summary": "Notebook",
+        "operationId": "notebook_households__hid__notebook_get",
+        "parameters": [
+          {
+            "name": "hid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add Entry",
+        "operationId": "add_entry_households__hid__notebook_post",
+        "parameters": [
+          {
+            "name": "hid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewEntry"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/households/{hid}/notebook/{eid}": {
+      "delete": {
+        "summary": "Remove Entry",
+        "operationId": "remove_entry_households__hid__notebook__eid__delete",
+        "parameters": [
+          {
+            "name": "hid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hid"
+            }
+          },
+          {
+            "name": "eid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Eid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/households/{hid}/live-settings": {
+      "get": {
+        "summary": "Live Settings",
+        "operationId": "live_settings_households__hid__live_settings_get",
+        "parameters": [
+          {
+            "name": "hid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Live Settings",
+        "operationId": "update_live_settings_households__hid__live_settings_patch",
+        "parameters": [
+          {
+            "name": "hid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LiveUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -349,6 +554,20 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "LiveUpdate": {
+        "properties": {
+          "live_allowed": {
+            "type": "boolean",
+            "title": "Live Allowed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "live_allowed"
+        ],
+        "title": "LiveUpdate"
+      },
       "Login": {
         "properties": {
           "email": {
@@ -371,6 +590,44 @@
           "password"
         ],
         "title": "Login"
+      },
+      "NewEntry": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "book",
+              "grade",
+              "homework"
+            ],
+            "title": "Kind"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "subject": {
+            "type": "string",
+            "maxLength": 60,
+            "title": "Subject",
+            "default": ""
+          },
+          "details": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Details",
+            "default": ""
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "title"
+        ],
+        "title": "NewEntry"
       },
       "NewGoal": {
         "properties": {

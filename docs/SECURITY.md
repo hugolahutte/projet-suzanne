@@ -27,3 +27,13 @@ Aucun consentement réel n'est recueilli. Aucun micro/caméra n'est demandé ; P
 Dépôt privé avant ajout de profils réels ; identité de production et MFA adultes ; vérification des liens parentaux ; isolation RLS/contraintes ; consentement et information adaptés ; export/suppression/rétention ; HTTPS et chiffrement du stockage ; tests de restauration ; revue CNIL/RGPD/CGU et sous-traitants ; tests Safari, VoiceOver et appareils partagés. Pour les uploads : limites, antivirus, stockage isolé et liens signés. Pour l'IA : documents traités comme données non fiables, modèles évalués sur sûreté mineurs et pédagogie, plafonds de coût.
 
 Cette liste documente les limites techniques du prototype ; elle n'est pas une certification ni une analyse juridique exhaustive.
+
+## Extension accueil, carnet, jeux et vidéo
+
+Les fiches du carnet sont filtrées simultanément par foyer et principal ; aucune lecture implicite par un autre adulte ou un parent. Les types et tailles sont validés, les identifiants de propriétaire ne sont jamais acceptés depuis le corps de requête. La suppression suit le même contrôle et le middleware d’origine couvre aussi DELETE. Aucune pièce jointe n’est acceptée à ce stade.
+
+Les permissions vidéo sont stockées par foyer, modifiables exclusivement par un rôle guardian authentifié. Le drapeau ne peut pas créer de session vidéo : le fournisseur est absent, la disponibilité reste fausse, micro et caméra restent interdits par Permissions-Policy.
+
+Les jeux ne font aucun appel IA ; les réponses restent en mémoire de l’écran, effacées en quittant le jeu. Le corpus officiel est public et distinct du carnet. La lecture d’accueil utilise la synthèse du navigateur, uniquement après clic, et s’arrête à la sortie de l’accueil. Aucune voix enregistrée.
+
+Les contrats Jev/OpenRouter ne possèdent ni transport HTTP ni clé. Une classification Jev ne peut modifier les rôles, permissions ou budgets. Leur activation reste conditionnée au travail décrit dans `AI_ROUTING.md`.

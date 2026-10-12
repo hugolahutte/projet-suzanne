@@ -4,7 +4,7 @@ import secrets
 import time
 from collections import defaultdict, deque
 from threading import Lock
-from typing import Annotated
+from typing import Annotated, Literal
 from uuid import uuid4
 from fastapi import FastAPI, Depends, HTTPException, Request, Response
 from pydantic import BaseModel, Field, ConfigDict
@@ -12,7 +12,7 @@ from pwdlib import PasswordHash
 from sqlalchemy import select, delete
 from sqlalchemy.orm import Session as DBSession
 from .db import db_session
-from .models import User, Membership, Household, GuardianLink, LearningProfile, Session, Goal
+from .models import User, Membership, Household, GuardianLink, LearningProfile, Session, Goal, NotebookEntry, HouseholdSettings
 
 if os.getenv('APP_ENV', 'local') not in ('local', 'test'):
     raise RuntimeError('Sprint 1 : usage local uniquement. Auth de production à valider avant pilote.')
@@ -172,3 +172,62 @@ def update_goal(hid: str, gid: str, body: GoalUpdate, user: Principal, db: DB):
     goal.done = body.done
     db.commit()
     return goal_json(goal)
+
+
+class NewEntry(StrictModel):
+    kind: Literal['book', 'grade', 'homework']
+    title: str = Field(min_length=1, max_length=120)
+    subject: str = Field(max_length=60, default='')
+    details: str = Field(max_length=2000, default='')
+
+class LiveUpdate(StrictModel):
+    live_allowed: bool
+
+def entry_json(entry):
+    return {key: getattr(entry, key) for key in ('id', 'kind', 'title', 'subject', 'details', 'created_at')}
+
+@app.get('/households/{hid}/notebook')
+def notebook(hid: str, user: Principal, db: DB):
+    membership(db, user, hid)
+    entries = db.scalars(select(NotebookEntry).where(NotebookEntry.household_id == hid, NotebookEntry.user_id == user.id).order_by(NotebookEntry.created_at.desc(), NotebookEntry.id)).all()
+    return [entry_json(entry) for entry in entries]
+
+@app.post('/households/{hid}/notebook', status_code=201)
+def add_entry(hid: str, body: NewEntry, user: Principal, db: DB):
+    membership(db, user, hid)
+    count = len(db.scalars(select(NotebookEntry.id).where(NotebookEntry.household_id == hid, NotebookEntry.user_id == user.id)).all())
+    if count >= 100:
+        raise HTTPException(409, 'Limite de 100 fiches pour cette démonstration.')
+    entry = NotebookEntry(id=str(uuid4()), household_id=hid, user_id=user.id, created_at=int(time.time()), **body.model_dump())
+    db.add(entry)
+    db.commit()
+    return entry_json(entry)
+
+@app.delete('/households/{hid}/notebook/{eid}', status_code=204)
+def remove_entry(hid: str, eid: str, user: Principal, db: DB):
+    membership(db, user, hid)
+    entry = db.scalar(select(NotebookEntry).where(NotebookEntry.id == eid, NotebookEntry.household_id == hid, NotebookEntry.user_id == user.id))
+    if not entry:
+        raise HTTPException(404, 'Fiche introuvable.')
+    db.delete(entry)
+    db.commit()
+    return Response(status_code=204)
+
+@app.get('/households/{hid}/live-settings')
+def live_settings(hid: str, user: Principal, db: DB):
+    member = membership(db, user, hid)
+    settings = db.get(HouseholdSettings, hid)
+    # No video provider/session creation exists. This flag cannot activate video.
+    return {'live_allowed': bool(settings and settings.live_allowed), 'can_manage': member.role == 'guardian', 'provider_ready': False, 'available': False, 'reason': 'Le service vidéo n’est pas encore connecté. Une connexion Wi-Fi vérifiée sera également nécessaire.'}
+
+@app.patch('/households/{hid}/live-settings')
+def update_live_settings(hid: str, body: LiveUpdate, user: Principal, db: DB):
+    if membership(db, user, hid).role != 'guardian':
+        raise HTTPException(403, 'Seul un responsable légal peut modifier cette autorisation.')
+    settings = db.get(HouseholdSettings, hid)
+    if not settings:
+        settings = HouseholdSettings(household_id=hid)
+        db.add(settings)
+    settings.live_allowed = body.live_allowed
+    db.commit()
+    return live_settings(hid, user, db)

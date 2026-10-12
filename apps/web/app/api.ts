@@ -15,5 +15,6 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
           : "Cette demande n’a pas pu aboutir.",
     );
   }
+  if (response.status === 204) return undefined as T;
   return response.json();
 }

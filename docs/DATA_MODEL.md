@@ -12,7 +12,10 @@
 | sessions | token_hash | empreinte du jeton, principal, expiration absolue ; suppression au logout |
 | goals | id, household_id, user_id | objectifs privés au principal et au foyer, état accompli déclaré par l'utilisateur |
 
-Migration Alembic versionnée, upgrade/downgrade testés. Les métriques de dashboard et summaries enfants sont des constantes **simulées**, pas des tables de maîtrise. Un objectif coché par l'utilisateur ne prouve pas la compréhension.
+| notebook_entries | id, household_id, user_id | fiches privées livre/note/devoir, titre, matière, observations, date |
+| household_settings | household_id | autorisation future de vidéo, fausse par défaut ; ne connecte aucun fournisseur |
+
+Migrations Alembic versionnées, upgrade/downgrade testés. Les métriques de dashboard et summaries enfants sont des constantes **simulées**, pas des tables de maîtrise. Un objectif coché par l'utilisateur ne prouve pas la compréhension.
 
 Le profil personnel suit le principal, tandis que le rôle appartient au foyer. Un principal pourra donc appartenir à plusieurs foyers ; la première interface affiche le premier foyer et ne prétend pas encore offrir le changement de foyer d'un même compte. Les fixtures représentent deux familles séparées.
 

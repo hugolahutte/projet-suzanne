@@ -169,3 +169,153 @@ test("PWA manifest and safe offline fallback", async ({ page, context }) => {
   ).toBeVisible();
   await context.setOffline(false);
 });
+
+test("capitales: two players receive five distinct questions and fair scores", async ({
+  page,
+}) => {
+  await login(page);
+  await page.getByRole("link", { name: "Jouer ensemble", exact: true }).click();
+  await page.getByLabel("Nombre de joueurs").selectOption("2");
+  await page.getByRole("button", { name: "Commencer la partie" }).click();
+  const seen = new Set<string>();
+  const capitals: Record<string, string> = {
+    France: "Paris",
+    Italie: "Rome",
+    Espagne: "Madrid",
+    Portugal: "Lisbonne",
+    Allemagne: "Berlin",
+    Belgique: "Bruxelles",
+    Grèce: "Athènes",
+    "Royaume-Uni": "Londres",
+    Irlande: "Dublin",
+    Norvège: "Oslo",
+    Suède: "Stockholm",
+    Finlande: "Helsinki",
+    Danemark: "Copenhague",
+    Pologne: "Varsovie",
+    Autriche: "Vienne",
+    Japon: "Tokyo",
+    Canada: "Ottawa",
+    Australie: "Canberra",
+    Maroc: "Rabat",
+    Sénégal: "Dakar",
+  };
+  for (let i = 0; i < 10; i++) {
+    await expect(
+      page.getByRole("heading", { name: `À toi, Joueur ${(i % 2) + 1}.` }),
+    ).toBeVisible();
+    await page.getByRole("button", { name: "Je suis prêt" }).click();
+    const country = (await page.locator(".country-name").textContent())!;
+    expect(seen.has(country)).toBe(false);
+    seen.add(country);
+    await page
+      .getByLabel("Ta réponse")
+      .fill(capitals[country].normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+    await page.getByRole("button", { name: "Vérifier ma réponse" }).click();
+    await expect(page.getByRole("status")).toContainText("Bien joué");
+    await page.getByRole("button", { name: "Continuer", exact: true }).click();
+  }
+  await expect(
+    page.getByRole("heading", { name: "Bravo pour cette exploration !" }),
+  ).toBeVisible();
+  await expect(page.locator(".score-list p")).toHaveText([
+    "Joueur 15 / 5",
+    "Joueur 25 / 5",
+  ]);
+});
+
+test("petit bac: hidden turns and collective validation for four players", async ({
+  page,
+}) => {
+  await login(page);
+  await page.getByRole("link", { name: "Jouer ensemble", exact: true }).click();
+  await page.getByRole("button", { name: /Le petit bac/ }).click();
+  await page.getByLabel("Nombre de joueurs").selectOption("4");
+  await page.getByRole("button", { name: "Commencer la partie" }).click();
+  const letters = "ABCDEFGHLMPRSTV";
+  const names = [
+    "Alice",
+    "Béatrice",
+    "Camille",
+    "Denis",
+    "Émile",
+    "Fabien",
+    "Gabriel",
+    "Hélène",
+    "Louis",
+    "Marie",
+    "Paul",
+    "Rose",
+    "Sami",
+    "Thomas",
+    "Victor",
+  ];
+  const letter = (await page.locator(".game-symbol").textContent())!;
+  const name = names[letters.indexOf(letter)];
+  for (let i = 0; i < 4; i++) {
+    await page.getByRole("button", { name: "Je suis prêt" }).click();
+    await expect(page.getByLabel("Prénom", { exact: true })).toHaveValue("");
+    await page.getByLabel("Prénom", { exact: true }).fill(name);
+    await page.getByRole("button", { name: "Garder mes réponses" }).click();
+  }
+  await expect(
+    page.getByRole("heading", { name: "À vous de vérifier !" }),
+  ).toBeVisible();
+  const checks = page.locator(".bac-review input:not(:disabled)");
+  await expect(checks).toHaveCount(4);
+  for (let i = 0; i < 4; i++) await checks.nth(i).check();
+  await expect(page.locator(".score-list p")).toHaveText([
+    "Joueur 15 points",
+    "Joueur 25 points",
+    "Joueur 35 points",
+    "Joueur 45 points",
+  ]);
+});
+
+test("notebook persists privately, and live permission stays unavailable", async ({
+  page,
+}) => {
+  await login(page);
+  await page.getByRole("link", { name: "Mon carnet", exact: true }).click();
+  const title = `Lecture fictive ${Date.now()}`;
+  await page.getByLabel("Titre", { exact: true }).fill(title);
+  await page.getByLabel("Matière ou auteur").fill("Auteur fictif");
+  await page.getByRole("button", { name: "Enregistrer la fiche" }).click();
+  await expect(page.getByRole("status")).toContainText("enregistrée");
+  await page.reload();
+  await expect(page.getByRole("heading", { name: title })).toBeVisible();
+  await page
+    .getByRole("button", { name: `Supprimer ${title}`, exact: true })
+    .click();
+  await expect(page.getByRole("heading", { name: title })).toHaveCount(0);
+  await page.getByRole("link", { name: "Espace famille" }).click();
+  const allow = page.getByLabel("Autoriser le futur mode vidéo dans ce foyer");
+  await allow.check();
+  await expect(allow).toBeEnabled();
+  await page.reload();
+  await expect(allow).toBeChecked();
+  await expect(
+    page.getByText(/Le service vidéo n’est pas encore connecté/),
+  ).toBeVisible();
+  await allow.uncheck();
+  await expect(allow).toBeEnabled();
+  await page
+    .getByRole("link", { name: "Cours et programmes", exact: true })
+    .click();
+  await page
+    .getByRole("combobox", { name: "Classe", exact: true })
+    .selectOption("4e");
+  await page
+    .getByRole("combobox", { name: "Matière", exact: true })
+    .selectOption("anglais");
+  await expect(page.locator(".curriculum-list")).not.toContainText(
+    "rentrée 2027",
+  );
+  await page.getByLabel("Voir aussi les autres années").check();
+  await expect(page.locator(".curriculum-list")).toContainText("rentrée 2027");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+});

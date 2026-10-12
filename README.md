@@ -46,18 +46,31 @@ Les emails suivent `<prénom sans accent>@example.test`. Le bouton de déconnexi
 ## Ce que tu peux essayer
 
 - Entrer dans les deux familles et comparer les interfaces enfants, adultes et seniors.
-- Naviguer dans les sept univers et l'espace parent ; les fonctionnalités futures ont un état explicite.
+- Naviguer dans les univers et l'espace parent ; les fonctionnalités futures ont un état explicite.
 - Modifier le surnom de Suzanne et agrandir le texte, puis recharger : les préférences persistent.
 - Ajouter un objectif personnel et le marquer terminé : enregistré en base, privé au compte.
 - Consulter les résumés des seuls enfants dont le parent est responsable.
 - Ouvrir les deux fiches de découverte, répondre et recevoir un indice ou une explication. Les essais ne sont pas enregistrés ni convertis en score de maîtrise.
 - Installer la PWA dans un navigateur compatible, ou voir la page de secours publique hors connexion. Pas de cache des pages personnelles.
 
-Suzanne dispose d'un premier portrait original généré par IA, utilisé à l'accueil et dans sa présentation. Il représente une jeune adulte fictive rousse aux cheveux bouclés. La fleur reste le signe de marque ; la personnalisation du portrait est différée. Voir `docs/SUZANNE_PORTRAIT.md` pour le prompt et la provenance.
+Suzanne dispose d’un portrait V2 plus réaliste généré par IA, utilisé dans son accueil et sa présentation. Il représente une jeune adulte fictive rousse aux cheveux bouclés. La fleur reste le signe de marque ; la personnalisation du portrait est différée. Voir `docs/SUZANNE_PORTRAIT.md` pour le prompt et la provenance.
+
+## Accueil, jeux et ressources
+
+- Accueil incarné avec lecture vocale à la demande, via la voix du navigateur, propositions d’apprentissage/découverte/cours/jeux. Le dialogue libre n’est pas encore connecté.
+- Capitales : 1–4 joueurs sur le même appareil, cinq questions chacun, accents acceptés, scores calculés localement.
+- Petit bac : 1–4 joueurs, réponses cachées entre les tours, vérification collective explicite, points pour mots uniques ou partagés. Une manche par partie ; aucune IA ne juge les réponses.
+- Carnet privé : fiches livre, note, devoir, enregistrées en base et supprimables. La synchronisation scolaire, l’OCR des copies et l’import de livres restent à développer.
+- Catalogue officiel CM2/collège/lycée général et technologique, anglais/latin/grec, filtres par classe/matière et dates d’application. [Couverture, corpus et provenance](docs/curriculum/README.md).
+- Autorisation du futur mode vidéo par le responsable du foyer, enregistrée côté serveur. Le service vidéo reste indisponible même si elle est cochée.
+- [Contrats et architecture Jev + OpenRouter](docs/AI_ROUTING.md) : préparés et testés sans appel réseau. Aucun fournisseur ni budget activé.
 
 ## Scripts et vérification
 
 ```bash
+# Corpus officiel : intégrité des sources et sélection par année
+python3 packages/curriculum/validate_catalog.py
+
 # API, isolation, autorisations, sessions et migrations SQLite
 PYTHONPATH=apps/api .venv/bin/pytest apps/api/tests -q
 
@@ -105,7 +118,7 @@ Le script `dev.sh` charge le fichier `.env` local. Ne jamais y copier de donnée
 
 ## Limites avant des utilisateurs réels
 
-Cette version ne propose pas encore inscription, récupération de mot de passe, invitations, MFA, RLS PostgreSQL, gestion des consentements, export/suppression par interface, stockage documentaire, chat IA, révisions FSRS, actualités collectées, voix ou vidéo. Pas de conformité réglementaire ou d'accessibilité exhaustive revendiquée. Les tests Chromium ne remplacent pas Safari/VoiceOver sur appareils réels.
+Cette version ne propose pas encore inscription, récupération de mot de passe, invitations, MFA, RLS PostgreSQL, gestion des consentements, export/suppression par interface, stockage documentaire, chat IA, révisions FSRS, actualités collectées, voix personnalisée ou vidéo. Pas de conformité réglementaire ou d'accessibilité exhaustive revendiquée. Les tests Chromium ne remplacent pas Safari/VoiceOver sur appareils réels.
 
 Les comptes de démonstration sont volontairement connus. Le contrôle d'accès protège les requêtes selon l'identité authentifiée, mais ne rend pas les données de ces comptes publiques de test confidentielles. Ne saisir aucune donnée personnelle réelle. Le dépôt est public : son passage en privé et la revue de sécurité restent des prérequis avant de préparer de vrais profils.
 

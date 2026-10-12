@@ -10,6 +10,7 @@ import {
   Check,
   Compass,
   Globe2,
+  Dices,
   GraduationCap,
   Headphones,
   Home,
@@ -24,11 +25,18 @@ import {
   Users,
   X,
 } from "lucide-react";
+import { Notebook, LiveSettings } from "./notebook";
+import { Welcome } from "./welcome";
+import { Games } from "./games";
+import { Curriculum } from "./curriculum";
 import { api } from "./api";
 import { Flower, Landscape } from "./art";
 import type { Account, Child, Dashboard, Me } from "./types";
 
 type Section =
+  | "carnet"
+  | "jeux"
+  | "programmes"
   | "accueil"
   | "apprendre"
   | "decouvertes"
@@ -42,8 +50,11 @@ type Section =
 const nav = [
   { id: "accueil", label: "Mon espace", icon: Home },
   { id: "apprendre", label: "Apprendre", icon: GraduationCap },
+  { id: "programmes", label: "Cours et programmes", icon: BookOpen },
+  { id: "jeux", label: "Jouer ensemble", icon: Dices },
   { id: "decouvertes", label: "Découvertes", icon: Compass },
   { id: "actualites", label: "Le monde aujourd’hui", icon: Globe2 },
+  { id: "carnet", label: "Mon carnet", icon: BookOpen },
   { id: "lectures", label: "Mes lectures", icon: BookOpen },
   { id: "studio", label: "Le studio", icon: Headphones },
   { id: "progression", label: "Mes petits pas", icon: TrendingUp },
@@ -440,6 +451,13 @@ export default function App() {
               {notice}
             </p>
           )}
+          {section === "carnet" && household && (
+            <Notebook key={me.profile.id} hid={household.id} />
+          )}
+          {section === "jeux" && <Games />}
+          {section === "programmes" && (
+            <Curriculum initialLevel={me.profile.level} />
+          )}
           {section === "accueil" && (
             <>
               <div className="page-heading">
@@ -469,41 +487,7 @@ export default function App() {
               </div>
               <div className="dashboard-grid">
                 <div className="main-column">
-                  <section className="hero-card">
-                    <div className="hero-copy">
-                      <span className="eyebrow light">
-                        LE RENDEZ-VOUS DES CURIEUX
-                      </span>
-                      <h2>
-                        Et si on regardait
-                        <br />
-                        un peu plus loin ?
-                      </h2>
-                      <p>
-                        Une question, une découverte, une idée.
-                        <br />
-                        Choisis ce qui t’éveille aujourd’hui.
-                      </p>
-                      <a href="#decouvertes" className="cream-button">
-                        Suivre ma curiosité
-                        <ArrowRight size={17} />
-                      </a>
-                      <span className="hero-foot">
-                        QUELQUES MINUTES SUFFISENT
-                      </span>
-                    </div>
-                    <div className="hero-art">
-                      <Flower />
-                      <div className="orbit one" />
-                      <div className="orbit two" />
-                      <div className="planet" />
-                      <span className="star s1">✦</span>
-                      <span className="star s2">✧</span>
-                      <span className="star s3">✦</span>
-                      <div className="arch" />
-                      <div className="art-label">L’esprit grand ouvert.</div>
-                    </div>
-                  </section>
+                  <Welcome profile={me.profile} dashboard={dashboard} />
                   <div className="section-heading">
                     <h2>
                       {isChild
@@ -608,7 +592,7 @@ export default function App() {
                   <section className="companion-card">
                     <Image
                       className="suzanne-portrait avatar-portrait"
-                      src="/suzanne-portrait-v1.png"
+                      src="/suzanne-portrait-v2.png"
                       alt="Suzanne, personnage fictif créé par IA, aux cheveux roux bouclés"
                       width={112}
                       height={112}
@@ -805,6 +789,7 @@ export default function App() {
                       sont pas affichées.
                     </span>
                   </div>
+                  {household && <LiveSettings hid={household.id} />}
                   <div className="two-columns">
                     {children.map((child, i) => (
                       <section className="panel child-card" key={child.id}>
@@ -921,7 +906,7 @@ export default function App() {
               <section className="panel introduction">
                 <Image
                   className="suzanne-portrait introduction-portrait"
-                  src="/suzanne-portrait-v1.png"
+                  src="/suzanne-portrait-v2.png"
                   alt="Portrait de Suzanne, personnage fictif créé par IA"
                   width={200}
                   height={200}
@@ -1033,12 +1018,12 @@ export default function App() {
                 <Landscape variant="words" />
                 <Empty
                   icon={<BookOpen size={36} />}
-                  title="Ta bibliothèque attend ses premières histoires."
-                  text="Le suivi des livres et les échanges autour de tes lectures arriveront dans une prochaine version. Tu peux déjà choisir un objectif de lecture."
+                  title="Chaque livre ouvre un nouveau monde."
+                  text="Ajoute tes livres et tes impressions dans ton carnet. L’import de fichiers et les échanges avec Suzanne autour de tes lectures arrivent ensuite."
                 />
               </div>
-              <a className="primary" href="#progression">
-                Choisir un objectif de lecture
+              <a className="primary" href="#carnet">
+                Ajouter un livre
                 <ArrowRight size={17} />
               </a>
             </>
