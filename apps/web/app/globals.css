@@ -1151,7 +1151,7 @@ button:hover:not(:disabled) {
 .login-copy > p {
   font-size: 16px;
   line-height: 1.9;
-  color: #65725c;
+  color: #52624b;
   margin-bottom: 30px;
 }
 .login-copy .landscape {
@@ -1255,7 +1255,7 @@ button:hover:not(:disabled) {
   gap: 12px;
   align-items: center;
   margin-top: 28px;
-  color: #6e7864;
+  color: #52624b;
 }
 .privacy > p {
   font-size: 10px;

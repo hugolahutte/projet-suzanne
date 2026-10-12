@@ -339,9 +339,19 @@ export default function App() {
           <div className="privacy">
             <ShieldCheck size={20} />
             <p>
-              Des familles imaginaires, des espaces séparés.
-              <br />
-              Aucune donnée familiale réelle dans cette démo.
+              {demoSelected ? (
+                <>
+                  Des familles imaginaires, des espaces séparés.
+                  <br />
+                  Aucune donnée familiale réelle dans ces profils fictifs.
+                </>
+              ) : (
+                <>
+                  Ton foyer de test est conservé sur cet ordinateur.
+                  <br />
+                  Ses profils sont exclus du dépôt Git.
+                </>
+              )}
             </p>
           </div>
         </section>
