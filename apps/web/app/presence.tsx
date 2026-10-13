@@ -1,6 +1,12 @@
 "use client";
 import Image from "next/image";
-import { useSuzanneLook, outfits, styles, companionAsset } from "./wardrobe";
+import {
+  useSuzanneLook,
+  outfits,
+  styles,
+  companionAsset,
+  defaultStyle,
+} from "./wardrobe";
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, Square } from "lucide-react";
 
@@ -11,7 +17,7 @@ export function SuzannePortrait({
 }) {
   const [animated, setAnimated] = useState(false);
   const { look, current } = useSuzanneLook();
-  const style = publicWelcome ? "sd" : look.style;
+  const style = publicWelcome ? defaultStyle : look.style;
   const outfit = publicWelcome ? "rentree" : current;
   return (
     <div

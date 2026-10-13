@@ -75,7 +75,8 @@ export function companionAsset(style: Style, outfit: Outfit) {
     : `/brand/styles/suzanne-${style}-${outfit}.png`;
 }
 type Look = { outfit: Outfit | "auto"; style: Style };
-const initial: Look = { outfit: "auto", style: "sd" };
+export const defaultStyle: Style = "manga";
+const initial: Look = { outfit: "auto", style: defaultStyle };
 export function seasonalOutfit(date = new Date()): Outfit {
   const month = Number(
     new Intl.DateTimeFormat("fr-FR", {

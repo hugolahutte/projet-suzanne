@@ -53,7 +53,7 @@ Les emails suivent `<prénom sans accent>@example.test`. Le bouton de déconnexi
 - Ouvrir les deux fiches de découverte, répondre et recevoir un indice ou une explication. Les essais ne sont pas enregistrés ni convertis en score de maîtrise.
 - Installer la PWA dans un navigateur compatible, ou voir la page de secours publique hors connexion. Pas de cache des pages personnelles.
 
-Suzanne dispose d’un portrait V2 plus réaliste généré par IA, utilisé dans son accueil et sa présentation. Il représente une jeune adulte fictive rousse aux cheveux bouclés. La fleur reste le signe de marque ; la personnalisation du portrait est différée. Voir `docs/SUZANNE_PORTRAIT.md` pour le prompt et la provenance.
+Suzanne est un personnage fictif original proposé en trois styles : manga (par défaut), réaliste et SD/chibi. Le vestiaire comprend cinq tenues dans chaque style, un mode saisonnier et un pack graphique téléchargeable. Le choix est mémorisé par profil sur l’appareil et s’applique à l’accueil comme aux jeux. Voir `docs/NAVIGATION_ET_UNIVERS.md`.
 
 ## Accueil, jeux et ressources
 
