@@ -115,3 +115,20 @@ class FamilyQuestion(Base):
     answer: Mapped[str] = mapped_column(String)
     explanation: Mapped[str] = mapped_column(String)
     active: Mapped[bool] = mapped_column(Boolean, default=True)
+
+class AISettings(Base):
+    __tablename__ = 'ai_settings'
+    household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), primary_key=True)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=False)
+
+class AIRequest(Base):
+    __tablename__ = 'ai_requests'
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey('users.id'))
+    fingerprint: Mapped[str] = mapped_column(String)
+    month: Mapped[str] = mapped_column(String)
+    reserved_cents: Mapped[int] = mapped_column(Integer)
+    cost_usd: Mapped[str] = mapped_column(String, default='')
+    state: Mapped[str] = mapped_column(String)
+    answer: Mapped[str] = mapped_column(String, default='')

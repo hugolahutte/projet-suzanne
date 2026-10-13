@@ -234,3 +234,5 @@ def update_live_settings(hid: str, body: LiveUpdate, user: Principal, db: DB):
 
 from .family import router as family_router
 app.include_router(family_router)
+from .ai import router as ai_router
+app.include_router(ai_router)

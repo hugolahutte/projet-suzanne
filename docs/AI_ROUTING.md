@@ -1,6 +1,21 @@
 # Suzanne — routage, ressources et vidéo
 
-Décision du 12 octobre 2026. Aucune clé ni connexion payante activée dans cette version. Les fonctions de `apps/api/suzanne/ai_contracts.py` construisent et vérifient des contrats de requêtes, sans transport HTTP. Elles ne sont pas exposées à l’interface et ne constituent pas encore un chatbot.
+Décision mise à jour le 13 octobre 2026 : OpenRouter retenu pour le pilote texte. Aucune clé ni connexion payante activée. `ai.py` implémente désormais le transport HTTP, les autorisations et le registre budgétaire. L’espace « Avec Suzanne » propose une question indépendante à la fois, sans historique transmis ni documents joints.
+
+## Activation du pilote texte
+
+1. Choisir et évaluer un modèle et un endpoint précis compatibles avec ZDR, sans outils ni surcoût par requête. Les plafonds de routage sont 0,50 USD/M tokens en entrée et 2 USD/M en sortie, 600 tokens de sortie maximum. Ce sont des limites acceptées, pas les tarifs d’un modèle recommandé. Ne pas utiliser de suffixe activant une recherche web ou de preset ajoutant des outils.
+2. Après accord sur les dépenses, créer une clé dédiée avec un plafond côté OpenRouter et recharge automatique désactivée. Configurer aussi les politiques de confidentialité du compte. [Contrôles de dépense officiels](https://openrouter.ai/docs/guides/best-practices/spend-controls).
+3. Dans `.env` ignoré par Git : renseigner `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, `OPENROUTER_PROVIDER`. Mettre `OPENROUTER_ACCOUNT_CAP_CONFIRMED=true` seulement après vérification du plafond chez OpenRouter, puis `OPENROUTER_ENABLED=true`. Ce drapeau atteste une vérification manuelle, il ne configure pas le compte fournisseur. Redémarrer l’API via `scripts/dev.sh`. La clé n’est jamais affichée dans le navigateur.
+4. Dans « Famille → Budget & vidéo », choisir un plafond puis autoriser explicitement le dialogue. Une clé seule ou un plafond seul ne l’active pas. **10 €/mois est une proposition pour le test texte, non appliquée ni approuvée.** Vidéo et voix personnalisée restent déconnectées.
+
+Le serveur sérialise l’admission par foyer et réserve une provision persistante avant l’appel. Un UUID empêche de facturer à nouveau la même demande après perte de réponse. Aucun retry automatique ni repli sur un autre modèle/fournisseur. Une demande en cours empêche une seconde admission pour ce foyer. Les erreurs, coûts manquants ou réponses invalides gardent la provision et suspendent les nouveaux appels, y compris après redémarrage ou changement de mois. Un administrateur doit comparer la demande avec l’activité OpenRouter avant toute réconciliation manuelle ; aucune remise à zéro automatique d’un incident n’est proposée.
+
+Le registre conserve identifiant, propriétaire, mois Europe/Paris, empreinte HMAC de la question, réponse, provision et coût USD fourni. Il ne conserve pas la question en clair et ne transmet ni nom, ni dossier scolaire, ni profil complet : seulement le texte saisi et une tranche d’âge. Les réponses sont privées et rejouées uniquement au même compte. Le stockage local des réponses n’est pas encore doté d’une interface d’effacement.
+
+La provision utilise une borne UTF-8 des tokens d’entrée avec marge de cadrage, la sortie maximale, les plafonds de prix et un facteur prudent de **1,50 EUR/USD**. Ce facteur n’est pas un cours de change. La provision entière reste comptée même si le coût réel est inférieur ; un coût supérieur suspend le foyer. Le compteur est donc une enveloppe technique conservatrice, **pas une facture TTC** : taxes et frais de paiement sont exclus et le plafond fournisseur reste indispensable. Le budget n’est pas rechargé par cette application. [Usage comptabilisé par OpenRouter](https://openrouter.ai/docs/cookbook/administration/usage-accounting).
+
+Tests réalisés avec transport simulé : aucune qualité pédagogique, compatibilité réelle du modèle, résidence des données ou facture réelle n’est validée à ce stade. L’évaluation de réponses pour enfants, la sélection définitive du modèle et un premier essai payant autorisé restent à faire. Le mode zéro rétention demandé ne constitue pas à lui seul une garantie de résidence européenne.
 
 ## Architecture retenue
 
@@ -12,12 +27,12 @@ Jev est un modèle de décisions structurées, pas un générateur de conversati
 
 Une seule clé OpenRouter peut donner accès à Jev et aux modèles génératifs : [Jev sur OpenRouter](https://openrouter.ai/docs/guides/community/jev), [SDK TypeSafe via OpenRouter](https://openrouter.ai/docs/guides/community/typesafe-sdk). Le contrat utilise `https://openrouter.ai/api/v1/systemone`, modèle `typesafe/jev-1.13`. Pour un accès direct TypeSafe ultérieur : `https://api.typesafe.ai/v1/systemone`, modèle `jev-1.13.0`, clé distincte. Les versions devront être revérifiées à l’activation.
 
-Le contrat chat utilise `/api/v1/chat/completions`, un modèle figurant dans une liste autorisée, 4 000 caractères de demande maximum, 600 tokens de sortie, aucun repli automatique et des plafonds de tarif par million de tokens. `data_collection: deny`, `zdr: true` et `require_parameters: true` sont demandés ; si aucun endpoint ne les satisfait, le futur transport doit refuser sans affaiblir ces conditions. Ces paramètres chat ne sont pas ajoutés arbitrairement au schéma System One : ses garanties de rétention devront être vérifiées séparément. [Documentation officielle du routage](https://openrouter.ai/docs/guides/routing/provider-selection).
+Le contrat chat utilise `/api/v1/chat/completions`, un modèle figurant dans une liste autorisée, 4 000 caractères de demande maximum, 600 tokens de sortie, aucun repli automatique et des plafonds de tarif par million de tokens. `data_collection: deny`, `zdr: true` et `require_parameters: true` sont demandés ; si aucun endpoint ne les satisfait, le transport refuse sans affaiblir ces conditions. Ces paramètres chat ne sont pas ajoutés arbitrairement au schéma System One : ses garanties de rétention devront être vérifiées séparément. [Documentation officielle du routage](https://openrouter.ai/docs/guides/routing/provider-selection).
 
-## Conditions avant de connecter le dialogue
+## Conditions avant le premier essai payant
 
 - Accord sur le fournisseur et le budget, clé serveur dans un secret local (jamais `NEXT_PUBLIC_*`, Git ou navigateur).
-- Contrôles du compte fournisseur et compteur monétaire durable par foyer avec réservation atomique avant requête, réconciliation à l’usage réel et arrêt au plafond. Les plafonds de tarif du contrat ne sont PAS un plafond de dépense mensuelle.
+- Contrôles du compte fournisseur à vérifier ; compteur durable implémenté avec provisions conservatrices et arrêt au plafond. Les plafonds de tarif du contrat ne sont PAS un plafond de dépense mensuelle.
 - Transport HTTP à délai borné, sans retry facturant implicite, gestion des erreurs sans fuite de données ; tests avec mocks puis essai autorisé à faible budget.
 - Adaptation à l’âge, corpus officiel correctement sélectionné, réponses sourcées, évaluation de l’exactitude et des comportements pédagogiques. Jev ne remplace ni les permissions ni l’évaluation des réponses.
 - Minimisation du contexte : ne jamais envoyer tout un foyer, des notes ou des livres par défaut. Le carnet actuel n’est envoyé à aucun fournisseur.
@@ -28,7 +43,7 @@ L’accueil actuel compose un message à partir du prénom fictif, du surnom de 
 
 Disponible : carnet personnel persistant, types livre / note / devoir, titre, matière ou auteur, observations, suppression. Accès limité au propriétaire et au foyer dans chaque requête ; un parent n’accède pas implicitement au carnet privé d’un enfant.
 
-À développer : imports de fichiers dans un stockage privé, limites de taille et contrôle du type réel, OCR, affichage de la copie et validation de la transcription (notes, barème, annotations), puis extraction de points à retravailler. Connexion scolaire selon le fournisseur et ses possibilités officielles ; ne pas demander les identifiants scolaires tant que le connecteur n’est pas défini. Livres : métadonnées d’abord, extraits et fichiers autorisés ensuite, références de pages et progression. Aucun fichier scolaire réel ni scan de jeu ne doit entrer dans le dépôt public.
+Les imports privés PDF/JPEG/PNG et leurs quotas sont disponibles. À développer : OCR, affichage de la copie et validation de la transcription (notes, barème, annotations), puis extraction de points à retravailler. Connexion scolaire selon le fournisseur et ses possibilités officielles ; ne pas demander les identifiants scolaires tant que le connecteur n’est pas défini. Livres : métadonnées d’abord, extraits et fichiers autorisés ensuite, références de pages et progression. Aucun fichier scolaire réel ni scan de jeu ne doit entrer dans le dépôt public.
 
 ## Suzanne live
 

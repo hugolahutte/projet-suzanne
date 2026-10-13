@@ -14,7 +14,7 @@ Le produit est une démonstration locale sur données fictives. `APP_ENV` autre 
 | XSS / injections | React échappe les textes, pas de HTML arbitraire, SQLAlchemy paramétré ; pas d'upload | CSP stricte à concevoir au pilote, future ingestion non fiable |
 | Dépendances | locks versionnés, npm audit, pip-audit, CI | surveiller les nouveaux avis ; un audit vert n'est pas une garantie absolue |
 | Données dans les logs | aucune journalisation du mot de passe ou corps utilisateur ; access logs Uvicorn désactivés dans les scripts | infrastructure future doit expurger erreurs et traces |
-| Dépenses IA / fuite fournisseur | aucun SDK IA, aucune clé ou requête fournisseur | budgets, rétention, contrats et évaluation au Sprint 2 |
+| Dépenses IA / fuite fournisseur | transport désactivé par défaut, clé serveur, autorisation parentale, réservations durables et déduplication | plafond fournisseur à configurer, évaluation pédagogique et vérification réelle de rétention à faire |
 
 ## Données et conservation
 
@@ -36,4 +36,4 @@ Les permissions vidéo sont stockées par foyer, modifiables exclusivement par u
 
 Les jeux ne font aucun appel IA ; les réponses restent en mémoire de l’écran, effacées en quittant le jeu. Le corpus officiel est public et distinct du carnet. La lecture d’accueil utilise la synthèse du navigateur, uniquement après clic, et s’arrête à la sortie de l’accueil. Aucune voix enregistrée.
 
-Les contrats Jev/OpenRouter ne possèdent ni transport HTTP ni clé. Une classification Jev ne peut modifier les rôles, permissions ou budgets. Leur activation reste conditionnée au travail décrit dans `AI_ROUTING.md`.
+OpenRouter dispose d’un transport HTTP désactivé par défaut, avec endpoint fixe, sans redirection ni retry, ZDR exigé et fournisseur explicite. Le registre des demandes est privé, les coûts ambigus suspendent le foyer même après changement de mois. La provision EUR est une estimation conservatrice hors taxes et frais, complétée obligatoirement par un plafond fournisseur vérifié manuellement. Jev reste un contrat sans transport ; sa classification ne donne aucun droit. Les conditions d’activation et les limites figurent dans `AI_ROUTING.md`.

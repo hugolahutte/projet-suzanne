@@ -65,6 +65,77 @@ async function navigate(page: Page, name: string) {
   }
 }
 
+test("OpenRouter tutor: disabled by default, explicit question, simulated answer", async ({
+  page,
+}) => {
+  await login(page);
+  await navigate(page, "Avec Suzanne");
+  const send = page.getByRole("button", {
+    name: "Envoyer ma question",
+    exact: true,
+  });
+  await page
+    .getByRole("button", {
+      name: "Explique-moi les fractions avec une pizza.",
+      exact: true,
+    })
+    .click();
+  await expect(page.getByLabel("Ta question à Suzanne")).toHaveValue(
+    "Explique-moi les fractions avec une pizza.",
+  );
+  await expect(send).toBeDisabled();
+  await expect(page.getByRole("status")).toContainText("configuration serveur");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  const status = {
+    provider_ready: true,
+    enabled: true,
+    available: true,
+    reason: "",
+    reserved_cents: 0,
+    monthly_cap_cents: 1000,
+  };
+  await page.route("**/api/households/atelier/ai", (route) =>
+    route.fulfill({ json: status }),
+  );
+  let calls = 0;
+  await page.route("**/api/households/atelier/ai/questions", (route) => {
+    calls++;
+    const body = route.request().postDataJSON();
+    expect(Object.keys(body).sort()).toEqual(["id", "text"]);
+    return route.fulfill({
+      json: {
+        id: body.id,
+        answer: "Réponse de test : un quart correspond à une part sur quatre.",
+        status,
+      },
+    });
+  });
+  await page.reload();
+  await page.getByLabel("Ta question à Suzanne").fill("Explique un quart.");
+  await send.click();
+  await expect(
+    page.getByText(
+      "Réponse de test : un quart correspond à une part sur quatre.",
+    ),
+  ).toBeVisible();
+  expect(calls).toBe(1);
+  await expect(page.getByLabel("Ta question à Suzanne")).toHaveValue("");
+  await navigate(page, "Espace famille");
+  await page
+    .getByRole("button", { name: "Budget & vidéo", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", {
+      name: "Désactiver le dialogue IA",
+      exact: true,
+    }),
+  ).toBeEnabled();
+});
+
 test("adult: navigation, persistent preferences and goals, family, guided discovery", async ({
   page,
 }) => {

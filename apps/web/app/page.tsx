@@ -26,6 +26,7 @@ import { LookProvider, Wardrobe } from "./wardrobe";
 import { Games } from "./games";
 import { FamilyOffice, DocumentLibrary } from "./family-office";
 import { Curriculum } from "./curriculum";
+import { Tutor } from "./tutor";
 import { api } from "./api";
 import { Flower, Landscape } from "./art";
 import type { Account, Dashboard, Me } from "./types";
@@ -753,31 +754,33 @@ export default function App() {
                   title={`Un moment avec ${me.profile.nickname}.`}
                   text="Une question est souvent le début d’une belle découverte."
                 />
-                <section className="panel introduction">
+                <section className="panel introduction tutor-introduction">
                   <div className="introduction-companion">
                     <SuzannePortrait />
                   </div>
-                  <h2>Une présence pour apprendre.</h2>
-                  <p>
-                    Suzanne est une IA pédagogique fictive. Elle est pensée pour
-                    t’aider à réfléchir, te donner un indice, essayer une autre
-                    explication et vérifier avec toi ce que tu as compris.
-                  </p>
-                  <div className="info-strip">
-                    Le dialogue IA n’est pas encore connecté. Aucun message
-                    n’est envoyé à un fournisseur et aucun micro n’est
-                    enregistré.
+                  <div>
+                    <h2>On découvre ensemble ?</h2>
+                    <p>
+                      Je suis Suzanne, ton IA pédagogique. Une question, un
+                      indice, une autre façon de comprendre : à toi de choisir.
+                    </p>
+                    <button
+                      className="primary"
+                      onClick={() =>
+                        openLesson("Pourquoi la Lune change-t-elle de forme ?")
+                      }
+                    >
+                      Essayer une découverte guidée
+                      <ArrowRight size={18} />
+                    </button>
                   </div>
-                  <button
-                    className="primary"
-                    onClick={() =>
-                      openLesson("Pourquoi la Lune change-t-elle de forme ?")
-                    }
-                  >
-                    Essayer une découverte guidée
-                    <ArrowRight size={18} />
-                  </button>
                 </section>
+                {household && (
+                  <Tutor
+                    key={`${household.id}-${me.profile.id}`}
+                    hid={household.id}
+                  />
+                )}
               </>
             )}
             {section === "apprendre" && (

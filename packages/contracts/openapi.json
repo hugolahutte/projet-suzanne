@@ -1182,6 +1182,135 @@
           }
         }
       }
+    },
+    "/households/{hid}/ai": {
+      "get": {
+        "summary": "Get Status",
+        "operationId": "get_status_households__hid__ai_get",
+        "parameters": [
+          {
+            "name": "hid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Permission",
+        "operationId": "permission_households__hid__ai_patch",
+        "parameters": [
+          {
+            "name": "hid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Permission"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/households/{hid}/ai/questions": {
+      "post": {
+        "summary": "Ask",
+        "operationId": "ask_households__hid__ai_questions_post",
+        "parameters": [
+          {
+            "name": "hid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Hid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Question"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1441,6 +1570,20 @@
         ],
         "title": "NewGoal"
       },
+      "Permission": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "enabled"
+        ],
+        "title": "Permission"
+      },
       "PlayerScore": {
         "properties": {
           "name": {
@@ -1484,6 +1627,28 @@
           "large_text"
         ],
         "title": "ProfileUpdate"
+      },
+      "Question": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "title": "Question"
       },
       "QuestionBody": {
         "properties": {

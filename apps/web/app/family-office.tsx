@@ -3,6 +3,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { api } from "./api";
 import { QuestionManager } from "./questions";
 import { LiveSettings } from "./notebook";
+import { AIControls } from "./tutor";
 import {
   Users,
   Files,
@@ -666,7 +667,7 @@ function BudgetManager({ hid }: { hid: string }) {
         }),
       );
       setNotice(
-        "Les plafonds souhaités sont enregistrés. Aucun service payant n’est activé.",
+        "Les plafonds sont enregistrés. L’autorisation du dialogue se règle séparément.",
       );
     } catch (e) {
       setError((e as Error).message);
@@ -688,9 +689,9 @@ function BudgetManager({ hid }: { hid: string }) {
       )}
       <div className="family-budget-summary">
         <div>
-          <span>Dépense de l’application</span>
+          <span>Budget provisionné ce mois-ci</span>
           <strong>{money(value?.spent_cents ?? 0)}</strong>
-          <small>Aucun fournisseur connecté</small>
+          <small>Estimation prudente, hors taxes et frais de paiement</small>
         </div>
         <div>
           <span>Plafond mensuel souhaité</span>
@@ -731,14 +732,16 @@ function BudgetManager({ hid }: { hid: string }) {
           total.
         </p>
         <p className="fine">
-          Ces préférences sont enregistrées côté serveur. La mesure des coûts et
-          le blocage automatique des appels devront être raccordés au
-          fournisseur avant toute activation payante.
+          Le texte réserve son budget avant chaque appel et se bloque au
+          plafond. Les provisions sont conservées par prudence ; elles peuvent
+          dépasser le coût réel facturé en dollars. Le sous-plafond vidéo attend
+          son fournisseur.
         </p>
         <button className="primary" disabled={busy || !value}>
           Enregistrer les plafonds
         </button>
       </form>
+      <AIControls hid={hid} />
       <LiveSettings hid={hid} />
     </>
   );

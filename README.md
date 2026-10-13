@@ -57,13 +57,13 @@ Suzanne est un personnage fictif original proposé en trois styles : manga (par 
 
 ## Accueil, jeux et ressources
 
-- Accueil incarné avec lecture vocale à la demande, via la voix du navigateur, propositions d’apprentissage/découverte/cours/jeux. Le dialogue libre n’est pas encore connecté.
+- Accueil incarné avec lecture vocale à la demande, via la voix du navigateur, propositions d’apprentissage/découverte/cours/jeux. L’espace « Avec Suzanne » prépare les questions ; le transport OpenRouter reste désactivé tant que sa configuration et les autorisations manquent.
 - Capitales : 1–4 joueurs sur le même appareil, cinq questions chacun, accents acceptés, scores calculés localement.
 - Petit bac : 1–4 joueurs, réponses cachées entre les tours, vérification collective explicite, points pour mots uniques ou partagés. Une manche par partie ; aucune IA ne juge les réponses.
 - Carnet privé : fiches livre, note, devoir, enregistrées en base et supprimables. La synchronisation scolaire, l’OCR des copies et l’import de livres restent à développer.
 - Catalogue officiel CM2/collège/lycée général et technologique, anglais/latin/grec, filtres par classe/matière et dates d’application. [Couverture, corpus et provenance](docs/curriculum/README.md).
 - Autorisation du futur mode vidéo par le responsable du foyer, enregistrée côté serveur. Le service vidéo reste indisponible même si elle est cochée.
-- [Contrats et architecture Jev + OpenRouter](docs/AI_ROUTING.md) : préparés et testés sans appel réseau. Aucun fournisseur ni budget activé.
+- [Passerelle OpenRouter](docs/AI_ROUTING.md) : transport serveur, plafonds de tarifs, réservation mensuelle durable, déduplication, choix explicite du modèle/fournisseur, autorisation parentale. Testée avec réponses simulées, aucun appel payant lancé. Jev reste au stade du contrat.
 
 ## Back-office familial local
 
@@ -71,7 +71,7 @@ L’espace famille propose désormais cinq onglets : profils, documents, budget 
 
 - Profils : prénom, âge, classe/parcours, établissement facultatif, année scolaire, langues, options, intérêts et indications pédagogiques. Chaque adulte gère son propre profil ; un responsable gère aussi ses enfants explicitement liés. Aucun adulte ne peut modifier un autre adulte. Les enfants lisent leur profil sans modifier l’identité ou la scolarité.
 - Documents : import PDF, PNG et JPEG, classement par profil/type/matière/année, filtre, téléchargement authentifié, corbeille et restauration. Les fichiers restent dans la base privée, jamais dans `public/`. Limites locales : 10 Mo par fichier, 100 fichiers et 100 Mo par foyer, corbeille incluse. Les signatures de format sont vérifiées ; aucun OCR, antivirus ou extracteur pédagogique n’est revendiqué.
-- Budget : plafond total et sous-plafond vidéo en euros, enregistrés côté serveur, zéro par défaut. Aucun fournisseur n’est connecté : consommation nulle, aucun débit possible. La réservation atomique des coûts et le rapprochement des consommations devront être implémentés avec le fournisseur avant activation payante. Le paramètre actuel n’est pas présenté comme un système de facturation opérationnel.
+- Budget : plafond total et sous-plafond vidéo en euros, zéro par défaut. Le texte réserve une provision atomique avant chaque appel. Les provisions conservatrices sont affichées, les erreurs de coût suspendent le foyer. Ce compteur exclut taxes/frais de paiement et ne remplace pas un plafond du compte OpenRouter. Le fournisseur, le modèle et la clé restent à configurer après approbation des dépenses ; aucun appel réel effectué. Le bouton parental est distinct du budget. La vidéo reste déconnectée.
 - Jeux : les scores peuvent être enregistrés volontairement à la fin, puis consultés par le joueur et ses responsables. Les réponses détaillées ne sont pas sauvegardées. Ce sont des résultats calculés par le client, sans certification de maîtrise scolaire ni classement compétitif.
 - Quiz du foyer : les responsables créent, modifient et archivent leurs questions et explications originales. Les questions actives sont partagées au foyer. Cinq questions distinctes par joueur sont nécessaires (vingt pour quatre joueurs). Correction exacte normalisée, sans arbitrage IA des synonymes.
 
@@ -118,6 +118,10 @@ Le script `dev.sh` charge le fichier `.env` local. Ne jamais y copier de donnée
 | `DATABASE_URL` | `sqlite:///./suzanne.db` | SQLAlchemy SQLite ou PostgreSQL + psycopg |
 | `COOKIE_SECURE` | `false` | mettre `true` dès qu'un HTTPS local est utilisé |
 | `NEXT_TELEMETRY_DISABLED` | `1` | désactive la télémétrie Next dans les scripts fournis |
+| `OPENROUTER_ENABLED` | `false` | interrupteur global du pilote texte |
+| `OPENROUTER_API_KEY` | vide | secret serveur, jamais envoyé au navigateur |
+| `OPENROUTER_MODEL`, `OPENROUTER_PROVIDER` | vides | sélection explicite, sans repli |
+| `OPENROUTER_ACCOUNT_CAP_CONFIRMED` | `false` | attestation manuelle du plafond configuré chez OpenRouter |
 
 ## Organisation
 
@@ -130,7 +134,7 @@ Le script `dev.sh` charge le fichier `.env` local. Ne jamais y copier de donnée
 
 ## Limites avant des utilisateurs réels
 
-Cette version ne propose pas encore inscription, récupération de mot de passe, invitations, MFA, RLS PostgreSQL, gestion des consentements, export/suppression par interface, OCR et analyse documentaire, chat IA, révisions FSRS, actualités collectées, voix personnalisée ou vidéo. Pas de conformité réglementaire ou d'accessibilité exhaustive revendiquée. Les tests Chromium ne remplacent pas Safari/VoiceOver sur appareils réels.
+Cette version ne propose pas encore inscription, récupération de mot de passe, invitations, MFA, RLS PostgreSQL, gestion des consentements, export/suppression par interface, OCR et analyse documentaire, conversations IA avec mémoire, révisions FSRS, actualités collectées, voix personnalisée ou vidéo. Pas de conformité réglementaire ou d'accessibilité exhaustive revendiquée. Les tests Chromium ne remplacent pas Safari/VoiceOver sur appareils réels.
 
 Les comptes de démonstration sont volontairement connus. Le contrôle d'accès protège les requêtes selon l'identité authentifiée, mais ne rend pas les données de ces comptes publiques de test confidentielles. Ne saisir aucune donnée personnelle réelle. Le dépôt est public : son passage en privé et la revue de sécurité restent des prérequis avant de préparer de vrais profils.
 

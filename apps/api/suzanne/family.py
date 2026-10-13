@@ -142,11 +142,14 @@ class BudgetUpdate(StrictModel):
 def budget(hid: str, user: Principal, db: DB):
     guardian(db, user, hid)
     b = db.get(FamilyBudget, hid)
-    return {'monthly_cap_cents': b.monthly_cap_cents if b else 0, 'video_cap_cents': b.video_cap_cents if b else 0, 'spent_cents': 0, 'provider_ready': False}
+    from .ai import provisioned, configuration
+    return {'monthly_cap_cents': b.monthly_cap_cents if b else 0, 'video_cap_cents': b.video_cap_cents if b else 0, 'spent_cents': provisioned(db, hid), 'provider_ready': configuration()[3]}
 
 @router.patch('/budget')
 def edit_budget(hid: str, body: BudgetUpdate, user: Principal, db: DB):
     guardian(db, user, hid)
+    from .models import Household
+    db.execute(update(Household).where(Household.id == hid).values(name=Household.name))
     b = db.get(FamilyBudget, hid)
     if not b:
         b = FamilyBudget(household_id=hid)

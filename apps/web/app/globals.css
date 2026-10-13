@@ -1968,6 +1968,100 @@ button:hover:not(:disabled) {
     animation: none !important;
   }
 }
+
+.tutor-panel {
+  margin-top: 24px;
+  padding: 28px;
+}
+.tutor-heading,
+.tutor-send {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tutor-heading {
+  justify-content: flex-start;
+}
+.tutor-heading h2 {
+  margin: 0;
+}
+.tutor-panel > p {
+  line-height: 1.65;
+}
+.tutor-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0;
+}
+.tutor-suggestions button {
+  text-align: left;
+  white-space: normal;
+  background: #f7f4fb;
+  border: 1px solid #e4dcef;
+  border-radius: 12px;
+  padding: 12px 15px;
+  line-height: 1.5;
+  color: #574072;
+}
+.tutor-panel label {
+  display: block;
+  font-weight: 650;
+  margin: 22px 0 10px;
+}
+.tutor-panel textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #dfd8e7;
+  border-radius: 16px;
+  padding: 16px;
+  font: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  background: #fcfaff;
+  color: #35264c;
+}
+.tutor-panel textarea:focus-visible {
+  outline: 3px solid #d5c3ee;
+  outline-offset: 2px;
+}
+.tutor-send {
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.tutor-exchange {
+  margin: 24px 0;
+  overflow-wrap: anywhere;
+}
+.tutor-question {
+  background: #eee7f7;
+  padding: 18px;
+  border-radius: 18px 18px 4px 18px;
+  margin-left: 10%;
+}
+.tutor-answer {
+  background: #f5f4ef;
+  padding: 20px;
+  border-radius: 18px 18px 18px 4px;
+  margin-right: 5%;
+}
+.tutor-answer p {
+  white-space: pre-wrap;
+  line-height: 1.75;
+}
+@media (max-width: 600px) {
+  .tutor-panel {
+    padding: 20px;
+  }
+  .tutor-suggestions {
+    flex-direction: column;
+  }
+  .tutor-send .primary {
+    width: 100%;
+    justify-content: center;
+  }
+}
 /* Compact phone layout keeps the main invitation readable beside its illustration. */
 @media (max-width: 480px) {
   .hero-card {

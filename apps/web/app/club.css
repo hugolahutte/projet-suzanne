@@ -1574,3 +1574,36 @@ h3 {
     margin-top: 12px;
   }
 }
+
+/* Keep the companion close to the question instead of pushing it below the fold. */
+.tutor-introduction {
+  display: grid;
+  grid-template-columns: 145px minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+}
+.tutor-introduction .introduction-companion {
+  width: 145px;
+  height: 220px;
+  margin: 0;
+}
+.tutor-introduction h2 {
+  margin-top: 0;
+}
+.tutor-introduction p {
+  line-height: 1.65;
+}
+.tutor-introduction .primary {
+  font-size: 13px;
+}
+@media (max-width: 600px) {
+  .tutor-introduction {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .tutor-introduction .introduction-companion {
+    height: 170px;
+    width: 135px;
+    margin: 0 auto;
+  }
+}
