@@ -38,6 +38,23 @@ def isolated_ai(monkeypatch):
 def question(text='Explique une fraction.'):
     return {'id': str(uuid4()), 'text': text}
 
+def test_local_budget_opt_in_never_bypasses_household_cap(client, login, monkeypatch):
+    monkeypatch.setenv('OPENROUTER_ACCOUNT_CAP_CONFIRMED', 'false')
+    monkeypatch.delenv('OPENROUTER_ALLOW_LOCAL_CAP_ONLY', raising=False)
+    assert not ai.configuration()[3]
+    monkeypatch.setenv('OPENROUTER_ALLOW_LOCAL_CAP_ONLY', 'true')
+    # The exception is limited to local development, not arbitrary environments.
+    for env in ('test', 'production'):
+        monkeypatch.setenv('APP_ENV', env)
+        assert not ai.configuration()[3]
+    monkeypatch.setenv('APP_ENV', 'local')
+    assert ai.configuration()[3]
+    login()
+    client.patch('/households/atelier/budget', json={'monthly_cap_cents': 0, 'video_cap_cents': 0})
+    assert client.post(ROOT + '/questions', json=question()).status_code == 409
+    monkeypatch.setenv('OPENROUTER_ENABLED', 'false')
+    assert not ai.configuration()[3]
+
 def good():
     return {'choices': [{'message': {'content': 'Imagine une pizza partagée en quatre.'}}], 'usage': {'cost': 0.0001}}
 

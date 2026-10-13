@@ -24,8 +24,13 @@ def configuration():
     key = os.getenv('OPENROUTER_API_KEY', '').strip()
     model = os.getenv('OPENROUTER_MODEL', '').strip()
     provider = os.getenv('OPENROUTER_PROVIDER', '').strip()
+    account_cap = os.getenv('OPENROUTER_ACCOUNT_CAP_CONFIRMED') == 'true'
+    # Explicit local-development opt-in. Does not claim a provider cap exists,
+    # and never bypasses household permission, reservation or monthly budget.
+    local_cap_only = (os.getenv('APP_ENV', 'local') == 'local'
+                      and os.getenv('OPENROUTER_ALLOW_LOCAL_CAP_ONLY') == 'true')
     ready = bool(key and model and provider and os.getenv('OPENROUTER_ENABLED') == 'true'
-                 and os.getenv('OPENROUTER_ACCOUNT_CAP_CONFIRMED') == 'true')
+                 and (account_cap or local_cap_only))
     return key, model, provider, ready
 
 def month():
@@ -67,7 +72,7 @@ def permission(hid: str, body: Permission, user: Principal, db: DB):
     guardian(db, user, hid)
     db.execute(update(Household).where(Household.id == hid).values(name=Household.name))
     if body.enabled and not configuration()[3]:
-        raise HTTPException(409, 'Configure d’abord le fournisseur et son plafond de compte côté serveur.')
+        raise HTTPException(409, 'Configure d’abord le fournisseur et le mode de budget côté serveur.')
     settings = db.get(AISettings, hid)
     if not settings:
         settings = AISettings(household_id=hid)

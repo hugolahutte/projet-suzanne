@@ -2,7 +2,7 @@
 
 **La curiosité n’a pas d’âge.** Une plateforme d’apprentissage pour toute la vie, de 5 à 85 ans et au-delà.
 
-Sprint 1 : application locale navigable, deux foyers imaginaires, comptes enfant/adulte/parent, sessions et permissions API, objectifs et préférences persistants, vues de progression explicitement simulées. Aucun fournisseur IA, paiement ou service cloud connecté. Aucun déploiement public.
+Sprint 1 : application locale navigable, deux foyers imaginaires, comptes enfant/adulte/parent, sessions et permissions API, objectifs et préférences persistants, vues de progression explicitement simulées. Les fournisseurs IA sont désactivés par défaut ; le pilote texte peut être connecté localement avec autorisation et budget. Aucun déploiement public.
 
 ## Démarrage rapide sans Docker
 
@@ -63,7 +63,7 @@ Suzanne est un personnage fictif original proposé en trois styles : manga (par 
 - Carnet privé : fiches livre, note, devoir, enregistrées en base et supprimables. La synchronisation scolaire, l’OCR des copies et l’import de livres restent à développer.
 - Catalogue officiel CM2/collège/lycée général et technologique, anglais/latin/grec, filtres par classe/matière et dates d’application. [Couverture, corpus et provenance](docs/curriculum/README.md).
 - Autorisation du futur mode vidéo par le responsable du foyer, enregistrée côté serveur. Le service vidéo reste indisponible même si elle est cochée.
-- [Passerelle OpenRouter](docs/AI_ROUTING.md) : transport serveur, plafonds de tarifs, réservation mensuelle durable, déduplication, choix explicite du modèle/fournisseur, autorisation parentale. Testée avec réponses simulées, aucun appel payant lancé. Jev reste au stade du contrat.
+- [Passerelle OpenRouter](docs/AI_ROUTING.md) : transport serveur, plafonds de tarifs, réservation mensuelle durable, déduplication, choix explicite du modèle/fournisseur, autorisation parentale. Testée avec réponses simulées et un essai local autorisé sur des questions fictives. Jev reste au stade du contrat.
 
 ## Back-office familial local
 
@@ -71,7 +71,7 @@ L’espace famille propose désormais cinq onglets : profils, documents, budget 
 
 - Profils : prénom, âge, classe/parcours, établissement facultatif, année scolaire, langues, options, intérêts et indications pédagogiques. Chaque adulte gère son propre profil ; un responsable gère aussi ses enfants explicitement liés. Aucun adulte ne peut modifier un autre adulte. Les enfants lisent leur profil sans modifier l’identité ou la scolarité.
 - Documents : import PDF, PNG et JPEG, classement par profil/type/matière/année, filtre, téléchargement authentifié, corbeille et restauration. Les fichiers restent dans la base privée, jamais dans `public/`. Limites locales : 10 Mo par fichier, 100 fichiers et 100 Mo par foyer, corbeille incluse. Les signatures de format sont vérifiées ; aucun OCR, antivirus ou extracteur pédagogique n’est revendiqué.
-- Budget : plafond total et sous-plafond vidéo en euros, zéro par défaut. Le texte réserve une provision atomique avant chaque appel. Les provisions conservatrices sont affichées, les erreurs de coût suspendent le foyer. Ce compteur exclut taxes/frais de paiement et ne remplace pas un plafond du compte OpenRouter. Le fournisseur, le modèle et la clé restent à configurer après approbation des dépenses ; aucun appel réel effectué. Le bouton parental est distinct du budget. La vidéo reste déconnectée.
+- Budget : plafond total et sous-plafond vidéo en euros, zéro par défaut. Le texte réserve une provision atomique avant chaque appel. Les provisions conservatrices sont affichées, les erreurs de coût suspendent le foyer. Ce compteur exclut taxes/frais de paiement et ne remplace pas un plafond du compte OpenRouter. Le fournisseur, le modèle et la clé se configurent localement après approbation des dépenses. Le bouton parental est distinct du budget. La vidéo reste déconnectée.
 - Jeux : les scores peuvent être enregistrés volontairement à la fin, puis consultés par le joueur et ses responsables. Les réponses détaillées ne sont pas sauvegardées. Ce sont des résultats calculés par le client, sans certification de maîtrise scolaire ni classement compétitif.
 - Quiz du foyer : les responsables créent, modifient et archivent leurs questions et explications originales. Les questions actives sont partagées au foyer. Cinq questions distinctes par joueur sont nécessaires (vingt pour quatre joueurs). Correction exacte normalisée, sans arbitrage IA des synonymes.
 
@@ -121,7 +121,8 @@ Le script `dev.sh` charge le fichier `.env` local. Ne jamais y copier de donnée
 | `OPENROUTER_ENABLED` | `false` | interrupteur global du pilote texte |
 | `OPENROUTER_API_KEY` | vide | secret serveur, jamais envoyé au navigateur |
 | `OPENROUTER_MODEL`, `OPENROUTER_PROVIDER` | vides | sélection explicite, sans repli |
-| `OPENROUTER_ACCOUNT_CAP_CONFIRMED` | `false` | attestation manuelle du plafond configuré chez OpenRouter |
+| `OPENROUTER_ACCOUNT_CAP_CONFIRMED` | `false` | attestation du plafond configuré chez OpenRouter |
+| `OPENROUTER_ALLOW_LOCAL_CAP_ONLY` | `false` | essai explicitement autorisé en `APP_ENV=local`, avec le seul plafond interne ; aucun plafond fournisseur attesté |
 
 ## Organisation
 
