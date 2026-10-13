@@ -18,16 +18,17 @@ import {
   Sprout,
   X,
 } from "lucide-react";
-import { Notebook, LiveSettings } from "./notebook";
+import { Notebook } from "./notebook";
 import { PublicWelcome, SuzannePortrait } from "./presence";
 import { Welcome } from "./welcome";
 import { Navigation, Brand, destinations, type Section } from "./navigation";
 import { LookProvider, Wardrobe } from "./wardrobe";
 import { Games } from "./games";
+import { FamilyOffice, DocumentLibrary } from "./family-office";
 import { Curriculum } from "./curriculum";
 import { api } from "./api";
 import { Flower, Landscape } from "./art";
-import type { Account, Child, Dashboard, Me } from "./types";
+import type { Account, Dashboard, Me } from "./types";
 
 const allSections = destinations.map((d) => d.id);
 const demoPassword = "Suzanne-demo-2026!";
@@ -37,7 +38,6 @@ export default function App() {
   const [me, setMe] = useState<Me | null>(null);
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
-  const [children, setChildren] = useState<Child[]>([]);
   const [section, setSection] = useState<Section>("accueil");
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -59,13 +59,8 @@ export default function App() {
     const next = await api<Me>("/me");
     const hid = next.households[0]?.id;
     const data = await api<Dashboard>(`/households/${hid}/dashboard`);
-    const kids =
-      next.households[0]?.role === "guardian"
-        ? await api<Child[]>(`/households/${hid}/children`)
-        : [];
     setMe(next);
     setDashboard(data);
-    setChildren(kids);
     setNickname(next.profile.nickname);
     setLarge(next.profile.large_text);
   }
@@ -341,7 +336,6 @@ export default function App() {
               await api("/auth/logout", { method: "POST" });
               setMe(null);
               setDashboard(null);
-              setChildren([]);
               setLesson(null);
               setError("");
             })
@@ -363,9 +357,15 @@ export default function App() {
             )}
             {section === "vestiaire" && <Wardrobe />}
             {section === "carnet" && household && (
-              <Notebook key={me.profile.id} hid={household.id} />
+              <>
+                <Notebook key={me.profile.id} hid={household.id} />
+                <DocumentLibrary
+                  key={`documents-${me.profile.id}`}
+                  hid={household.id}
+                />
+              </>
             )}
-            {section === "jeux" && <Games />}
+            {section === "jeux" && household && <Games hid={household.id} />}
             {section === "programmes" && (
               <Curriculum initialLevel={me.profile.level} />
             )}
@@ -669,77 +669,15 @@ export default function App() {
                 </div>
               </>
             )}
-            {section === "famille" && (
-              <>
-                <PageTitle
-                  eyebrow="GRANDIR ENSEMBLE"
-                  title="L’espace famille."
-                  text="Accompagner avec attention, laisser de la place à l’autonomie."
-                />
-                {household?.role !== "guardian" ? (
-                  <section className="panel">
-                    <ShieldCheck />
-                    <h2>Un espace réservé aux responsables légaux.</h2>
-                    <p>
-                      Connecte-toi avec un profil parent pour consulter les
-                      résumés autorisés.
-                    </p>
-                  </section>
-                ) : (
-                  <>
-                    <div className="info-strip">
-                      <ShieldCheck size={21} />
-                      <span>
-                        Tu vois les activités et prochaines étapes des enfants
-                        dont tu es responsable. Leurs conversations privées ne
-                        sont pas affichées.
-                      </span>
-                    </div>
-                    {household && <LiveSettings hid={household.id} />}
-                    <div className="two-columns">
-                      {children.map((child, i) => (
-                        <section className="panel child-card" key={child.id}>
-                          <div className="child-title">
-                            <span className={`avatar color-${i + 1}`}>
-                              {initials(child.name)}
-                            </span>
-                            <div>
-                              <h2>{child.name}</h2>
-                              <span>
-                                {child.level} · {household?.name}
-                              </span>
-                            </div>
-                          </div>
-                          <p className="simulation">
-                            DONNÉES DE PROGRESSION SIMULÉES
-                          </p>
-                          <div className="big-stat">
-                            {child.minutes}
-                            <small> min cette semaine</small>
-                          </div>
-                          <p>
-                            Thème exploré : <strong>{child.topic}</strong>
-                          </p>
-                          <div className="next-step">
-                            <Sprout size={20} />
-                            <span>
-                              Prochaine étape proposée :<br />
-                              <strong>
-                                Revenir sur une découverte ensemble.
-                              </strong>
-                            </span>
-                          </div>
-                          <p className="fine">
-                            Les réglages de durée et les révisions
-                            personnalisées arriveront avec les activités
-                            réelles.
-                          </p>
-                        </section>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </>
+            {section === "famille" && household && (
+              <FamilyOffice
+                hid={household.id}
+                role={household.role}
+                onProfileSaved={async () => {
+                  await loadSession();
+                  setAccounts(await api<Account[]>("/demo/accounts"));
+                }}
+              />
             )}
             {section === "reglages" && (
               <>
@@ -763,6 +701,11 @@ export default function App() {
                   }}
                 >
                   <h2>À ta façon</h2>
+                  <p>
+                    <a href="#famille">
+                      Gérer mon profil, mes documents et mes parties
+                    </a>
+                  </p>
                   <label className="field">
                     Comment veux-tu appeler Suzanne ?
                     <input

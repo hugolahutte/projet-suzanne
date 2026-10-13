@@ -71,10 +71,10 @@ test("adult: navigation, persistent preferences and goals, family, guided discov
   await login(page);
   await navigate(page, "Espace famille");
   await expect(
-    page.getByRole("heading", { name: "Noé", exact: true }),
+    page.locator(".family-member-list").getByRole("button", { name: /Noé/ }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Lila", exact: true }),
+    page.locator(".family-member-list").getByRole("button", { name: /Lila/ }),
   ).toBeVisible();
   await expect(page.getByText("Sami", { exact: true })).toHaveCount(0);
   await navigate(page, "Préférences");
@@ -175,9 +175,7 @@ test("child protection, responsive layout and accessibility", async ({
   });
   await page.goto("/#famille");
   await expect(
-    page.getByRole("heading", {
-      name: "Un espace réservé aux responsables légaux.",
-    }),
+    page.getByText("Ton responsable peut modifier ces informations."),
   ).toBeVisible();
   const response = await page.request.get("/api/households/horizon/dashboard");
   expect(response.status()).toBe(404);
@@ -201,10 +199,10 @@ test("second household and senior reading size", async ({ page }) => {
   ).toBe(true);
   await navigate(page, "Espace famille");
   await expect(
-    page.getByRole("heading", { name: "Sami", exact: true }),
+    page.locator(".family-member-list").getByRole("button", { name: /Sami/ }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Noé", exact: true }),
+    page.locator(".family-member-list").getByRole("button", { name: /Noé/ }),
   ).toHaveCount(0);
 });
 
@@ -283,6 +281,17 @@ test("capitales: two players receive five distinct questions and fair scores", a
     "Joueur 15 / 5",
     "Joueur 25 / 5",
   ]);
+  await page
+    .getByRole("button", { name: "Enregistrer le résultat", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("Résultat enregistré");
+  await navigate(page, "Espace famille");
+  await page
+    .getByRole("button", { name: "Parties enregistrées", exact: true })
+    .click();
+  await expect(page.locator(".family-document-list")).toContainText(
+    "Joueur 1 : 5/5",
+  );
 });
 
 test("petit bac: hidden turns and collective validation for four players", async ({
@@ -350,10 +359,16 @@ test("notebook persists privately, and live permission stays unavailable", async
     .click();
   await expect(page.getByRole("heading", { name: title })).toHaveCount(0);
   await navigate(page, "Espace famille");
+  await page
+    .getByRole("button", { name: "Budget & vidéo", exact: true })
+    .click();
   const allow = page.getByLabel("Autoriser le futur mode vidéo dans ce foyer");
   await allow.check();
   await expect(allow).toBeEnabled();
   await page.reload();
+  await page
+    .getByRole("button", { name: "Budget & vidéo", exact: true })
+    .click();
   await expect(allow).toBeChecked();
   await expect(
     page.getByText(/Le service vidéo n’est pas encore connecté/),
@@ -610,5 +625,230 @@ test("legacy appearance migrates and all three styles retain their chosen outfit
         expect(response.ok(), path).toBe(true);
         expect(response.headers()["content-type"]).toContain("image/png");
       }
+  }
+});
+
+test("family office edits profiles, imports and restores files, saves budget", async ({
+  page,
+}) => {
+  await login(page);
+  await navigate(page, "Espace famille");
+  await page
+    .locator(".family-member-list")
+    .getByRole("button", { name: /Noé/ })
+    .click();
+  const languages = page.getByLabel("Langues étudiées", { exact: true });
+  const original = await languages.inputValue();
+  await languages.fill("Anglais, espagnol");
+  await page
+    .getByRole("button", { name: "Enregistrer le profil", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("enregistré");
+  await page.reload();
+  await page
+    .locator(".family-member-list")
+    .getByRole("button", { name: /Noé/ })
+    .click();
+  await expect(languages).toHaveValue("Anglais, espagnol");
+  await languages.fill(original);
+  await page
+    .getByRole("button", { name: "Enregistrer le profil", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("enregistré");
+  await page.getByRole("button", { name: "Documents", exact: true }).click();
+  await page.getByLabel("Pour qui ?", { exact: true }).selectOption("noe");
+  const title = `[E2E] Bulletin fictif ${test.info().project.name} ${Date.now()}`;
+  await page.getByLabel("Titre du document", { exact: true }).fill(title);
+  await page.getByLabel("Fichier PDF ou image").setInputFiles({
+    name: "bulletin-fictif.pdf",
+    mimeType: "application/pdf",
+    buffer: Buffer.from("%PDF-1.4\n%%EOF"),
+  });
+  await page
+    .getByRole("button", { name: "Importer le document", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: title, exact: true }),
+  ).toBeVisible();
+  const row = page
+    .locator(".family-document-list article")
+    .filter({ has: page.getByRole("heading", { name: title, exact: true }) });
+  const download = page.waitForEvent("download");
+  await row.getByRole("link", { name: "Télécharger", exact: true }).click();
+  expect((await download).suggestedFilename()).toBe("bulletin-fictif.pdf");
+  await row
+    .getByRole("button", {
+      name: `Mettre à la corbeille ${title}`,
+      exact: true,
+    })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: title, exact: true }),
+  ).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "Ouvrir la corbeille", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: `Restaurer ${title}`, exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("restauré");
+  await page
+    .getByRole("button", { name: "Voir les documents", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: title, exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", {
+      name: `Mettre à la corbeille ${title}`,
+      exact: true,
+    })
+    .click();
+  await expect(page.getByRole("status")).toContainText("corbeille");
+  await page
+    .getByRole("button", { name: "Budget & vidéo", exact: true })
+    .click();
+  const total = page.getByLabel("Plafond total par mois (€)", { exact: true });
+  const video = page.getByLabel("Dont vidéo, au maximum (€)", { exact: true });
+  await expect(
+    page.getByRole("button", { name: "Enregistrer les plafonds", exact: true }),
+  ).toBeEnabled();
+  const oldTotal = await total.inputValue(),
+    oldVideo = await video.inputValue();
+  await total.fill("15");
+  await video.fill("5");
+  await page
+    .getByRole("button", { name: "Enregistrer les plafonds", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("enregistrés");
+  await page.reload();
+  await page
+    .getByRole("button", { name: "Budget & vidéo", exact: true })
+    .click();
+  await expect(total).toHaveValue("15");
+  await expect(video).toHaveValue("5");
+  await total.fill(oldTotal);
+  await video.fill(oldVideo);
+  await page
+    .getByRole("button", { name: "Enregistrer les plafonds", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("enregistrés");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  const audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(
+    audit.violations.map((v) => ({
+      id: v.id,
+      nodes: v.nodes.map((n) => n.target),
+    })),
+  ).toEqual([]);
+});
+
+test("family questions can be created, played, saved and archived", async ({
+  page,
+}) => {
+  await login(page);
+  await navigate(page, "Espace famille");
+  await page
+    .getByRole("button", { name: "Questions du quiz", exact: true })
+    .click();
+  const title = `[E2E ${test.info().project.name}] Combien font deux plus deux ?`;
+  await page.getByLabel("La question", { exact: true }).fill(title);
+  await page.getByLabel("Réponse attendue", { exact: true }).fill("4");
+  await page
+    .getByLabel("Explication après la réponse", { exact: true })
+    .fill("Deux paires forment quatre unités.");
+  await page
+    .getByRole("button", { name: "Enregistrer la question", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("Question enregistrée");
+  const seedIds: string[] = [];
+  const questionRows = await (
+    await page.request.get("/api/households/atelier/questions")
+  ).json();
+  const own = questionRows.find((q: { prompt: string }) => q.prompt === title);
+  seedIds.push(own.id);
+  try {
+    for (let i = 0; i < 4; i++) {
+      const res = await page.request.post("/api/households/atelier/questions", {
+        headers: { origin: "http://localhost:3000" },
+        data: {
+          prompt: `[E2E] Question fictive ${i}`,
+          answer: "4",
+          explanation: "Exemple de test.",
+          active: true,
+        },
+      });
+      expect(res.ok()).toBe(true);
+      seedIds.push((await res.json()).id);
+    }
+    await navigate(page, "Jeux");
+    await page.getByRole("button", { name: /Quiz du foyer/ }).click();
+    await expect(
+      page.getByRole("button", { name: "Commencer la partie", exact: true }),
+    ).toBeEnabled();
+    await page
+      .getByRole("button", { name: "Commencer la partie", exact: true })
+      .click();
+    for (let i = 0; i < 5; i++) {
+      await page
+        .getByRole("button", { name: "Je suis prêt", exact: true })
+        .click();
+      await page.getByLabel("Ta réponse", { exact: true }).fill("4");
+      await page
+        .getByRole("button", { name: "Vérifier ma réponse", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "Continuer", exact: true })
+        .click();
+    }
+    await expect(page.locator(".score-list")).toContainText("5 / 5");
+    await page
+      .getByRole("button", { name: "Enregistrer le résultat", exact: true })
+      .click();
+    await expect(page.getByRole("status")).toContainText("Résultat enregistré");
+    await navigate(page, "Espace famille");
+    await page
+      .getByRole("button", { name: "Parties enregistrées", exact: true })
+      .click();
+    await expect(page.locator(".family-document-list")).toContainText(
+      "Quiz du foyer",
+    );
+    await page
+      .getByRole("button", { name: "Questions du quiz", exact: true })
+      .click();
+    await page
+      .locator(".family-document-list article")
+      .filter({ hasText: title })
+      .getByRole("button", { name: "Modifier", exact: true })
+      .click();
+    await page
+      .getByRole("combobox", { name: "Disponibilité", exact: true })
+      .selectOption("archive");
+    await page
+      .getByRole("button", { name: "Enregistrer la question", exact: true })
+      .click();
+    await expect(page.getByRole("status")).toContainText(
+      "Question enregistrée",
+    );
+    await expect(
+      page.getByRole("heading", { name: title, exact: true }),
+    ).toHaveCount(0);
+  } finally {
+    const all = await (
+      await page.request.get("/api/households/atelier/questions")
+    ).json();
+    for (const q of all.filter((r: { id: string }) => seedIds.includes(r.id))) {
+      const { id, prompt, answer, explanation } = q;
+      await page.request.patch(`/api/households/atelier/questions/${id}`, {
+        headers: { origin: "http://localhost:3000" },
+        data: { prompt, answer, explanation, active: false },
+      });
+    }
   }
 });

@@ -231,3 +231,6 @@ def update_live_settings(hid: str, body: LiveUpdate, user: Principal, db: DB):
     settings.live_allowed = body.live_allowed
     db.commit()
     return live_settings(hid, user, db)
+
+from .family import router as family_router
+app.include_router(family_router)

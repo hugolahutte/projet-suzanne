@@ -1,4 +1,4 @@
-from sqlalchemy import String, ForeignKey, Integer, Boolean, UniqueConstraint, CheckConstraint
+from sqlalchemy import String, ForeignKey, Integer, Boolean, UniqueConstraint, CheckConstraint, LargeBinary
 from sqlalchemy.orm import Mapped, mapped_column
 from .db import Base
 
@@ -66,3 +66,52 @@ class HouseholdSettings(Base):
     __tablename__ = 'household_settings'
     household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), primary_key=True)
     live_allowed: Mapped[bool] = mapped_column(Boolean, default=False)
+
+class ProfileDetails(Base):
+    __tablename__ = 'profile_details'
+    user_id: Mapped[str] = mapped_column(ForeignKey('users.id'), primary_key=True)
+    school: Mapped[str] = mapped_column(String, default='')
+    school_year: Mapped[str] = mapped_column(String, default='')
+    languages: Mapped[str] = mapped_column(String, default='')
+    options: Mapped[str] = mapped_column(String, default='')
+    learning_notes: Mapped[str] = mapped_column(String, default='')
+
+class FamilyDocument(Base):
+    __tablename__ = 'family_documents'
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey('users.id'), index=True)
+    title: Mapped[str] = mapped_column(String)
+    kind: Mapped[str] = mapped_column(String)
+    subject: Mapped[str] = mapped_column(String)
+    school_year: Mapped[str] = mapped_column(String)
+    filename: Mapped[str] = mapped_column(String)
+    media_type: Mapped[str] = mapped_column(String)
+    size: Mapped[int] = mapped_column(Integer)
+    created_at: Mapped[int] = mapped_column(Integer)
+    deleted: Mapped[bool] = mapped_column(Boolean, default=False)
+    content: Mapped[bytes] = mapped_column(LargeBinary, deferred=True)
+
+class FamilyBudget(Base):
+    __tablename__ = 'family_budgets'
+    household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), primary_key=True)
+    monthly_cap_cents: Mapped[int] = mapped_column(Integer, default=0)
+    video_cap_cents: Mapped[int] = mapped_column(Integer, default=0)
+
+class GameResult(Base):
+    __tablename__ = 'game_results'
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey('users.id'), index=True)
+    kind: Mapped[str] = mapped_column(String)
+    results: Mapped[str] = mapped_column(String)
+    created_at: Mapped[int] = mapped_column(Integer)
+
+class FamilyQuestion(Base):
+    __tablename__ = 'family_questions'
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    household_id: Mapped[str] = mapped_column(ForeignKey('households.id'), index=True)
+    prompt: Mapped[str] = mapped_column(String)
+    answer: Mapped[str] = mapped_column(String)
+    explanation: Mapped[str] = mapped_column(String)
+    active: Mapped[bool] = mapped_column(Boolean, default=True)

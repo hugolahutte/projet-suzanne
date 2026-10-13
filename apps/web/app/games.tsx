@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { api } from "./api";
+import type { FamilyQuestion } from "./questions";
 import { GameCompanion } from "./wardrobe";
 import { Globe2, Pencil, ArrowRight, RotateCcw } from "lucide-react";
 
@@ -41,8 +43,27 @@ function shuffle<T>(items: T[]): T[] {
   }
   return result;
 }
-type Kind = "capitales" | "bac";
-export function Games() {
+type Kind = "capitales" | "bac" | "quiz";
+export function Games({ hid }: { hid: string }) {
+  const [gameId, setGameId] = useState("");
+  const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [questions, setQuestions] = useState<FamilyQuestion[]>([]);
+  const [questionsError, setQuestionsError] = useState("");
+  useEffect(() => {
+    let active = true;
+    api<FamilyQuestion[]>(`/households/${hid}/questions`)
+      .then((q) => {
+        if (active) setQuestions(q);
+      })
+      .catch((e) => {
+        if (active) setQuestionsError(e.message);
+      });
+    return () => {
+      active = false;
+    };
+  }, [hid]);
   const [kind, setKind] = useState<Kind>("capitales");
   const [players, setPlayers] = useState(1);
   const [names, setNames] = useState([
@@ -62,9 +83,13 @@ export function Games() {
   const [words, setWords] = useState<string[][]>([]);
   const [draft, setDraft] = useState(["", "", "", ""]);
   const [valid, setValid] = useState<boolean[][]>([]);
-  const finished = kind === "capitales" ? turn >= players * 5 : turn >= players;
+  const finished = kind !== "bac" ? turn >= players * 5 : turn >= players;
   const player = turn % players;
   function start() {
+    if (kind === "quiz" && questions.length < players * 5) return;
+    setGameId(crypto.randomUUID());
+    setSaved(false);
+    setSaveError("");
     setTurn(0);
     setScores([0, 0, 0, 0]);
     setAnswer("");
@@ -73,7 +98,13 @@ export function Games() {
     setValid([]);
     setDraft(["", "", "", ""]);
     setReady(false);
-    setDeck(shuffle(capitals));
+    setDeck(
+      shuffle(
+        kind === "quiz"
+          ? questions.map((q) => [q.prompt, q.answer, q.explanation])
+          : capitals,
+      ),
+    );
     setLetter(shuffle("ABCDEFGHLMPRSTV".split(""))[0]);
     setStarted(true);
   }
@@ -81,7 +112,9 @@ export function Games() {
     const correct = normalize(answer) === normalize(deck[turn][1]);
     if (correct) setScores((s) => s.map((n, i) => (i === player ? n + 1 : n)));
     setFeedback(
-      `${correct ? "Bien joué !" : "Une capitale à retenir :"} ${deck[turn][1]} est la capitale du pays suivant : ${deck[turn][0]}.`,
+      kind === "quiz"
+        ? `${correct ? "Bien joué !" : "À retenir :"} ${deck[turn][1]}. ${deck[turn][2] || ""}`
+        : `${correct ? "Bien joué !" : "Une capitale à retenir :"} ${deck[turn][1]} est la capitale du pays suivant : ${deck[turn][0]}.`,
     );
   }
   function saveWords() {
@@ -139,6 +172,21 @@ export function Games() {
               </p>
             </button>
           </div>
+          {questionsError && (
+            <p role="alert" className="error">
+              Le quiz du foyer est indisponible : {questionsError}
+            </p>
+          )}
+          <button
+            className="panel"
+            aria-pressed={kind === "quiz"}
+            onClick={() => setKind("quiz")}
+          >
+            <h2>Quiz du foyer</h2>
+            <p>
+              {questions.length} questions créées par les responsables du foyer.
+            </p>
+          </button>
           <form
             className="panel game-setup"
             onSubmit={(e) => {
@@ -176,12 +224,22 @@ export function Games() {
                 </label>
               ))}
             </div>
-            <button className="primary">
+            {kind === "quiz" && questions.length < players * 5 && (
+              <p role="status">
+                Ajoute au moins {players * 5} questions actives dans l’espace
+                famille pour jouer à {players}.
+              </p>
+            )}
+            <button
+              className="primary"
+              disabled={kind === "quiz" && questions.length < players * 5}
+            >
               Commencer la partie <ArrowRight size={18} />
             </button>
             <p className="fine">
-              Les prénoms et réponses restent dans cette partie et disparaissent
-              en quittant cet écran. Passez l’appareil entre les tours.
+              Les réponses restent dans cette partie. À la fin, tu peux
+              enregistrer les prénoms et les scores dans ton historique. Passez
+              l’appareil entre les tours.
             </p>
           </form>
           <div className="info-strip">
@@ -195,7 +253,9 @@ export function Games() {
             <span className="eyebrow">
               {kind === "capitales"
                 ? "LE TOUR DES CAPITALES"
-                : `PETIT BAC · LETTRE ${letter}`}
+                : kind === "quiz"
+                  ? "QUIZ DU FOYER"
+                  : `PETIT BAC · LETTRE ${letter}`}
             </span>
             <button className="text-button" onClick={() => setStarted(false)}>
               Quitter la partie
@@ -228,7 +288,7 @@ export function Games() {
                             <label key={c}>
                               <input
                                 type="checkbox"
-                                disabled={!starts}
+                                disabled={!starts || saved || saving}
                                 checked={valid[p][c]}
                                 onChange={(e) =>
                                   setValid(
@@ -262,29 +322,78 @@ export function Games() {
                   <p key={p}>
                     <strong>{name}</strong>
                     <span>
-                      {kind === "capitales"
+                      {kind !== "bac"
                         ? scores[p]
                         : categories.reduce(
                             (sum, _, c) => sum + wordScore(p, c),
                             0,
                           )}{" "}
-                      {kind === "capitales" ? "/ 5" : "points"}
+                      {kind !== "bac" ? "/ 5" : "points"}
                     </span>
                   </p>
                 ))}
               </div>
-              <button className="primary" onClick={start}>
+              <p className="fine">
+                Enregistre les prénoms et scores dans ton historique. Les
+                réponses détaillées ne sont pas conservées.
+              </p>
+              {saveError && (
+                <p role="alert" className="error">
+                  {saveError}
+                </p>
+              )}
+              {saved ? (
+                <p role="status">
+                  Résultat enregistré. <a href="#famille">Voir l’historique</a>
+                </p>
+              ) : (
+                <button
+                  className="secondary"
+                  disabled={saving}
+                  onClick={async () => {
+                    setSaving(true);
+                    setSaveError("");
+                    try {
+                      await api(`/households/${hid}/games`, {
+                        method: "POST",
+                        body: JSON.stringify({
+                          id: gameId,
+                          kind,
+                          players: names.slice(0, players).map((name, p) => ({
+                            name,
+                            score:
+                              kind !== "bac"
+                                ? scores[p]
+                                : categories.reduce(
+                                    (sum, _, c) => sum + wordScore(p, c),
+                                    0,
+                                  ),
+                          })),
+                        }),
+                      });
+                      setSaved(true);
+                    } catch (e) {
+                      setSaveError((e as Error).message);
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                >
+                  {saving ? "Enregistrement…" : "Enregistrer le résultat"}
+                </button>
+              )}
+              <button className="primary" disabled={saving} onClick={start}>
                 <RotateCcw size={16} /> Rejouer
               </button>
             </>
           ) : !ready ? (
             <>
               <span className="game-symbol">
-                {kind === "capitales" ? "✳" : letter}
+                {kind !== "bac" ? "✳" : letter}
               </span>
               <h2>À toi, {names[player]}.</h2>
               <p>
-                {kind === "capitales"
+                {kind !== "bac"
                   ? `Question ${Math.floor(turn / players) + 1} sur 5`
                   : "Trouve un mot par catégorie. Les autres réponses restent cachées jusqu’à la fin."}
               </p>
@@ -292,7 +401,7 @@ export function Games() {
                 Je suis prêt <ArrowRight size={17} />
               </button>
             </>
-          ) : kind === "capitales" ? (
+          ) : kind !== "bac" ? (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -303,7 +412,11 @@ export function Games() {
                 {names[player]} · Question {Math.floor(turn / players) + 1} sur
                 5
               </p>
-              <h2>Quelle est la capitale de ce pays ?</h2>
+              <h2>
+                {kind === "capitales"
+                  ? "Quelle est la capitale de ce pays ?"
+                  : "La question du foyer"}
+              </h2>
               <p className="country-name">{deck[turn][0]}</p>
               <label>
                 Ta réponse
