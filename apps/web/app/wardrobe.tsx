@@ -48,9 +48,34 @@ export const outfits = [
   },
 ] as const;
 type Outfit = (typeof outfits)[number]["id"];
-type Style = "toon" | "photo";
+export const styles = [
+  {
+    id: "real",
+    name: "Réaliste",
+    description: "Une présence naturelle",
+    detail: "Photo · proportions humaines",
+  },
+  {
+    id: "manga",
+    name: "Manga",
+    description: "Une héroïne dessinée",
+    detail: "Anime · proportions naturelles",
+  },
+  {
+    id: "sd",
+    name: "SD",
+    description: "Une complice miniature",
+    detail: "Chibi · tête expressive, petit corps",
+  },
+] as const;
+type Style = (typeof styles)[number]["id"];
+export function companionAsset(style: Style, outfit: Outfit) {
+  return style === "sd"
+    ? `/brand/suzanne-${outfit}.png`
+    : `/brand/styles/suzanne-${style}-${outfit}.png`;
+}
 type Look = { outfit: Outfit | "auto"; style: Style };
-const initial: Look = { outfit: "auto", style: "toon" };
+const initial: Look = { outfit: "auto", style: "sd" };
 export function seasonalOutfit(date = new Date()): Outfit {
   const month = Number(
     new Intl.DateTimeFormat("fr-FR", {
@@ -86,13 +111,20 @@ export function LookProvider({
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(key) ?? "null");
+      const style =
+        saved?.style === "toon"
+          ? "sd"
+          : saved?.style === "photo"
+            ? "real"
+            : saved?.style;
       if (
         saved &&
         (saved.outfit === "auto" ||
           outfits.some((o) => o.id === saved.outfit)) &&
-        ["toon", "photo"].includes(saved.style)
-      )
-        setLook(saved);
+        styles.some((s) => s.id === style)
+      ) {
+        setLook({ outfit: saved.outfit, style });
+      }
     } catch {
       /* A blocked or invalid local store keeps the default look. */
     }
@@ -130,6 +162,7 @@ export const useSuzanneLook = () => useContext(LookContext);
 export function Wardrobe() {
   const { look, current, update, saveError } = useSuzanneLook();
   const selected = outfits.find((o) => o.id === current)!;
+  const selectedStyle = styles.find((s) => s.id === look.style)!;
   return (
     <>
       <div className="page-heading wardrobe-heading">
@@ -142,77 +175,68 @@ export function Wardrobe() {
             Même curiosité. Nouveau look. Choisis la Suzanne qui t’accompagne.
           </p>
         </div>
-        <a className="pack-download" href="/brand/suzanne-pack-v1.zip" download>
+        <a className="pack-download" href="/brand/suzanne-pack-v2.zip" download>
           <ArrowDownToLine size={18} />
           Le pack graphique
         </a>
       </div>
-      <section className="wardrobe-stage" aria-label="Aperçu du look">
-        <div
-          className={`wardrobe-preview ${look.style === "photo" ? "photo-preview" : ""}`}
-          style={{ backgroundColor: selected.color }}
-        >
-          <span className="stage-spark spark-one" aria-hidden="true">
-            ✦
-          </span>
-          <span className="stage-spark spark-two" aria-hidden="true">
-            ✧
-          </span>
-          <Image
-            src={
-              look.style === "photo"
-                ? "/suzanne-portrait-v2.png"
-                : `/brand/suzanne-${current}.png`
-            }
-            alt={
-              look.style === "photo"
-                ? "Suzanne en portrait réaliste"
-                : `Suzanne en tenue ${selected.name}`
-            }
-            width={400}
-            height={600}
-            sizes="(max-width: 700px) 85vw, 400px"
-          />
-          <span className="outfit-label">
-            {look.style === "photo" ? "Le portrait original" : selected.name}
-          </span>
+      <fieldset className="style-collection">
+        <legend>Une Suzanne. Trois univers.</legend>
+        <p className="style-intro">
+          Même tenue, même personnage : choisis le style qui te plaît.
+        </p>
+        <div className="style-choices">
+          {styles.map((style) => (
+            <label
+              key={style.id}
+              className={`style-card ${look.style === style.id ? "selected" : ""}`}
+            >
+              <div
+                className="style-card-art"
+                style={{ backgroundColor: selected.color }}
+              >
+                <span className="style-chip">{style.name}</span>
+                <Image
+                  src={companionAsset(style.id, current)}
+                  alt=""
+                  width={400}
+                  height={600}
+                  sizes="(max-width: 600px) 85vw, 360px"
+                />
+              </div>
+              <div className="style-card-copy">
+                <span>
+                  <strong>{style.description}</strong>
+                  <small>{style.detail}</small>
+                </span>
+                <input
+                  type="radio"
+                  name="look-style"
+                  aria-label={style.name}
+                  checked={look.style === style.id}
+                  onChange={() => update({ ...look, style: style.id })}
+                />
+              </div>
+            </label>
+          ))}
         </div>
-        <div className="wardrobe-copy">
+      </fieldset>
+      <section
+        className="wardrobe-settings"
+        aria-label="Personnalisation du look"
+      >
+        <div>
           <span className="collection-tag">
             <Shirt size={16} />
-            COLLECTION 01
+            COLLECTION 02 · 15 DÉCLINAISONS
           </span>
-          <h2>
-            Elle a plus d’un tour
-            <br />
-            dans son vestiaire.
-          </h2>
+          <h2>Le style reste. La tenue change.</h2>
           <p>
-            Une touche de manga, une mèche rebelle et toujours cette envie de
-            découvrir. Suzanne change de tenue au fil de l’année — ou selon ton
-            humeur.
+            Réaliste, manga ou SD : les cinq saisons existent dans chaque
+            univers.
           </p>
-          <fieldset className="look-switch">
-            <legend>Le style de Suzanne</legend>
-            <label>
-              <input
-                type="radio"
-                name="look-style"
-                checked={look.style === "toon"}
-                onChange={() => update({ ...look, style: "toon" })}
-              />
-              Dessin animé
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="look-style"
-                checked={look.style === "photo"}
-                onChange={() => update({ ...look, style: "photo" })}
-              />
-              Portrait réaliste
-            </label>
-          </fieldset>
+        </div>
+        <div>
           <label className="season-toggle">
             <input
               type="checkbox"
@@ -228,41 +252,39 @@ export function Wardrobe() {
           </label>
           <p className="look-status" role="status">
             <Check size={16} />
-            {look.style === "photo"
-              ? "Portrait réaliste appliqué"
-              : `${selected.name} ${look.outfit === "auto" ? "· mode saisonnier" : "· tenue choisie"}`}
+            {selectedStyle.name} · {selected.name}{" "}
+            {look.outfit === "auto" ? "· mode saisonnier" : "· tenue choisie"}
           </p>
           <p className="fine">
-            Choix mémorisé pour ton profil sur cet appareil. Les tenues
-            s’appliquent à la version dessin animé. Toute la collection est
-            disponible, sans achat.
+            Choix mémorisé pour ton profil sur cet appareil. Toute la collection
+            est disponible, sans achat.
           </p>
           {saveError && <p role="alert">{saveError}</p>}
         </div>
       </section>
       <div className="section-heading">
         <h2>Une saison, une nouvelle aventure.</h2>
-        <span>5 tenues à essayer</span>
+        <span>5 tenues · style {selectedStyle.name}</span>
       </div>
       <div className="outfit-grid">
         {outfits.map((outfit, index) => (
           <button
-            className={`outfit-card ${current === outfit.id && look.style === "toon" ? "selected" : ""}`}
+            className={`outfit-card ${current === outfit.id ? "selected" : ""}`}
             key={outfit.id}
-            aria-pressed={current === outfit.id && look.style === "toon"}
-            onClick={() => update({ outfit: outfit.id, style: "toon" })}
+            aria-pressed={current === outfit.id}
+            onClick={() => update({ ...look, outfit: outfit.id })}
             aria-label={`Porter la tenue ${outfit.name}`}
           >
             <div className="outfit-art" style={{ background: outfit.color }}>
               <span className="outfit-number">0{index + 1}</span>
               <Image
-                src={`/brand/suzanne-${outfit.id}.png`}
+                src={companionAsset(look.style, outfit.id)}
                 alt=""
                 width={240}
                 height={360}
                 sizes="(max-width: 600px) 45vw, 220px"
               />
-              {current === outfit.id && look.style === "toon" && (
+              {current === outfit.id && (
                 <span className="outfit-check">
                   <Check size={17} />
                 </span>
@@ -284,10 +306,10 @@ export function Wardrobe() {
           <span className="eyebrow">À EMPORTER PARTOUT</span>
           <h2>Un petit bout du club.</h2>
           <p>
-            Logo, emblème, icônes et stickers de Suzanne : le premier pack pour
-            donner vie à son univers.
+            Les logos du club et les quinze déclinaisons de Suzanne, réunis dans
+            un même pack : réaliste, manga et SD.
           </p>
-          <a href="/brand/suzanne-pack-v1.zip" download className="primary">
+          <a href="/brand/suzanne-pack-v2.zip" download className="primary">
             <ArrowDownToLine size={18} />
             Télécharger le pack
           </a>
@@ -304,11 +326,11 @@ export function Wardrobe() {
 }
 
 export function GameCompanion() {
-  const { current } = useSuzanneLook();
+  const { look, current } = useSuzanneLook();
   return (
     <Image
       className="game-companion"
-      src={`/brand/suzanne-${current}.png`}
+      src={companionAsset(look.style, current)}
       alt=""
       width={150}
       height={225}

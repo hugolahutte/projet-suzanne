@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useSuzanneLook, outfits } from "./wardrobe";
+import { useSuzanneLook, outfits, styles, companionAsset } from "./wardrobe";
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, Square } from "lucide-react";
 
@@ -11,23 +11,17 @@ export function SuzannePortrait({
 }) {
   const [animated, setAnimated] = useState(false);
   const { look, current } = useSuzanneLook();
-  const cartoon = publicWelcome || look.style === "toon";
+  const style = publicWelcome ? "sd" : look.style;
   const outfit = publicWelcome ? "rentree" : current;
   return (
     <div
-      className={`suzanne-presence ${cartoon ? "toon-presence" : "photo-presence"} ${animated ? "is-animated" : ""} ${publicWelcome ? "public-portrait" : ""}`}
+      className={`suzanne-presence toon-presence style-${style} ${animated ? "is-animated" : ""} ${publicWelcome ? "public-portrait" : ""}`}
     >
       <Image
-        src={
-          cartoon ? `/brand/suzanne-${outfit}.png` : "/suzanne-portrait-v2.png"
-        }
-        alt={
-          cartoon
-            ? `Suzanne en dessin animé, tenue ${outfits.find((o) => o.id === outfit)?.name}`
-            : "Suzanne, personnage fictif créé par IA, aux cheveux roux"
-        }
+        src={companionAsset(style, outfit)}
+        alt={`Suzanne, personnage fictif, style ${styles.find((s) => s.id === style)?.name}, tenue ${outfits.find((o) => o.id === outfit)?.name}`}
         width={640}
-        height={640}
+        height={960}
         sizes="(max-width: 760px) 90vw, 440px"
         preload
       />

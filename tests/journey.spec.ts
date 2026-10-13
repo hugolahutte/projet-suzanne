@@ -472,14 +472,38 @@ test("wardrobe persists per profile, updates the welcome and supports seasonal m
     /Noël/,
   );
   await navigate(page, "Vestiaire");
-  await page.getByLabel("Portrait réaliste", { exact: true }).check();
-  await navigate(page, "Accueil");
-  await expect(page.locator(".welcome-photo img")).toHaveAttribute(
-    "alt",
-    /personnage fictif/,
-  );
-  await navigate(page, "Vestiaire");
-  await page.getByLabel("Dessin animé", { exact: true }).check();
+  for (const [style, label] of [
+    ["real", "Réaliste"],
+    ["manga", "Manga"],
+    ["sd", "SD"],
+  ]) {
+    await page.getByRole("radio", { name: label, exact: true }).check();
+    await page.reload();
+    await expect(
+      page.getByRole("radio", { name: label, exact: true }),
+    ).toBeChecked();
+    await expect(
+      page.getByRole("button", { name: "Porter la tenue Noël" }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await navigate(page, "Accueil");
+    await expect(page.locator(".welcome-photo img")).toHaveAttribute(
+      "alt",
+      new RegExp(`style ${label}, tenue Noël`),
+    );
+    await expect(page.locator(".welcome-photo .suzanne-presence")).toHaveClass(
+      new RegExp(`style-${style}`),
+    );
+    await navigate(page, "Jeux");
+    const expectedAsset =
+      style === "sd"
+        ? "/brand/suzanne-noel.png"
+        : `/brand/styles/suzanne-${style}-noel.png`;
+    await expect(page.locator(".game-companion")).toHaveAttribute(
+      "src",
+      new RegExp(encodeURIComponent(expectedAsset)),
+    );
+    await navigate(page, "Vestiaire");
+  }
   await page.getByLabel("Au rythme des saisons").check();
   await expect(page.getByRole("status")).toContainText("mode saisonnier");
   expect(
@@ -500,7 +524,7 @@ test("wardrobe persists per profile, updates the welcome and supports seasonal m
   await page
     .getByRole("link", { name: "Le pack graphique", exact: true })
     .click();
-  expect((await download).suggestedFilename()).toBe("suzanne-pack-v1.zip");
+  expect((await download).suggestedFilename()).toBe("suzanne-pack-v2.zip");
 });
 
 test("navigation search, active destination, history and mobile menu are usable", async ({
@@ -536,4 +560,55 @@ test("navigation search, active destination, history and mobile menu are usable"
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(search).toBeFocused();
+});
+
+test("legacy appearance migrates and all three styles retain their chosen outfit", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const key = "suzanne:look:v1:camille";
+    if (!localStorage.getItem(key))
+      localStorage.setItem(
+        key,
+        JSON.stringify({ style: "photo", outfit: "noel" }),
+      );
+  });
+  await login(page);
+  await navigate(page, "Vestiaire");
+  await expect(
+    page.getByRole("radio", { name: "Réaliste", exact: true }),
+  ).toBeChecked();
+  await expect(
+    page.getByRole("button", { name: "Porter la tenue Noël" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("radio", { name: "Manga", exact: true }).check();
+  await page.getByRole("button", { name: "Porter la tenue Halloween" }).click();
+  await page.reload();
+  await expect(
+    page.getByRole("radio", { name: "Manga", exact: true }),
+  ).toBeChecked();
+  await expect(
+    page.getByRole("button", { name: "Porter la tenue Halloween" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  for (const img of await page.locator(".style-card-art img").all()) {
+    await expect
+      .poll(() =>
+        img.evaluate(
+          (el: HTMLImageElement) => el.complete && el.naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
+  }
+  if (test.info().project.name === "desktop") {
+    for (const style of ["real", "manga", "sd"])
+      for (const outfit of ["rentree", "halloween", "noel", "hiver", "ete"]) {
+        const path =
+          style === "sd"
+            ? `/brand/suzanne-${outfit}.png`
+            : `/brand/styles/suzanne-${style}-${outfit}.png`;
+        const response = await page.request.get(path);
+        expect(response.ok(), path).toBe(true);
+        expect(response.headers()["content-type"]).toContain("image/png");
+      }
+  }
 });

@@ -1,0 +1,10 @@
+SUZANNE — PACK GRAPHIQUE V2
+
+15 déclinaisons du même personnage fictif : réaliste, manga et SD (chibi).
+Chaque style comprend rentrée, Halloween, Noël, hiver et été.
+3 logos : clair, sombre et emblème.
+Ouvrir index.html pour voir la galerie, sans serveur.
+Les PNG ont un fond transparent, sauf le logo sur fond sombre.
+Prompts de génération : prompts.json (SD et logos), styles/prompts.json (réaliste et manga).
+Ces images sont des illustrations fixes ; la vidéo parlante n'est pas incluse.
+Aucune donnée personnelle ou scolaire n'est contenue dans ce pack.
