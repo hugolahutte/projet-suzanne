@@ -187,21 +187,18 @@ export default function App() {
     );
   if (!me)
     return (
-      <main className="login-page">
-        <div className="login-story">
+      <main className="entry-page">
+        <header className="entry-header">
           <Brand />
+          <span>La curiosité n’a pas d’âge.</span>
+        </header>
+        <div className="entry-story">
           <PublicWelcome />
-          <p className="fine">
-            Une IA pédagogique, au service de ton autonomie.
-          </p>
         </div>
-        <section className="login-panel">
-          <span className="pill">
-            <span className="dot" />
-            Bienvenue dans ton espace local
-          </span>
-          <h2>Ton espace. Tes envies.</h2>
-          <p className="muted">Choisis ton profil pour retrouver Suzanne.</p>
+        <section className="entry-panel" aria-labelledby="entry-title">
+          <span className="entry-kicker">À CHACUN SON AVENTURE</span>
+          <h2 id="entry-title">On commence ?</h2>
+          <p className="muted">Choisis ton profil. La suite t’appartient.</p>
           <div className="family-tabs" aria-label="Choix du foyer">
             {[...new Set(accounts.map((a) => a.household))].map((f) => (
               <button
@@ -276,7 +273,7 @@ export default function App() {
                   Mot de passe commun : <code>{demoPassword}</code>
                 </>
               ) : (
-                "Le mot de passe de ton essai est conservé dans le dossier privé local. Il n’est pas publié."
+                "Ton mot de passe protège l’accès à ton espace familial."
               )}
             </p>
             {error && (
@@ -310,15 +307,15 @@ export default function App() {
                   Aucune donnée familiale réelle dans ces profils fictifs.
                 </>
               ) : (
-                <>
-                  Ton foyer de test est conservé sur cet ordinateur.
-                  <br />
-                  Ses profils sont exclus du dépôt Git.
-                </>
+                <>Ton espace familial reste privé, sur cet ordinateur.</>
               )}
             </p>
           </div>
         </section>
+        <footer className="entry-footer">
+          <span>Un peu chaque jour. Beaucoup à découvrir.</span>
+          <span>Démo locale · IA pédagogique</span>
+        </footer>
       </main>
     );
 

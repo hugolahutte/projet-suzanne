@@ -8,7 +8,16 @@ import {
   defaultStyle,
 } from "./wardrobe";
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause, Volume2, Square } from "lucide-react";
+import {
+  Play,
+  Pause,
+  Volume2,
+  Square,
+  BookOpen,
+  Compass,
+  Dices,
+  Sparkles,
+} from "lucide-react";
 
 export function SuzannePortrait({
   publicWelcome = false,
@@ -110,23 +119,44 @@ export function PublicWelcome() {
   const text =
     "Bonjour, moi c’est Suzanne. Je t’accompagne pour apprendre, découvrir et jouer, à tout âge. Choisis ton profil, et on commence ensemble.";
   return (
-    <div className="login-copy public-welcome">
-      <SuzannePortrait publicWelcome />
-      <div className="public-intro">
-        <span className="eyebrow">APPRENDRE. EXPLORER. GRANDIR.</span>
+    <div className="entry-welcome">
+      <div className="entry-intro">
+        <span className="entry-kicker">TA CURIOSITÉ A DE LA COMPAGNIE</span>
         <h1>
-          Bonjour, moi c’est Suzanne<span>.</span>
+          Bonjour,
+          <br />
+          moi c’est <em>Suzanne.</em>
         </h1>
         <p>
-          Un coup de pouce pour tes cours. Une découverte inattendue. Un jeu en
-          famille. On commence par quoi ?
-        </p>
-        <SpeechButton text={text} />
-        <p className="presence-note">
-          Une complice pour les grandes questions et les petites victoires. Voix
-          de ton appareil · vidéo parlante à venir.
+          Un déclic pour tes cours, une découverte pour toi, un défi à partager.
+          On apprend mieux ensemble.
         </p>
       </div>
+      <div className="entry-scene">
+        <div className="entry-orbit" aria-hidden="true" />
+        <span className="entry-sticker sticker-question">
+          <Sparkles size={17} /> Et si on essayait ?
+        </span>
+        <SuzannePortrait publicWelcome />
+        <span className="entry-sticker sticker-play">
+          <Dices size={19} /> À toi de jouer !
+        </span>
+      </div>
+      <div className="entry-voice">
+        <SpeechButton text={text} />
+        <span>Faisons connaissance</span>
+      </div>
+      <ul className="entry-promises" aria-label="Avec Suzanne">
+        <li>
+          <BookOpen size={17} /> Apprendre
+        </li>
+        <li>
+          <Compass size={17} /> Découvrir
+        </li>
+        <li>
+          <Dices size={17} /> Jouer ensemble
+        </li>
+      </ul>
     </div>
   );
 }
