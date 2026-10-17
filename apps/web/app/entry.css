@@ -232,6 +232,9 @@
 .entry-panel .profile-grid {
   gap: 10px;
 }
+.entry-panel > .muted + form {
+  margin-top: 24px;
+}
 .entry-panel .profile-option {
   padding: 18px 8px 15px;
   min-height: 156px;

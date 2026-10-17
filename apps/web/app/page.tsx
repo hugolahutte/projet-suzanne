@@ -45,6 +45,7 @@ export default function App() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [family, setFamily] = useState("Famille Atelier");
+  const [demoMode, setDemoMode] = useState(false);
   const [selected, setSelected] = useState("camille");
   const [password, setPassword] = useState(demoPassword);
   const [lesson, setLesson] = useState<string | null>(null);
@@ -69,8 +70,19 @@ export default function App() {
     async function start() {
       try {
         const available = await api<Account[]>("/demo/accounts");
-        setAccounts(available);
-        const first = available.find((a) => !a.demo) ?? available[0];
+        // Fixture households are selectable only in the explicit test entry.
+        const testing =
+          new URLSearchParams(window.location.search).get("demo") === "1";
+        setDemoMode(testing);
+        const candidates = testing
+          ? available.filter((a) => a.demo)
+          : available;
+        const first = candidates.find((a) => !a.demo) ?? candidates[0];
+        setAccounts(
+          testing
+            ? candidates
+            : candidates.filter((a) => a.household === first?.household),
+        );
         if (first) {
           setFamily(first.household);
           setSelected(first.id);
@@ -199,24 +211,26 @@ export default function App() {
           <span className="entry-kicker">À CHACUN SON AVENTURE</span>
           <h2 id="entry-title">On commence ?</h2>
           <p className="muted">Choisis ton profil. La suite t’appartient.</p>
-          <div className="family-tabs" aria-label="Choix du foyer">
-            {[...new Set(accounts.map((a) => a.household))].map((f) => (
-              <button
-                key={f}
-                aria-pressed={family === f}
-                onClick={() => {
-                  setFamily(f);
-                  const first = accounts.find((a) => a.household === f);
-                  if (first) {
-                    setSelected(first.id);
-                    setPassword(first.demo ? demoPassword : "");
-                  }
-                }}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
+          {demoMode && (
+            <div className="family-tabs" aria-label="Choix du foyer">
+              {[...new Set(accounts.map((a) => a.household))].map((f) => (
+                <button
+                  key={f}
+                  aria-pressed={family === f}
+                  onClick={() => {
+                    setFamily(f);
+                    const first = accounts.find((a) => a.household === f);
+                    if (first) {
+                      setSelected(first.id);
+                      setPassword(first.demo ? demoPassword : "");
+                    }
+                  }}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+          )}
           <form onSubmit={login}>
             <fieldset className="profile-grid">
               <legend className="sr-only">Ton profil</legend>

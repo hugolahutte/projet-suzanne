@@ -36,6 +36,8 @@ Docker n'était pas disponible sur la machine de réalisation : l'exécution Com
 
 Mot de passe commun prérempli : **`Suzanne-demo-2026!`**. Ces identifiants sont publics et réservés à la démonstration. Ils ne constituent pas un contrôle parental utilisable par une vraie famille.
 
+L’accueil affiche uniquement les profils du premier foyer local importé (ou du premier foyer fictif si aucun import n’existe). Le sélecteur de familles fictives est réservé à l’entrée de test **http://localhost:3000/?demo=1** ; cette entrée masque les profils importés. Il s’agit d’une simplification de l’interface locale, pas d’un mécanisme d’autorisation supplémentaire.
+
 | Foyer | Profils | Rôles |
 |---|---|---|
 | Atelier | Camille, 39 ans ; Gabriel, 41 ans ; Noé, 12 ans ; Lila, 7 ans | Camille responsable de Noé et Lila ; Gabriel adulte apprenant ; deux enfants |

@@ -1,7 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 async function login(page: Page, name = "Camille") {
-  await page.goto("/");
+  await page.goto("/?demo=1");
   await page
     .getByRole("button", { name: "Famille Atelier", exact: true })
     .click();
@@ -253,7 +253,7 @@ test("child protection, responsive layout and accessibility", async ({
 });
 
 test("second household and senior reading size", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/?demo=1");
   await page
     .getByRole("button", { name: "Famille Horizon", exact: true })
     .click();
@@ -514,6 +514,15 @@ test("private local profile selection never prefills the demo password", async (
     route.fulfill({
       json: [
         {
+          id: "fixture-example",
+          name: "Profil démo",
+          email: "fixture-example@local.invalid",
+          age: 40,
+          role: "guardian",
+          household: "Foyer démo fictif",
+          demo: true,
+        },
+        {
           id: "local-example",
           name: "Profil test",
           email: "local-example@local.invalid",
@@ -522,17 +531,34 @@ test("private local profile selection never prefills the demo password", async (
           household: "Foyer local fictif",
           demo: false,
         },
+        {
+          id: "local-other",
+          name: "Autre profil privé",
+          email: "local-other@local.invalid",
+          age: 35,
+          role: "guardian",
+          household: "Autre foyer fictif",
+          demo: false,
+        },
       ],
     }),
   );
   await page.goto("/");
   await expect(page.getByRole("radio", { name: /Profil test/ })).toBeChecked();
+  await expect(page.getByRole("radio")).toHaveCount(1);
+  await expect(page.locator(".family-tabs")).toHaveCount(0);
   await expect(
     page.getByLabel("Mot de passe local", { exact: true }),
   ).toHaveValue("");
   await expect(
     page.getByText("Suzanne-demo-2026!", { exact: true }),
   ).toHaveCount(0);
+  await page.goto("/?demo=1");
+  await expect(page.getByRole("radio", { name: /Profil démo/ })).toBeChecked();
+  await expect(page.getByRole("radio")).toHaveCount(1);
+  await expect(
+    page.getByLabel("Mot de passe de démonstration", { exact: true }),
+  ).toHaveValue("Suzanne-demo-2026!");
 });
 
 test("wardrobe persists per profile, updates the welcome and supports seasonal mode", async ({
