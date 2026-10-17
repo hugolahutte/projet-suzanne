@@ -1,0 +1,33 @@
+SUZANNE — LE CLUB DES CURIEUX
+Pack graphique 01 · 12 octobre 2026
+
+CONTENU
+• Suzanne en dessin animé SD : rentrée, Halloween, Noël, hiver, été.
+• Logo horizontal aubergine, variante claire pour fond sombre, emblème étincelle.
+• Galerie index.html à ouvrir dans un navigateur.
+• Prompts de création dans prompts.json.
+
+Les personnages, le logo principal et l’emblème ont un fond transparent.
+L’édition du logo sur fond sombre possède un fond aubergine opaque.
+Les tenues sont des illustrations fixes. L'app ajoute une animation CSS
+facultative ; il ne s'agit ni d'une vidéo parlante, ni d'un rig d'animation.
+Assets générés avec l'outil intégré Imagegen. Personnage fictif original.
+Aucune donnée, photo ou document familial dans ce pack.
+
+DIRECTION GRAPHIQUE
+Aubergine #35264C : typographie, navigation, contours.
+Lilas #E6D7F5 : univers de Suzanne.
+Jaune #FFF0BC : jeux et moments partagés.
+Cuivre #C96131 : cheveux et accents.
+Ivoire #FFF8E9 : contrastes doux.
+
+Le motif commun est l'étincelle de curiosité. La mèche en boucle,
+les cheveux roux, les yeux verts et les taches de rousseur restent
+constants d'une tenue à l'autre. Conserver les proportions des logos,
+leur laisser de l'espace et ne pas étirer les illustrations.
+
+SAISONS DANS L'APPLICATION
+Octobre : Halloween. Décembre : Noël. Janvier-février : hiver.
+Juin-août : été. Les autres mois : rentrée / tenue quotidienne.
+Calendrier Europe/Paris, choix modifiable dans le vestiaire.
+Le choix est local à chaque profil et appareil, pas encore synchronisé.

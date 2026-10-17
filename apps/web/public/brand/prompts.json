@@ -1,0 +1,27 @@
+{
+  "tool": "Built-in image_gen",
+  "base": "Use case: stylized-concept. Asset type: production transparent mascot for Suzanne, a lifelong learning and family games app. Create one original fictional young adult redheaded woman as a charming super-deformed chibi manga game companion, full body centered with generous empty margins. Oversized head, tiny body, clever emerald eyes, warm copper bob with one distinctive curled forelock, freckles, confident mischievous friendly smile. Bold clean dark aubergine outlines, flat cel shading, premium collectible sticker quality, clear readable silhouette. She wears an oversized lilac varsity sweatshirt with a small four-point star patch, midnight purple shorts, cream chunky sneakers, carrying one small notebook. One hand welcoming wave. Colorful and witty, appealing to teenagers and adults, not toddler clipart. Actual transparent background. No text, no watermark, no scenery, no other characters. Entire head and shoes visible.",
+  "logo": "Use case: logo-brand. Create ONE polished playful logo lockup for \"suzanne\" (exact lowercase text, no other text). Landscape wide compact composition on actual transparent background with generous margins. A bold custom rounded lowercase wordmark in deep aubergine purple, distinctive chunky letterforms with slightly playful tilt and excellent legibility. At the left a very simple four-point yellow spark with dark aubergine outline and two tiny friendly expressive eyes; the spark is the recognizable curiosity emblem. Warm cream highlight, small copper-orange accent, premium modern indie-game/learning-club brand. Flat vector-like hard-edge style, no 3D, no mockup, no extra icons, no hairline details, no frame. Teen-friendly and collectible, confident not babyish.",
+  "seasonal": [
+    [
+      "halloween",
+      "a playful aubergine witch hat, lilac cape, orange sweater, dark trousers and chunky sneakers, holding a small smiling pumpkin. A delighted mischievous expression."
+    ],
+    [
+      "noel",
+      "a red wool beanie with cream pompom, red and cream winter sweater with a simple star, forest green trousers and cozy boots, holding one wrapped present. A joyful grin."
+    ],
+    [
+      "ete",
+      "a sunny yellow bucket hat, cream t-shirt with a small lilac star, loose lilac shorts, sneakers and a little crossbody bag, sunglasses on hat, holding an ice cream. A cheerful wink."
+    ],
+    [
+      "hiver",
+      "a teal puffer jacket, lilac knitted scarf and beanie, cream mittens, dark trousers and snow boots, holding a tiny snowball. A playful smile."
+    ]
+  ],
+  "notes": "Seasonal variants use the base mascot as an identity reference. Logo variants use the original generated wordmark as reference. All assets generated on 2026-10-12.",
+  "seasonalTemplate": "Use case: identity-preserve. Create ONE full-body transparent collectible game mascot asset, a seasonal outfit variant of the attached Suzanne. Preserve exactly her copper bob, distinctive curled forelock, green eyes, freckles, proportions and bold cel-shaded chibi manga illustration style. Replace the outfit and prop only: {outfit}. Keep the entire head, hat and feet visible with generous transparent margins. No scenery, no text, no shadow backdrop, actual transparent background. Same character identity, same illustration quality. This will be one selectable outfit in a learning game.",
+  "emblem": "Create the compact app emblem variant of this Suzanne logo. Keep only the exact same yellow four-point spark with its expressive two eyes and orange accent marks. Remove the entire wordmark. Center the emblem large on a square actual transparent canvas with 15% margin all sides. Preserve its distinctive silhouette, yellow/cream colors, deep aubergine bold outline, eye style. No text. This is a standalone app icon and sticker.",
+  "darkLogo": "Create a dark-background edition of this Suzanne wordmark. One horizontal logo on a completely solid deep aubergine #35264C background (opaque, no transparency). Retain the distinctive rounded lowercase spelling suzanne and spark emblem. Letters are warm cream #FFF8E9, spark yellow with orange accents, edges crisp and clean. No texture, no grunge, no shadows, no gradients, no specks, no extra text. Wide composition with generous margins."
+}

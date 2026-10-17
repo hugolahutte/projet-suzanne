@@ -1,0 +1,60 @@
+# Suzanne — routage, ressources et vidéo
+
+Décision mise à jour le 13 octobre 2026 : OpenRouter retenu pour le pilote texte. La configuration livrée reste désactivée ; un pilote local peut être activé avec des secrets non versionnés. `ai.py` implémente désormais le transport HTTP, les autorisations et le registre budgétaire. L’espace « Avec Suzanne » propose une question indépendante à la fois, sans historique transmis ni documents joints.
+
+## Activation du pilote texte
+
+1. Choisir et évaluer un modèle et un endpoint précis compatibles avec ZDR, sans outils ni surcoût par requête. Les plafonds de routage sont 0,50 USD/M tokens en entrée et 2 USD/M en sortie, 600 tokens de sortie maximum. Ce sont des limites acceptées, pas les tarifs d’un modèle recommandé. Ne pas utiliser de suffixe activant une recherche web ou de preset ajoutant des outils.
+2. Après accord sur les dépenses, privilégier une clé dédiée avec un plafond côté OpenRouter et recharge automatique désactivée. Configurer aussi les politiques de confidentialité du compte. [Contrôles de dépense officiels](https://openrouter.ai/docs/guides/best-practices/spend-controls).
+3. Dans `.env` ignoré par Git : renseigner `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, `OPENROUTER_PROVIDER`. Mettre `OPENROUTER_ACCOUNT_CAP_CONFIRMED=true` seulement après vérification du plafond chez OpenRouter, puis `OPENROUTER_ENABLED=true`. Ce drapeau atteste une vérification manuelle, il ne configure pas le compte fournisseur. Redémarrer l’API via `scripts/dev.sh`. La clé n’est jamais affichée dans le navigateur.
+4. Dans « Famille → Budget & vidéo », choisir le plafond approuvé puis autoriser explicitement le dialogue. Une clé seule ou un plafond seul ne l’active pas. Vidéo et voix personnalisée restent déconnectées.
+
+Pour un essai de développement explicitement autorisé sans plafond fournisseur, `APP_ENV=local` et `OPENROUTER_ALLOW_LOCAL_CAP_ONLY=true` constituent une alternative au drapeau de confirmation. Laisser `OPENROUTER_ACCOUNT_CAP_CONFIRMED=false` : aucun plafond fournisseur n’est attesté. Le budget interne, les réservations atomiques, les permissions et le blocage des coûts ambigus restent obligatoires. Cette exception ne s’applique ni en environnement `test` ni en production. Elle ne couvre pas les autres applications utilisant la même clé.
+
+Le serveur sérialise l’admission par foyer et réserve une provision persistante avant l’appel. Un UUID empêche de facturer à nouveau la même demande après perte de réponse. Aucun retry automatique ni repli sur un autre modèle/fournisseur. Une demande en cours empêche une seconde admission pour ce foyer. Les erreurs, coûts manquants ou réponses invalides gardent la provision et suspendent les nouveaux appels, y compris après redémarrage ou changement de mois. Un administrateur doit comparer la demande avec l’activité OpenRouter avant toute réconciliation manuelle ; aucune remise à zéro automatique d’un incident n’est proposée.
+
+Le registre conserve identifiant, propriétaire, mois Europe/Paris, empreinte HMAC de la question, réponse, provision et coût USD fourni. Il ne conserve pas la question en clair et ne transmet ni nom, ni dossier scolaire, ni profil complet : seulement le texte saisi et une tranche d’âge. Les réponses sont privées et rejouées uniquement au même compte. Le stockage local des réponses n’est pas encore doté d’une interface d’effacement.
+
+La provision utilise une borne UTF-8 des tokens d’entrée avec marge de cadrage, la sortie maximale, les plafonds de prix et un facteur prudent de **1,50 EUR/USD**. Ce facteur n’est pas un cours de change. La provision entière reste comptée même si le coût réel est inférieur ; un coût supérieur suspend le foyer. Le compteur est donc une enveloppe technique conservatrice, **pas une facture TTC** : taxes et frais de paiement sont exclus et un plafond fournisseur reste recommandé en complément, notamment pour les usages de la clé hors de Suzanne. Le budget n’est pas rechargé par cette application. [Usage comptabilisé par OpenRouter](https://openrouter.ai/docs/cookbook/administration/usage-accounting).
+
+Tests automatiques avec transport simulé, complétés par un essai local autorisé sur des questions fictives de fractions, latin et contexte absent. Modèle du pilote : `google/gemini-2.5-flash-lite`, endpoint `google-vertex/eu` présent dans le catalogue ZDR lors de la vérification. Ces contrôles ponctuels ne constituent pas une évaluation pédagogique exhaustive ni une validation de résidence des données ou de facture TTC. Une évaluation structurée de réponses pour enfants et la validation du choix à plus grande échelle restent à faire. Un essai sur les phases lunaires a produit une formulation imprécise sur l’ombre : la qualité scientifique ne doit pas être considérée comme validée par le seul succès des appels HTTP. Le mode zéro rétention demandé ne constitue pas à lui seul une garantie de résidence européenne.
+
+## Architecture retenue
+
+1. Logique locale : scores des jeux, filtres de programmes, objectifs et navigation. Coût IA nul.
+2. Jev pour classer une demande courte ou choisir une action pédagogique bornée. Pas d’appel Jev sur un bouton dont l’intention est déjà connue. Une incertitude conduit à clarifier ; une sortie du modèle ne peut jamais donner un droit d’accès ou activer une dépense.
+3. Un modèle génératif explicitement choisi via OpenRouter pour expliquer, dialoguer, adapter un exercice. Pas de modèle coûteux sélectionné automatiquement. Le nom du modèle restera à fixer après essais pédagogiques et vérification de ses prix.
+
+Jev est un modèle de décisions structurées, pas un générateur de conversation. Il retourne Choice, Score ou Noul avec probabilités/confiance. Sources officielles : [TypeSafe, introduction](https://docs.typesafe.ai/introduction), [requêtes et réponses](https://docs.typesafe.ai/introduction/quickstart).
+
+Une seule clé OpenRouter peut donner accès à Jev et aux modèles génératifs : [Jev sur OpenRouter](https://openrouter.ai/docs/guides/community/jev), [SDK TypeSafe via OpenRouter](https://openrouter.ai/docs/guides/community/typesafe-sdk). Le contrat utilise `https://openrouter.ai/api/v1/systemone`, modèle `typesafe/jev-1.13`. Pour un accès direct TypeSafe ultérieur : `https://api.typesafe.ai/v1/systemone`, modèle `jev-1.13.0`, clé distincte. Les versions devront être revérifiées à l’activation.
+
+Le contrat chat utilise `/api/v1/chat/completions`, un modèle figurant dans une liste autorisée, 4 000 caractères de demande maximum, 600 tokens de sortie, aucun repli automatique et des plafonds de tarif par million de tokens. `data_collection: deny`, `zdr: true` et `require_parameters: true` sont demandés ; si aucun endpoint ne les satisfait, le transport refuse sans affaiblir ces conditions. Ces paramètres chat ne sont pas ajoutés arbitrairement au schéma System One : ses garanties de rétention devront être vérifiées séparément. [Documentation officielle du routage](https://openrouter.ai/docs/guides/routing/provider-selection).
+
+## Conditions avant le premier essai payant
+
+- Accord sur le fournisseur et le budget, clé serveur dans un secret local (jamais `NEXT_PUBLIC_*`, Git ou navigateur).
+- Contrôles du compte fournisseur à vérifier ; compteur durable implémenté avec provisions conservatrices et arrêt au plafond. Les plafonds de tarif du contrat ne sont PAS un plafond de dépense mensuelle.
+- Transport HTTP à délai borné, sans retry facturant implicite, gestion des erreurs sans fuite de données ; tests avec mocks puis essai autorisé à faible budget.
+- Adaptation à l’âge, corpus officiel correctement sélectionné, réponses sourcées, évaluation de l’exactitude et des comportements pédagogiques. Jev ne remplace ni les permissions ni l’évaluation des réponses.
+- Minimisation du contexte : ne jamais envoyer tout un foyer, des notes ou des livres par défaut. Le carnet actuel n’est envoyé à aucun fournisseur.
+
+L’accueil actuel compose un message à partir du prénom fictif, du surnom de Suzanne et du nombre d’objectifs en cours. Il est lu sur action de l’utilisateur par `speechSynthesis`, avec une voix française locale si disponible, sinon la voix fournie par le navigateur. Il ne s’agit pas d’une voix personnalisée ni d’un dialogue généré. Le texte reste utilisable sans audio.
+
+## Notes, devoirs et livres
+
+Disponible : carnet personnel persistant, types livre / note / devoir, titre, matière ou auteur, observations, suppression. Accès limité au propriétaire et au foyer dans chaque requête ; un parent n’accède pas implicitement au carnet privé d’un enfant.
+
+Les imports privés PDF/JPEG/PNG et leurs quotas sont disponibles. À développer : OCR, affichage de la copie et validation de la transcription (notes, barème, annotations), puis extraction de points à retravailler. Connexion scolaire selon le fournisseur et ses possibilités officielles ; ne pas demander les identifiants scolaires tant que le connecteur n’est pas défini. Livres : métadonnées d’abord, extraits et fichiers autorisés ensuite, références de pages et progression. Aucun fichier scolaire réel ni scan de jeu ne doit entrer dans le dépôt public.
+
+## Suzanne live
+
+Disponible : préférence `live_allowed` par foyer, désactivée par défaut, modification exclusivement par responsable légal authentifié. La réponse serveur annonce toujours `available: false` et `provider_ready: false` tant que le service vidéo n’existe pas. Aucun micro ni caméra ouvert.
+
+Le futur service doit exiger simultanément autorisation du foyer à chaque session, fournisseur configuré, budget disponible, action explicite de l’utilisateur et connexion Wi-Fi satisfaisante. La seule valeur navigateur `effectiveType: 4g` ne prouve pas le Wi-Fi. Safari ne fournit pas toujours cette information : prévoir confirmation du réseau par l’utilisateur + mesure réseau bornée et signaler ce qui n’est pas vérifiable. Si une condition manque, proposer texte/audio. Recontrôler à la reprise, couper à la révocation/épuisement du budget et prévoir retour audio si dégradation. L’API d’avatar vidéo, sa voix, ses tarifs et sa politique de données restent à sélectionner et approuver.
+
+## Jeux
+
+Disponible : capitales (20 questions originales, cinq par joueur sans répétition dans une partie), petit bac (une manche, catégories prénom/pays/animal/objet, validation collective explicite puis calcul 10 unique / 5 partagé / 0 refusé). 1–4 personnes sur un appareil ; pas encore de jeu en réseau. Réponses et prénoms conservés uniquement dans l’état de la partie.
+
+Chili Quiz d’Antonin Boccara, édité par Prétexte, a été identifié. Son principe de quiz en équipes avec contestation/bluff est décrit par [Philibert](https://www.philibertnet.com/fr/pretexte/179502-chili-quiz-3770024165098.html) et [Esprit Jeu](https://www.espritjeu.com/chili-quiz.html). Le site [Prétexte](https://pretexte.co/) consulté n’expose pas la notice : la notice complète n’a donc pas été vérifiée. Attendre le scan de l’utilisateur pour confirmer les règles et préciser la variante souhaitée. Les scans pourront servir de références privées ; construire des questions originales pour Suzanne, sans publier les cartes commerciales dans le dépôt.

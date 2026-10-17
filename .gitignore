@@ -1,0 +1,18 @@
+node_modules/
+.next/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.db
+*.db-*
+.env*
+!.env.example
+*.tsbuildinfo
+playwright-report/
+test-results/
+.DS_Store
+coverage/
+artifacts/
+# Private local test profiles and credentials; never commit family information.
+.local/

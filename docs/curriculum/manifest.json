@@ -1,0 +1,1496 @@
+[
+  {
+    "id": "cycle-3-base-2023",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/programme-d-enseignement-du-cycle-3-2023-100806.pdf",
+    "path": "docs/curriculum/sources/cycle-3-base-2023.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1464182,
+    "sha256": "879251a7b7b6dbf63cc982b6b3684e33c51c0661bbac190e381490c9d61aad0f"
+  },
+  {
+    "id": "cycle-3-francais-2025",
+    "url": "https://www.education.gouv.fr/sites/default/files/programme-de-fran-ais-pour-le-cycle-3-439824.pdf",
+    "path": "docs/curriculum/sources/cycle-3-francais-2025.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 342501,
+    "sha256": "e7c27f55c212b5ebb92ba8b60b6b1b0761a2301e7c0d0d780171c4cfb6e121ae"
+  },
+  {
+    "id": "cycle-3-mathematiques-2025",
+    "url": "https://www.education.gouv.fr/sites/default/files/programme-de-math-matiques-pour-le-cycle-3-439827.pdf",
+    "path": "docs/curriculum/sources/cycle-3-mathematiques-2025.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 527151,
+    "sha256": "f3f79a75ca8be7f54409b8b7cee3eafd769c23d12e6c822a253454e2c703b508"
+  },
+  {
+    "id": "cycle-4-base-2020",
+    "url": "https://cache.media.education.gouv.fr/file/31/89/1/ensel714_annexe3_1312891.pdf",
+    "path": "docs/curriculum/sources/cycle-4-base-2020.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1781682,
+    "sha256": "16efa795f59f25f726e3f443934198e22c01fad04e1ba78a01ed10a11a3a14eb"
+  },
+  {
+    "id": "cycle-4-francais-2026",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%201%20%E2%80%93%20Programme%20de%20fran%C3%A7ais%20pour%20le%20cycle%204-480713.pdf",
+    "path": "docs/curriculum/sources/cycle-4-francais-2026.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 231143,
+    "sha256": "19359a2d376f73f4d41ceb1098bff9ea4f69ab2abb63dc486e67ea30cd338187"
+  },
+  {
+    "id": "cycle-4-mathematiques-2026",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%202%20%E2%80%93%20Programme%20de%20math%C3%A9matiques%20pour%20le%20cycle%204-480716.pdf",
+    "path": "docs/curriculum/sources/cycle-4-mathematiques-2026.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 405199,
+    "sha256": "e20a05da6c68a08c4487fc63a3345c902f5249b4bf6e950765bfb9c2da0aadb9"
+  },
+  {
+    "id": "cycle-4-technologie-2024",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%94%20Programme%20de%20technologie%20du%20cycle%204-368016.pdf",
+    "path": "docs/curriculum/sources/cycle-4-technologie-2024.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 448106,
+    "sha256": "60ed416d187fe449ca2639bc0efe289af61d88a32b618e05f5e5ee7dd08a4086"
+  },
+  {
+    "id": "anglais-college-2025",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-3-programme-d-anglais-pour-les-classes-de-coll-ge-440358.pdf",
+    "path": "docs/curriculum/sources/anglais-college-2025.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1539169,
+    "sha256": "2484ed439d3dc22aeba62f266f6de69f84d0ae563e64054e4bba2bb2c4735a6f"
+  },
+  {
+    "id": "anglais-lycee-2025",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-4-programme-d-anglais-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440361.pdf",
+    "path": "docs/curriculum/sources/anglais-lycee-2025.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1661778,
+    "sha256": "eb42345a501efd6f7ace66b71b28f4a48918a7327c61da6d0fca8929008275d7"
+  },
+  {
+    "id": "emc-2024",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%94%20Programme%20d%E2%80%99enseignement%20moral%20et%20civique%20du%20cours%20pr%C3%A9paratoire%20%C3%A0%20la%20classe%20terminale%20des%20voies%20g%C3%A9n%C3%A9rale,%20technologique%20et%20professionnelle%20et%20des%20classes%20pr%C3%A9parant%20au%20CAP-402159.pdf",
+    "path": "docs/curriculum/sources/emc-2024.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1219253,
+    "sha256": "0f28566133a4d9b8a3da3ee5648fd3f2c1915fe25bea4d05aa8b9894a1544761"
+  },
+  {
+    "id": "evar-elementaire-2025",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Programme%20d%E2%80%99%C3%A9ducation%20%C3%A0%20la%20vie%20affective%20et%20relationnelle%20%C3%A0%20l%E2%80%99%C3%A9cole%20%C3%A9l%C3%A9mentaire-405261.pdf",
+    "path": "docs/curriculum/sources/evar-elementaire-2025.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 233541,
+    "sha256": "d4e5425df3e36312a9d02a331acf9db08fa97619e18bfcbb0307afe22b8ee0fc"
+  },
+  {
+    "id": "evars-college-2025",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Programme%20d%E2%80%99%C3%A9ducation%20%C3%A0%20la%20vie%20affective%20et%20relationnelle,%20et%20%C3%A0%20la%20sexualit%C3%A9%20au%20coll%C3%A8ge-405264.pdf",
+    "path": "docs/curriculum/sources/evars-college-2025.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 238326,
+    "sha256": "050b18155057cf836f42f199435d98eea36ba6e87439f593247f56c402edad5f"
+  },
+  {
+    "id": "lca-seconde-2019",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe579annexe1corr1063701pdf-83511.pdf",
+    "path": "docs/curriculum/sources/lca-seconde-2019.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 245144,
+    "sha256": "402b08c27a63379e1853bd2cd9333780243fa072c5cdcad8a7bc27ce87c5a30b"
+  },
+  {
+    "id": "lca-premiere-2019",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe579annexe21062855pdf-83514.pdf",
+    "path": "docs/curriculum/sources/lca-premiere-2019.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 241895,
+    "sha256": "24d81768b4f2b2ec77c055cc55eaa33ae0b4e5c30f17d8f1c7e41cf87deb6fe2"
+  },
+  {
+    "id": "lca-terminale-2019",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe267annexe1158694pdf-83517.pdf",
+    "path": "docs/curriculum/sources/lca-terminale-2019.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 251110,
+    "sha256": "57d6d1676ddeb4853908cf83f9eb7fb68dcd6b70e7e37404b01a109f6839a45b"
+  },
+  {
+    "id": "llca-premiere-2019",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe582annexe1063148pdf-83520.pdf",
+    "path": "docs/curriculum/sources/llca-premiere-2019.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 244246,
+    "sha256": "c3175c7723073513aa2378fdc9d996e8dec12a766a0ca39a00f2c5288caed120"
+  },
+  {
+    "id": "llca-terminale-2019",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe257annexe1158895pdf-83523.pdf",
+    "path": "docs/curriculum/sources/llca-terminale-2019.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 204588,
+    "sha256": "3b279de72abb23ec7849facabd56b9c025cf53dd25cfcd3bae75835af7737f10"
+  },
+  {
+    "id": "evars-lycee-2025",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Programme%20d%E2%80%99%C3%A9ducation%20%C3%A0%20la%20vie%20affective%20et%20relationnelle,%20et%20%C3%A0%20la%20sexualit%C3%A9%20au%20lyc%C3%A9e-405267.pdf",
+    "path": "docs/curriculum/sources/evars-lycee-2025.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 219606,
+    "sha256": "919e1f1d080c1c8df940aa4162c54c89499e98e4da0b51f2db7ce6e571062c2d"
+  },
+  {
+    "id": "fca-6e-2021",
+    "url": "https://cache.media.education.gouv.fr/file/27/33/5/ensel785_annexe_1415335.pdf",
+    "path": "docs/curriculum/sources/fca-6e-2021.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 3449027,
+    "sha256": "b8d0180c2869061a3e221f3557d607216c2b922945713a5c34de12f37f9451b9"
+  },
+  {
+    "id": "llcer-anglais-premiere-2019",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe590annexe222-11063850pdf-83328.pdf",
+    "path": "docs/curriculum/sources/llcer-anglais-premiere-2019.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 304340,
+    "sha256": "6bea5a9796f09e1523b69396345c8c7bd3b77e538aef80a83da707ef017f2032"
+  },
+  {
+    "id": "llcer-anglais-terminale-2019",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe256annexe21158999pdf-83364.pdf",
+    "path": "docs/curriculum/sources/llcer-anglais-terminale-2019.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 451310,
+    "sha256": "95aad1778b4c1887608055a24f8bcb5791e9cbf6f026f8d6e2a7da2d0d4aef90"
+  },
+  {
+    "id": "llcer-anglais-premiere-oeuvres-2025",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/programmelimitatif1rellcerrs2025et2026anglaispdf-112110.pdf",
+    "path": "docs/curriculum/sources/llcer-anglais-premiere-oeuvres-2025.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 117023,
+    "sha256": "e825d8a9e8437295fd72ea6f5e393badc5627aa04632b642816addf973d06472"
+  },
+  {
+    "id": "llcer-anglais-terminale-oeuvres-2026",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/nsproglimitatifterminalellcerrs2026et2027annexe2-anglais-eduscolpdf-127244.pdf",
+    "path": "docs/curriculum/sources/llcer-anglais-terminale-oeuvres-2026.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 108761,
+    "sha256": "63468d6f463cda509b3134dfa96492f602a5038a7be4f11369838ba3dcbad56b"
+  },
+  {
+    "id": "llcer-amc-premiere-2020",
+    "url": "https://cache.media.education.gouv.fr/file/30/41/0/ensel287_annexe_1313410.pdf",
+    "path": "docs/curriculum/sources/llcer-amc-premiere-2020.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 133491,
+    "sha256": "ef095932cccde869e68140d0fb45b279d48505cfa3974d9c01781b18ebb7dcfa"
+  },
+  {
+    "id": "llcer-amc-terminale-2020",
+    "url": "https://cache.media.education.gouv.fr/file/30/42/0/ensel292_annexe_1313420.pdf",
+    "path": "docs/curriculum/sources/llcer-amc-terminale-2020.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 165491,
+    "sha256": "2d593db306d8cb68d7846a2b33955d7689bf55cc15aae7362e7299949feabd72"
+  },
+  {
+    "id": "official-ea9c612b5c2d",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe577annexe1corr1063699pdf-83007.pdf",
+    "path": "docs/curriculum/sources/official-ea9c612b5c2d.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 301826,
+    "sha256": "50b511d556a7ed0c77f3c586582ac495b4d6092601984c2cfd12a470d5e04031"
+  },
+  {
+    "id": "official-f98ec152d83b",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe577annexe21062939pdf-83010.pdf",
+    "path": "docs/curriculum/sources/official-f98ec152d83b.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 261596,
+    "sha256": "4eac6d80fabcfe1fc56d01d97fcf399c251501eab9034176b6c2eb316c434919"
+  },
+  {
+    "id": "official-d8a1ecf38f2e",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe243annexe11159172pdf-83013.pdf",
+    "path": "docs/curriculum/sources/official-d8a1ecf38f2e.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 354916,
+    "sha256": "5139f5575b64ae7542dd7b52e191cdf2e9d0ada74a4214fd86a3587fbfd2f0c0"
+  },
+  {
+    "id": "official-43655f01f973",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe577annexe31062941pdf-83016.pdf",
+    "path": "docs/curriculum/sources/official-43655f01f973.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 231759,
+    "sha256": "a288fe8b982827d02adcf3dce69a291ff91c24d963e49d1f152a994d2ceca172"
+  },
+  {
+    "id": "official-d059d38bd88f",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe243annexe21159174pdf-83019.pdf",
+    "path": "docs/curriculum/sources/official-d059d38bd88f.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 322396,
+    "sha256": "c2eccccaa1113c97750878935c46ebfe4da42b8d3f3d358b92b8d582d72cabec"
+  },
+  {
+    "id": "official-dbc26ece0a56",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe641annexe1063085pdf-83091.pdf",
+    "path": "docs/curriculum/sources/official-dbc26ece0a56.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 319291,
+    "sha256": "e63f639d9597f31a868b6279ca4fc743f2824018218c34bde82d7c568a00e4ce"
+  },
+  {
+    "id": "official-fef3381f7320",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe566annexe1corr1063693pdf-83187.pdf",
+    "path": "docs/curriculum/sources/official-fef3381f7320.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 505700,
+    "sha256": "2a1674035611a3ff78cdb136e23d650e867c5f01098ecd15bafea15c20e657e3"
+  },
+  {
+    "id": "official-17d7f7ac0b61",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe566annexe2corr1063695pdf-83190.pdf",
+    "path": "docs/curriculum/sources/official-17d7f7ac0b61.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 469990,
+    "sha256": "2b7b89b5ac4794716bc38bef88c18c2cc23194ceea985df0b9c24934cccc5857"
+  },
+  {
+    "id": "official-c8a50d5a69bf",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe263annexe1159154pdf-83193.pdf",
+    "path": "docs/curriculum/sources/official-c8a50d5a69bf.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 535421,
+    "sha256": "5725be9827e383b5221b23d1c2381469a9b8ec70c71cf23129198e683d2e0a9e"
+  },
+  {
+    "id": "official-a1e86d354db9",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe567annexe22-11063846pdf-83196.pdf",
+    "path": "docs/curriculum/sources/official-a1e86d354db9.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 653185,
+    "sha256": "371d0c82ed1f47614ee9cbfdaa86cfb4add1f239a84882d9731fbd125105925d"
+  },
+  {
+    "id": "official-ca792be2a761",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe245annexe1159026pdf-83199.pdf",
+    "path": "docs/curriculum/sources/official-ca792be2a761.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 521545,
+    "sha256": "52eb0164aba6f0bb08039149177fed22307cf8fb0fec153f3a5abb6a50fa6e3f"
+  },
+  {
+    "id": "official-f53453b7d33a",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-spe-adc-tleg-annee2026-2027pdf-125600.pdf",
+    "path": "docs/curriculum/sources/official-f53453b7d33a.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 76386,
+    "sha256": "133215ffc4cf52a504dcb0fa1cac813e4864935ba6362d7e06a6153ee9390325"
+  },
+  {
+    "id": "official-43a302005be6",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-spe-cav-tleg-annee2026-2027pdf-125606.pdf",
+    "path": "docs/curriculum/sources/official-43a302005be6.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 156120,
+    "sha256": "c335759cfecc3dec6c23431616cea4bc89a5a571e11f0e4735822dc426edb93d"
+  },
+  {
+    "id": "official-e6313dccf19a",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-spe-danse-1reg-rs2026ettlegrs2027pdf-125609.pdf",
+    "path": "docs/curriculum/sources/official-e6313dccf19a.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 84810,
+    "sha256": "15eccf1f8b3091dd60b52b2d0914a63b08bb5cb17cd858be40acb407646c71c7"
+  },
+  {
+    "id": "official-266bd088164e",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-opt-hida-1regtrs2026pdf-125591.pdf",
+    "path": "docs/curriculum/sources/official-266bd088164e.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 158283,
+    "sha256": "88c96c09e1f71237f0132fb29caebe2dde1efa173d28cad4948b8bd9586e0137"
+  },
+  {
+    "id": "official-6aff4cd24791",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-spe-hida-tlegrs2026pdf-125612.pdf",
+    "path": "docs/curriculum/sources/official-6aff4cd24791.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 60457,
+    "sha256": "fc90ce3840614f93aa006dfda0fc8457227110f1c5d6113ed057020dd0160bdd"
+  },
+  {
+    "id": "official-0726c3208bd4",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-opt-musique-1re-tlegtannee2026-2027pdf-125594.pdf",
+    "path": "docs/curriculum/sources/official-0726c3208bd4.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 79817,
+    "sha256": "93734517e4ad09d3d132e1a0607d8fc80538d94aa0390da618e15a60984bf07a"
+  },
+  {
+    "id": "official-3732fad73bbb",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-spe-musique-tlegannee2026-2027pdf-125615.pdf",
+    "path": "docs/curriculum/sources/official-3732fad73bbb.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 119071,
+    "sha256": "34718ea99e46c989b682d14c24653710e609869481daf623e22dc8e109d32bf2"
+  },
+  {
+    "id": "official-f32edfd5a832",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-opt-theatre-tlegtannee2026-2027pdf-125597.pdf",
+    "path": "docs/curriculum/sources/official-f32edfd5a832.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 42190,
+    "sha256": "15da53104e3aecf6fc5d9037c9e6bc2e67980f741c2d601da8427abbdf122969"
+  },
+  {
+    "id": "official-f447a869f35d",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-spe-theatre-tlegannee2026-2027pdf-125618.pdf",
+    "path": "docs/curriculum/sources/official-f447a869f35d.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 71256,
+    "sha256": "d17c28f297e6c30c75d58af317448a43aab94be209bab72df7a3bb8ddd938074"
+  },
+  {
+    "id": "official-a8e1c1a0631a",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe568annexe1062455pdf-82686.pdf",
+    "path": "docs/curriculum/sources/official-a8e1c1a0631a.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 297793,
+    "sha256": "0be0b0fdb56dc43184c39f7fe14d57d02a476bc4f5e3b5a9177ddf28b2416967"
+  },
+  {
+    "id": "official-1832bca5aaf0",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe645annexe11063584pdf-82689.pdf",
+    "path": "docs/curriculum/sources/official-1832bca5aaf0.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 429075,
+    "sha256": "d7e1759c4ffcc3a4920f9d4474dc24cb94359e55110a1c29e7fc187042d7a7dd"
+  },
+  {
+    "id": "official-d59130c3d209",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe645annexe222-11063862pdf-82692.pdf",
+    "path": "docs/curriculum/sources/official-d59130c3d209.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 456013,
+    "sha256": "18aa40aa5d1edc2f16b89942977e1e720c6ce386e23ac2010e60ac3362d8c96a"
+  },
+  {
+    "id": "official-c33dd3c2eec5",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe645annexe422-11063866pdf-82695.pdf",
+    "path": "docs/curriculum/sources/official-c33dd3c2eec5.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 404425,
+    "sha256": "95c2136960602d83c393fb2c779a55077da5992ace8e5a28ead5c115f5d139c1"
+  },
+  {
+    "id": "official-0bc684c3da5f",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe645annexe322-11063864pdf-82698.pdf",
+    "path": "docs/curriculum/sources/official-0bc684c3da5f.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 600930,
+    "sha256": "ea20ffd9f3e952215c8eef5351d0270bf2dfdfbfc43a540fefe11f1357078354"
+  },
+  {
+    "id": "official-df5f97a38ffd",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe260annexe21159165pdf-82701.pdf",
+    "path": "docs/curriculum/sources/official-df5f97a38ffd.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 757939,
+    "sha256": "e046e66d420541c2cca3fe7809e1dac03c8e105bc3ae937045bf0fdecc48f5cc"
+  },
+  {
+    "id": "official-7bbca5a5dbe0",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe260annexe31159167pdf-82704.pdf",
+    "path": "docs/curriculum/sources/official-7bbca5a5dbe0.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 469746,
+    "sha256": "6a4e9ac308d03294bf2cd59cbe829cce41fd2912eca5f3bbeafa2430e96959c6"
+  },
+  {
+    "id": "official-5194b09b3414",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe260annexe11159163pdf-82707.pdf",
+    "path": "docs/curriculum/sources/official-5194b09b3414.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 541731,
+    "sha256": "8c206f7143c667f43bdcb4ad5bff04ec0de9417f50847730b01810c569898c32"
+  },
+  {
+    "id": "official-c4e09cb34f66",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe569annexe1062482pdf-84402.pdf",
+    "path": "docs/curriculum/sources/official-c4e09cb34f66.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 246000,
+    "sha256": "0f72373c923e5e053a323132d9c62812fca7c9a521b645f34002166d35b5c114"
+  },
+  {
+    "id": "official-dc817c1c4b60",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe643annexe31063620pdf-84405.pdf",
+    "path": "docs/curriculum/sources/official-dc817c1c4b60.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 310621,
+    "sha256": "6d5ae8e1d2972cd658e2ae3eeeac57dfe2f9dcd1313c3669e3b18536eafb37eb"
+  },
+  {
+    "id": "official-b83976591cf0",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe643annexe222-11063860pdf-84408.pdf",
+    "path": "docs/curriculum/sources/official-b83976591cf0.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 184606,
+    "sha256": "894a0abfb369a133327697df30a46bceceed62eecc66ece982a706fe7c23d69f"
+  },
+  {
+    "id": "official-9a4a7b35e934",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe643annexe11063858pdf-84411.pdf",
+    "path": "docs/curriculum/sources/official-9a4a7b35e934.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 260907,
+    "sha256": "2b27e6d1915bfd96921c1432534b3d69dc2e72009a4d1cdf21969bd87189bbf0"
+  },
+  {
+    "id": "official-206acdd4a29f",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe570annexe1062531pdf-84504.pdf",
+    "path": "docs/curriculum/sources/official-206acdd4a29f.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 182914,
+    "sha256": "a1912c81f955c71319613cdfa0cd9aff1f2230294dc4e4fa2d97889e179312de"
+  },
+  {
+    "id": "official-513449f39289",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe591annexe11063610pdf-84507.pdf",
+    "path": "docs/curriculum/sources/official-513449f39289.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 694051,
+    "sha256": "3bce6b16a11212c4d7109092208192ef3136e5c086c11bd3834949dae73c5ff3"
+  },
+  {
+    "id": "official-3faafd415984",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe591annexe222-11063856pdf-84510.pdf",
+    "path": "docs/curriculum/sources/official-3faafd415984.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 564386,
+    "sha256": "b244f70da586a12b698d83df558741e3e060ea27606c6463ab3b38b82961e957"
+  },
+  {
+    "id": "official-4ecfcd32c036",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe261annexe1158935pdf-84513.pdf",
+    "path": "docs/curriculum/sources/official-4ecfcd32c036.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 639602,
+    "sha256": "9827a07fefd9c196160ab320207e4676d580f9300fe54647ac37a178056438ef"
+  },
+  {
+    "id": "official-17306404da25",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel795annexe1160992pdf-82836.pdf",
+    "path": "docs/curriculum/sources/official-17306404da25.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 321772,
+    "sha256": "ac96ed6b8a5210baba5ea1bb63b6904628411c694622c46783e6b8e80bdc06b8"
+  },
+  {
+    "id": "official-4e99d169aa5d",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel792annexe11160985pdf-82839.pdf",
+    "path": "docs/curriculum/sources/official-4e99d169aa5d.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 275069,
+    "sha256": "e444bca18fcdc01d2812ee78e0a807e80741582cacbfc72a96413c5bc694af4c"
+  },
+  {
+    "id": "official-805a5a6ceadc",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel792annexe21160987pdf-82842.pdf",
+    "path": "docs/curriculum/sources/official-805a5a6ceadc.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 544012,
+    "sha256": "5d5ec2767ce9daed3c270a55be860198e089ed6fe4fe72c9b9ea93024e45c9fa"
+  },
+  {
+    "id": "official-22886a8d4d4f",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe629annexe1062556pdf-84597.pdf",
+    "path": "docs/curriculum/sources/official-22886a8d4d4f.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 271743,
+    "sha256": "7aa02f96c61010e5eca200c017a73960cd240962a55cc9aab31818c8a571815a"
+  },
+  {
+    "id": "official-89b60cb0eefc",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe646annexe31063606pdf-84600.pdf",
+    "path": "docs/curriculum/sources/official-89b60cb0eefc.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 320235,
+    "sha256": "0958329b557aacc8db928ee4b6751da1f3b02e8aa507fe3f00b2efad8b09e5c8"
+  },
+  {
+    "id": "official-30c2f7418739",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe646annexe21063602pdf-84603.pdf",
+    "path": "docs/curriculum/sources/official-30c2f7418739.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 275876,
+    "sha256": "30b4721c959817d5735143c8ae1819c16e1e8f30822629f2b5594f96099e554f"
+  },
+  {
+    "id": "official-9da48d5601ed",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe646annexe122-11063868pdf-84606.pdf",
+    "path": "docs/curriculum/sources/official-9da48d5601ed.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 284296,
+    "sha256": "79257cd0989d5e2f874879e0f66e71cd68aca0b8ec42d0851c3d50ce5267c8e0"
+  },
+  {
+    "id": "official-95e9de0d824c",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe262annexe21159141pdf-84609.pdf",
+    "path": "docs/curriculum/sources/official-95e9de0d824c.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 638670,
+    "sha256": "d3a8ffdba6b96080b0866bc2290406ea81c420dff56b042987c9604fdf022fd7"
+  },
+  {
+    "id": "official-ffb0e03275ed",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe262annexe11159139pdf-84612.pdf",
+    "path": "docs/curriculum/sources/official-ffb0e03275ed.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 407777,
+    "sha256": "8470dd0d8145103788f674f4777f6097f6ee71d0941cfc29fbb6228e50267e98"
+  },
+  {
+    "id": "official-8ad543f5a1cd",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe642annexe11063551pdf-82500.pdf",
+    "path": "docs/curriculum/sources/official-8ad543f5a1cd.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 258332,
+    "sha256": "180da15944b05620a0ac52f43114f1d884f3c5a51f8caa49edf6570476586f63"
+  },
+  {
+    "id": "official-16bdb2a4fa65",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe642annexe21063553pdf-82503.pdf",
+    "path": "docs/curriculum/sources/official-16bdb2a4fa65.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 471246,
+    "sha256": "fa79435f1f88d14dba36107394d42b1cdc6f0a98e21d3df76ef7134c8b6aebee"
+  },
+  {
+    "id": "official-5ee4e5baa337",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe642annexe31063555pdf-82506.pdf",
+    "path": "docs/curriculum/sources/official-5ee4e5baa337.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 194060,
+    "sha256": "6a87dabbeebdd35025b7e839545552d3b0a3fd155779473372e5e4c736c7e9b6"
+  },
+  {
+    "id": "official-02990539b849",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe258annexe11159196pdf-82509.pdf",
+    "path": "docs/curriculum/sources/official-02990539b849.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 543661,
+    "sha256": "2c3b0bed5cac0678a08d9e3c25f68ba4e607d995a40ab549a7a5a870fae7538c"
+  },
+  {
+    "id": "official-db1942ecfc63",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe258annexe21159198pdf-82512.pdf",
+    "path": "docs/curriculum/sources/official-db1942ecfc63.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 276515,
+    "sha256": "110927ea81b43ebb987e06b70f088929a06cee360a9e994184162e8e553163d0"
+  },
+  {
+    "id": "official-649177d357cd",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe640annexe1063436pdf-82092.pdf",
+    "path": "docs/curriculum/sources/official-649177d357cd.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 314532,
+    "sha256": "158d751dda6c5fb891a7b9292dd6406e34e890a303a0de9728ee8911eb290feb"
+  },
+  {
+    "id": "official-e00f607c1418",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe269annexe1159036pdf-82095.pdf",
+    "path": "docs/curriculum/sources/official-e00f607c1418.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 438484,
+    "sha256": "1e42ebf9a204cebba79bb1707dd004110173ccd8ceaaf5a035be135ae565a07e"
+  },
+  {
+    "id": "official-56c28fa8e1a8",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/03-ensel3256annexesciences409815pdf-83676.pdf",
+    "path": "docs/curriculum/sources/official-56c28fa8e1a8.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 213572,
+    "sha256": "a085d636ae6d888930da48acd17a3757a7afcab083ea4ca9a1af047e32ca10ce"
+  },
+  {
+    "id": "official-5e281daf3c68",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe644annexe1063511pdf-84147.pdf",
+    "path": "docs/curriculum/sources/official-5e281daf3c68.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 378395,
+    "sha256": "2e4cf73987c49c22f5b699c772f594025281fab42157604e5c5bec797dc10803"
+  },
+  {
+    "id": "official-64c65881677e",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/01-ensel3256annexeeco-gestion409811pdf-83682.pdf",
+    "path": "docs/curriculum/sources/official-64c65881677e.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 213724,
+    "sha256": "a3f98f55caf830dd35308f493d091f3a35449a7a6e978a877e5f9c20efaa5dd3"
+  },
+  {
+    "id": "official-28b3b283012c",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/05-ensel3256annexesciencesettechnologiesservices409819pdf-83685.pdf",
+    "path": "docs/curriculum/sources/official-28b3b283012c.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 207351,
+    "sha256": "d37d3aad0a74fe9b64275080a7592a3394a69d4f95ee603193d717c77a6218dc"
+  },
+  {
+    "id": "official-fbea224e20a2",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/04-ensel3256annexesciencesettechnologiesculinaires409817pdf-83688.pdf",
+    "path": "docs/curriculum/sources/official-fbea224e20a2.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 199893,
+    "sha256": "e55ba7abc5ddab337ee9ad873f9858bbf5ff063a67b8e4596fa96082319b462a"
+  },
+  {
+    "id": "official-dbe12cf47810",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel565annexe11550178pdf-83691.pdf",
+    "path": "docs/curriculum/sources/official-dbe12cf47810.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 222216,
+    "sha256": "b5f9c88669a1d905fe8e637595acb80cdceb8d5a0141eefb24e047188f88f199"
+  },
+  {
+    "id": "official-8ac6881d8381",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel565annexe10550176pdf-83694.pdf",
+    "path": "docs/curriculum/sources/official-8ac6881d8381.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 184614,
+    "sha256": "9dcf0c560e57daf6ea3ed658a9d1111cff993195300b32a57a47be3782b2d951"
+  },
+  {
+    "id": "official-2ed81a322ee5",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel565annexe9551145pdf-83697.pdf",
+    "path": "docs/curriculum/sources/official-2ed81a322ee5.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 429041,
+    "sha256": "9b08c4a82d0cbcf16cff7b863de6d18510a93ff6b5b8b119c8bb3dc3fa5b29ef"
+  },
+  {
+    "id": "official-17f7abb39037",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel565annexe8551143pdf-83700.pdf",
+    "path": "docs/curriculum/sources/official-17f7abb39037.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 414914,
+    "sha256": "d47cba9dadcc921e89ba3672a0b1bcfb205cc71907deb20243f3ca2b44bcd92b"
+  },
+  {
+    "id": "official-70fc8636263a",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/04-annexe1francais2ebomodifiepdf-69834.pdf",
+    "path": "docs/curriculum/sources/official-70fc8636263a.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 282127,
+    "sha256": "b54b6422d0eb2fb906e6ad6c79a2e95e6cae00e3fa113da5f7499eee4cc53ae7"
+  },
+  {
+    "id": "official-17915a4593dc",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/04annexe2francais1egtbomodifiepdf-69837.pdf",
+    "path": "docs/curriculum/sources/official-17915a4593dc.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 286101,
+    "sha256": "b88b5c685ec05d44b0c22d64f491443759fc0f544fe9ad33e626fb6cc29bf65a"
+  },
+  {
+    "id": "official-af3520636b0d",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe634annexe1062989pdf-82263.pdf",
+    "path": "docs/curriculum/sources/official-af3520636b0d.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 469712,
+    "sha256": "ce6d1618110659c87b3ea33d4915295856b5724ced7997f69e34ac88f58f9e0c"
+  },
+  {
+    "id": "official-b2fa40c44546",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe635annexe1063432pdf-82266.pdf",
+    "path": "docs/curriculum/sources/official-b2fa40c44546.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 392640,
+    "sha256": "db43d342edf55e162d0153028b43287e4ece0ce81b4dc75f0730bf368b98c0f0"
+  },
+  {
+    "id": "official-0c2c2207c993",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe249annexe1158929pdf-82269.pdf",
+    "path": "docs/curriculum/sources/official-0c2c2207c993.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 540164,
+    "sha256": "c07f8b2db9d22a6c2b9ab8386cf7ba323bc2c56abacb3f560dd97d02b383de18"
+  },
+  {
+    "id": "official-2057ebcc89a4",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe647annexe1063008pdf-82875.pdf",
+    "path": "docs/curriculum/sources/official-2057ebcc89a4.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 321879,
+    "sha256": "ed2784baa49214dea462e177c23132c78866b8d5615e0dcd8cf1a9df7f49a9c5"
+  },
+  {
+    "id": "official-e3781ad3fc01",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe648annexe1063542pdf-82878.pdf",
+    "path": "docs/curriculum/sources/official-e3781ad3fc01.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 415208,
+    "sha256": "8eb0e41f95bf4aca37e6231c06109579faf6bf410d6bd2bc210574e66e2762fa"
+  },
+  {
+    "id": "official-a1f5d2229420",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe252annexe1159114pdf-82881.pdf",
+    "path": "docs/curriculum/sources/official-a1f5d2229420.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 465980,
+    "sha256": "d2cbd06f2e8099d9080f17f3abb5b0fc90460b86b3c11f808b99daa01f77f897"
+  },
+  {
+    "id": "official-94b2dca0bcb3",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe638annexe1063053pdf-82749.pdf",
+    "path": "docs/curriculum/sources/official-94b2dca0bcb3.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 170284,
+    "sha256": "f61ceb9f4e0887c31f455328ae9771633d760dc3d5bd9a1914e2f77c8288b563"
+  },
+  {
+    "id": "official-748719ac283d",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe639annexe1063544pdf-82752.pdf",
+    "path": "docs/curriculum/sources/official-748719ac283d.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 178898,
+    "sha256": "06e491d369c5164d9f746176edeef45363cef53d3de2d5fb55153e6e96f98f2e"
+  },
+  {
+    "id": "official-130006b7f2f3",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe253annexe1158821pdf-82755.pdf",
+    "path": "docs/curriculum/sources/official-130006b7f2f3.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 198281,
+    "sha256": "2f1035c74db485d12e80d7c887cb9090807be32e5f79a6074d2decb1073ec154"
+  },
+  {
+    "id": "official-4b2f8b83f31e",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20d%E2%80%99enseignement%20scientifique%20de%20%20premi%C3%A8re%20g%C3%A9n%C3%A9rale-365055.pdf",
+    "path": "docs/curriculum/sources/official-4b2f8b83f31e.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 643535,
+    "sha256": "93c1cec42600166c14634b3714f4298dbd6f5805f1fee1753f33e6631cfa616a"
+  },
+  {
+    "id": "official-9a40da052b09",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20d%E2%80%99enseignement%20scientifique%20de%20%20terminale%20g%C3%A9n%C3%A9rale-365058.pdf",
+    "path": "docs/curriculum/sources/official-9a40da052b09.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 670602,
+    "sha256": "b303a250dc79f4bf858be342487f0aaa347e93460ea21334ca24acf2712c49e9"
+  },
+  {
+    "id": "official-644ae116dc2c",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe238annexe11159159pdf-83640.pdf",
+    "path": "docs/curriculum/sources/official-644ae116dc2c.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 121063,
+    "sha256": "91440a1857049948055244f42225e760ed55dbb4a948d3885a033fa20f42898b"
+  },
+  {
+    "id": "official-2fa9076fbe82",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe238annexe21159161pdf-83643.pdf",
+    "path": "docs/curriculum/sources/official-2fa9076fbe82.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 119944,
+    "sha256": "4be2d20cf7f95a8db914d8d09a5a4cca50216b47b2688a8e0653f1ff386983e9"
+  },
+  {
+    "id": "official-c84d1f3496f9",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe576annexe1062925pdf-83244.pdf",
+    "path": "docs/curriculum/sources/official-c84d1f3496f9.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 196106,
+    "sha256": "d5383995988f9669949777f189fcf55dfb74d37de230bcc20d6089196a19cfa1"
+  },
+  {
+    "id": "official-a5d6dd756c79",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe254annexe1159180pdf-83247.pdf",
+    "path": "docs/curriculum/sources/official-a5d6dd756c79.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 375531,
+    "sha256": "00cbf8eac19ed34d5e7317f436b7ed84aee6df9b2feaf1989db537343b5a476d"
+  },
+  {
+    "id": "official-6005fae08a40",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe578annexe1063002pdf-83919.pdf",
+    "path": "docs/curriculum/sources/official-6005fae08a40.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 244949,
+    "sha256": "e57dc041b1eb7ce7d68ecf8a3adde8613eba65dc8472d0747c93cb341346765e"
+  },
+  {
+    "id": "official-fa49017bd4f4",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe255annexe1158920pdf-83922.pdf",
+    "path": "docs/curriculum/sources/official-fa49017bd4f4.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 272050,
+    "sha256": "2932dd2349bffba126e8764f788e28489d712524e38593062a424b073b96114f"
+  },
+  {
+    "id": "official-2a31d8fcd1aa",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe633annexe1063268pdf-89499.pdf",
+    "path": "docs/curriculum/sources/official-2a31d8fcd1aa.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 307943,
+    "sha256": "7ca9a32e1823be6c1120cb0417324c3cb01688d1d194c7614a88ea851ccc60b0"
+  },
+  {
+    "id": "official-9f6fd181beee",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe247annexe1158933pdf-89502.pdf",
+    "path": "docs/curriculum/sources/official-9f6fd181beee.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 201097,
+    "sha256": "10ce34666edd722a3d8d86642a9f1ac205c7a9d128d6142a17effcba2fb85e69"
+  },
+  {
+    "id": "official-0f7d8a06c5c3",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe574annexe11062919pdf-84864.pdf",
+    "path": "docs/curriculum/sources/official-0f7d8a06c5c3.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 292978,
+    "sha256": "6dfd563ac720e8a91f5a0b8a536cc9554d27da9984014351e0dd92c1f88d66fb"
+  },
+  {
+    "id": "official-6a91004c7931",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel605annexe1413489pdf-84867.pdf",
+    "path": "docs/curriculum/sources/official-6a91004c7931.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1292004,
+    "sha256": "10a323a860621a9ca9d56f74753f8ad0da9983495912759a0bb2aa3c4f129be8"
+  },
+  {
+    "id": "official-47b6077d6e07",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/ensel606annexe1413491pdf-84870.pdf",
+    "path": "docs/curriculum/sources/official-47b6077d6e07.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 3894709,
+    "sha256": "c11076f9ddd124abcbe5f8691ba9814a3b49b9fb171c4a4b5eac3ddabf09393b"
+  },
+  {
+    "id": "official-2aa0bc8cd6df",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20d%26%23039%3Benseignement%20de%20math%C3%A9matiques%20de%20la%20classe%20de%20seconde%20g%C3%A9n%C3%A9rale%20et%20technologique-515402.pdf",
+    "path": "docs/curriculum/sources/official-2aa0bc8cd6df.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 334862,
+    "sha256": "05c5403d45bfc3631fa13b5c334822de09bcd68d850d0611044045cddba270de"
+  },
+  {
+    "id": "official-cb8414954f5e",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20de%20math%C3%A9matiques%20int%C3%A9gr%C3%A9%20%C3%A0%20l%26%23039%3Benseignement%20scientifique%20en%20classe%20de%20premi%C3%A8re%20g%C3%A9n%C3%A9rale-515405.pdf",
+    "path": "docs/curriculum/sources/official-cb8414954f5e.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 240027,
+    "sha256": "7e48c40413ca57a5dcf66230648ea69eaef55d40e620736f0c7eff7bbc82069f"
+  },
+  {
+    "id": "official-63987c322c29",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20d%26%23039%3Benseignement%20de%20sp%C3%A9cialit%C3%A9%20de%20math%C3%A9matiques%20de%20la%20classe%20de%20premi%C3%A8re%20de%20la%20voie%20g%C3%A9n%C3%A9rale-515408.pdf",
+    "path": "docs/curriculum/sources/official-63987c322c29.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 354852,
+    "sha256": "5303df0fcf6335f06d00c969a61dcd82cc3fdfd105271ae5c2ef580ff49b6c08"
+  },
+  {
+    "id": "official-2b1a23e56ca2",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20d%E2%80%99enseignement%20de%20math%C3%A9matiques%20de%20la%20classe%20de%20premi%C3%A8re%20de%20la%20voie%20technologique-515411.pdf",
+    "path": "docs/curriculum/sources/official-2b1a23e56ca2.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 284276,
+    "sha256": "9ba787513e326fc9e8fe803a6324cff91289a77d8a0f64835e3bd25cbb425dff"
+  },
+  {
+    "id": "official-6aa86cddadb5",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20de%20l%26%23039%3Benseignement%20de%20sp%C3%A9cialit%C3%A9%20de%20math%C3%A9matiques%20de%20la%20classe%20terminale%20de%20la%20voie%20g%C3%A9n%C3%A9rale-515414.pdf",
+    "path": "docs/curriculum/sources/official-6aa86cddadb5.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 511499,
+    "sha256": "9c99a32bb3e5f14d8906783f86a9a0fd86a99543b032a20fe388841d024ed4a5"
+  },
+  {
+    "id": "official-3a862f75dd1e",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20de%20l%26%23039%3Benseignement%20optionnel%20de%20math%C3%A9matiques%20compl%C3%A9mentaires%20de%20la%20classe%20terminale%20de%20la%20voie%20g%C3%A9n%C3%A9rale-515417.pdf",
+    "path": "docs/curriculum/sources/official-3a862f75dd1e.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 374632,
+    "sha256": "24d24d6cbf25bab57cbcf91daba46b6286b0b602ee3cda4c6606c8d2b8dfe1d4"
+  },
+  {
+    "id": "official-e2546be83fde",
+    "url": "https://www.education.gouv.fr/sites/default/files/document/Annexe%20%E2%80%93%20Programme%20d%E2%80%99enseignement%20de%20math%C3%A9matiques%20de%20la%20classe%20terminale%20de%20la%20voie%20technologique-515420.pdf",
+    "path": "docs/curriculum/sources/official-e2546be83fde.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 346019,
+    "sha256": "df8f8b860960adfed1c9dbbf069f99f091e96f5b901d10dfcb4cbdeacaab67aa"
+  },
+  {
+    "id": "official-489e8ce6db17",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe242annexe1158914pdf-84153.pdf",
+    "path": "docs/curriculum/sources/official-489e8ce6db17.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 430274,
+    "sha256": "ec52fcecf7c0b8d11b2670c8fec3a65f864c1a210fc7006099d8c7e55d7d9097"
+  },
+  {
+    "id": "official-405e5d9bffa1",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe246annexe1158907pdf-84159.pdf",
+    "path": "docs/curriculum/sources/official-405e5d9bffa1.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 487224,
+    "sha256": "eb8369e7c1611e90f51491fecc5a7c2081a9c57f9c7fbb08d0414677b56ce16f"
+  },
+  {
+    "id": "official-586395ceefe2",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe265annexe1159134pdf-84162.pdf",
+    "path": "docs/curriculum/sources/official-586395ceefe2.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 428507,
+    "sha256": "f9ea141d0d5dd692a1d870f5d7370734803625f1eef9ffb8b22e2179d859437b"
+  },
+  {
+    "id": "official-e6f53a9c8b09",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe264annexe1158825pdf-84165.pdf",
+    "path": "docs/curriculum/sources/official-e6f53a9c8b09.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 452395,
+    "sha256": "c491ac1ccb63dbce86f59767d6826f4d13afb3efa782ed1176621aa691329ebd"
+  },
+  {
+    "id": "official-47de74b00293",
+    "url": "https://cache.media.education.gouv.fr/file/SP1-MEN-22-1-2019/60/7/spe636_annexe_1062607.pdf",
+    "path": "docs/curriculum/sources/official-47de74b00293.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 168674,
+    "sha256": "87d442da5320674bb4f57320db9f6c4caba46a89169a919c117c92641b086292"
+  },
+  {
+    "id": "official-f17f2a70c166",
+    "url": "https://cache.media.education.gouv.fr/file/44/57/8/ensel684_annexe1_1348578.pdf",
+    "path": "docs/curriculum/sources/official-f17f2a70c166.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 327806,
+    "sha256": "deab5ed03e32d12d0a9f8c01542028f91005c3fb1ac8b97ba4897bc24e462c36"
+  },
+  {
+    "id": "official-cd70ef2078cc",
+    "url": "https://cache.media.education.gouv.fr/file/44/58/0/ensel684_annexe2_1348580.pdf",
+    "path": "docs/curriculum/sources/official-cd70ef2078cc.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 224765,
+    "sha256": "68602195b5beb2b732229d13399965a9e4883b3e3cfa10c53038e4db4887b205"
+  },
+  {
+    "id": "official-d1deebd5eefb",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/annexeprogrammedgemcmodifiepdf-84138.pdf",
+    "path": "docs/curriculum/sources/official-d1deebd5eefb.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 952740,
+    "sha256": "e591a87aee633ca3b2593e2d4fd5b183e518ebe0f9d4861e4cdfe0f494f39439"
+  },
+  {
+    "id": "official-27306e214813",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/progrlimitatif-spe-artpla-tleg-rs2026pdf-125603.pdf",
+    "path": "docs/curriculum/sources/official-27306e214813.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 85098,
+    "sha256": "611452b9a680cd219be862d1a40e88fe595a651f83d546819b2f5ccc7f738d2b"
+  },
+  {
+    "id": "official-0218c944a68f",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-1-programme-d-allemand-pour-les-classes-de-coll-ge-440355.pdf",
+    "path": "docs/curriculum/sources/official-0218c944a68f.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1671870,
+    "sha256": "0726a63f13daf30debe33e056cc81469fe3ac5aa46da20ecfb2e24ab17f81e4c"
+  },
+  {
+    "id": "official-31f50296a8a8",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-2-programme-d-allemand-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-441432.pdf",
+    "path": "docs/curriculum/sources/official-31f50296a8a8.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1358699,
+    "sha256": "e3c9016744da2cea10eb51cd555ce468ddd40f1e18c05cd57c7660d743ee7b21"
+  },
+  {
+    "id": "official-78ceec40049c",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-5-programme-d-arabe-pour-les-classes-de-coll-ge-440364.pdf",
+    "path": "docs/curriculum/sources/official-78ceec40049c.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1893362,
+    "sha256": "b72fd0c6262527d445e7c79a8ab79dd2dd8e032c090bfaa38c9b5daaaf5c0cb5"
+  },
+  {
+    "id": "official-9756b5595377",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-6-programme-d-arabe-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440367.pdf",
+    "path": "docs/curriculum/sources/official-9756b5595377.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1897090,
+    "sha256": "bee2d2c25bc6a7bf21c16c6e0300e15a695ab88c38f5a4e04fa9074999b5fec8"
+  },
+  {
+    "id": "official-23b6284158b5",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-7-programme-de-chinois-pour-les-classes-de-coll-ge-441435.pdf",
+    "path": "docs/curriculum/sources/official-23b6284158b5.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1685166,
+    "sha256": "82809ea2bfd4c16ee963a5f5fbd3ad1be3738648f78e7f581abe3138c2222afa"
+  },
+  {
+    "id": "official-14645c536dbb",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-8-programme-de-chinois-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440370.pdf",
+    "path": "docs/curriculum/sources/official-14645c536dbb.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1701909,
+    "sha256": "e92c195f9210cf8e209dacbad9c6d4c609f1676dbc4aa6d0754304a29fac58c0"
+  },
+  {
+    "id": "official-e864b12f615c",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-9-programme-d-espagnol-pour-les-classes-de-coll-ge-440373.pdf",
+    "path": "docs/curriculum/sources/official-e864b12f615c.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1402870,
+    "sha256": "fc54fc61547863f03eb1526175bf144eb2fc4dee79190aed3e209b875515c4ff"
+  },
+  {
+    "id": "official-654903e618df",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-10-programme-d-espagnol-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440376.pdf",
+    "path": "docs/curriculum/sources/official-654903e618df.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1246930,
+    "sha256": "06d8afe1b28be145572bb7845ff31deda07d3d67d11ec5108a20fdcf12dcc93b"
+  },
+  {
+    "id": "official-45a8d17023a1",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-11-programme-d-h-breu-pour-les-classes-de-coll-ge-440379.pdf",
+    "path": "docs/curriculum/sources/official-45a8d17023a1.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 2976305,
+    "sha256": "4111ef50bd79908a897e461244c39965323dbf7c360621308ea9ea7454a4e406"
+  },
+  {
+    "id": "official-15d110a00eff",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-12-programme-d-h-breu-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440382.pdf",
+    "path": "docs/curriculum/sources/official-15d110a00eff.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 2969392,
+    "sha256": "9ffbf2ad6b5f78afcfbbea88b8fcbd558934ba6bed28d5464d57c4c6c7e7d6f0"
+  },
+  {
+    "id": "official-f16609195861",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-13-programme-d-italien-pour-les-classes-de-coll-ge-440385.pdf",
+    "path": "docs/curriculum/sources/official-f16609195861.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1591577,
+    "sha256": "fae520542860727061f2a32529188cd60c1c32bcc12aa649bfadb8d1207f335d"
+  },
+  {
+    "id": "official-d2b7c7a7650c",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-14-programme-d-italien-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440388.pdf",
+    "path": "docs/curriculum/sources/official-d2b7c7a7650c.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1243809,
+    "sha256": "f94a06475d0e64484c0edbef35ea3282c753121108b147c4a30252315a6d1eb1"
+  },
+  {
+    "id": "official-74a962873235",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-15-programme-de-japonais-pour-les-classes-de-coll-ge-441438.pdf",
+    "path": "docs/curriculum/sources/official-74a962873235.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1855337,
+    "sha256": "de009dd5a8ed55eaba029ec7e9b4f46e27fbea3adbe0534c65dfaa620ec31a1b"
+  },
+  {
+    "id": "official-3e0caad56ba3",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-16-programme-de-japonais-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440391.pdf",
+    "path": "docs/curriculum/sources/official-3e0caad56ba3.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1789405,
+    "sha256": "497f786b8ea8a0be530ba1e4ff296bf8acd9502a57fe0127f67fd555f7e0f108"
+  },
+  {
+    "id": "official-f64dcd040482",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-17-programme-de-n-erlandais-pour-les-classes-de-coll-ge-440394.pdf",
+    "path": "docs/curriculum/sources/official-f64dcd040482.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1625131,
+    "sha256": "a3394b99b3fa1fb1ea5230046a3408f8f8975b9b42747c6bd9a523b7bb243c06"
+  },
+  {
+    "id": "official-2d01836d5afb",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-18-programme-de-n-erlandais-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440397.pdf",
+    "path": "docs/curriculum/sources/official-2d01836d5afb.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1359411,
+    "sha256": "d303d1e627585b8fa5f1632283760e00fa1143f3c3e8c7f25b6527e11eed188a"
+  },
+  {
+    "id": "official-8d8ff18eca98",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-19-programme-de-polonais-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440400.pdf",
+    "path": "docs/curriculum/sources/official-8d8ff18eca98.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1200931,
+    "sha256": "ae4459690f9c737193073c4bd7e4365cf1c1efdbb0c64eb6f1ee0439024675db"
+  },
+  {
+    "id": "official-b278f2ab7860",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-20-programme-de-portugais-pour-les-classes-de-coll-ge-440403.pdf",
+    "path": "docs/curriculum/sources/official-b278f2ab7860.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1639413,
+    "sha256": "ebbd0935901391d0f5f0aa5ad9ed680cf3fcdf71a06cefb4b14967c57643ddea"
+  },
+  {
+    "id": "official-a2d1fcf4677c",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-21-programme-de-portugais-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440406.pdf",
+    "path": "docs/curriculum/sources/official-a2d1fcf4677c.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1390782,
+    "sha256": "ab0c3bf928cf011a6b4c3b4f0478418a156d55238ba72103369e89cf8e553319"
+  },
+  {
+    "id": "official-ee1ff35243ed",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-22-programme-de-russe-pour-les-classes-de-coll-ge-440409.pdf",
+    "path": "docs/curriculum/sources/official-ee1ff35243ed.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1665712,
+    "sha256": "2a612a8f1277053d4a9699b02c69abe880fabe738b45fafe956a508c4caa3c19"
+  },
+  {
+    "id": "official-e2740892914b",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-23-programme-de-russe-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-440412.pdf",
+    "path": "docs/curriculum/sources/official-e2740892914b.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1684974,
+    "sha256": "a968a7a0a27acdf6fac7710f5cca690e2722b65b713aa2f015cac27933d8585b"
+  },
+  {
+    "id": "official-2d9907d9faa0",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-24-programme-de-langues-vivantes-pour-les-classes-de-coll-ge-cadre-commun-pour-les-langues-faible-diffusion-440415.pdf",
+    "path": "docs/curriculum/sources/official-2d9907d9faa0.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1068881,
+    "sha256": "7384bda4345a75565205423ee05733b5f3d33126820c9a450259962b8980eb75"
+  },
+  {
+    "id": "official-221efbb4d392",
+    "url": "https://www.education.gouv.fr/sites/default/files/annexe-25-programme-de-langues-vivantes-pour-les-classes-de-lyc-e-g-n-ral-et-technologique-cadre-commun-pour-les-langues-faible-diffusion-440418.pdf",
+    "path": "docs/curriculum/sources/official-221efbb4d392.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 1068886,
+    "sha256": "15ed77c628970f10b31e31ccb4ae6139dd82403c971c04465cf058eac7242a87"
+  },
+  {
+    "id": "official-7537496ea6e8",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe590annexe11063111pdf-83325.pdf",
+    "path": "docs/curriculum/sources/official-7537496ea6e8.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 329723,
+    "sha256": "ee1d0a0e62fc5b216221521ddb22cef6aa2463c82c4c372f75899ba3a9ee53ca"
+  },
+  {
+    "id": "official-dcd82a201573",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe590annexe322-11063852pdf-83331.pdf",
+    "path": "docs/curriculum/sources/official-dcd82a201573.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 452595,
+    "sha256": "ba89fc55ed5ee6d4b6c99f0b110d7e1a2776006fa4607a3cea1bccbd05dbc133"
+  },
+  {
+    "id": "official-ad9a522e2285",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe590annexe422-11063854pdf-83334.pdf",
+    "path": "docs/curriculum/sources/official-ad9a522e2285.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 460687,
+    "sha256": "e6d567f80ad3c61bc0f71d6b3a24df05608402a040c15592f1b5ace3faf12de8"
+  },
+  {
+    "id": "official-2601d89b4788",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/prgm2020g1respellcer-portugais-exp1313125pdf-83337.pdf",
+    "path": "docs/curriculum/sources/official-2601d89b4788.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 554037,
+    "sha256": "297729e5049f9d260045f550523686747d8175dd79ce79382e2f1025f53290ff"
+  },
+  {
+    "id": "official-4b3ab57aa62d",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe256annexe11158992pdf-83361.pdf",
+    "path": "docs/curriculum/sources/official-4b3ab57aa62d.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 619973,
+    "sha256": "8143fe02b24af392106e8840bde0eaa2552446c2562d2f6662bb62abff9aac3b"
+  },
+  {
+    "id": "official-4347c75c1cfd",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe256annexe31159001pdf-83367.pdf",
+    "path": "docs/curriculum/sources/official-4347c75c1cfd.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 657534,
+    "sha256": "361bf39a66c7210f9f1e641f18f926cd579c304c04af679dc5a07b1971b10abd"
+  },
+  {
+    "id": "official-03e91fb29c4e",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/spe256annexe41159003pdf-83370.pdf",
+    "path": "docs/curriculum/sources/official-03e91fb29c4e.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 687927,
+    "sha256": "4ee61482dcaa0afa19985983ee07b9cdbe6f4e0865c9592fac4529deedc5c9f5"
+  },
+  {
+    "id": "official-c306f4b91deb",
+    "url": "https://cache.media.education.gouv.fr/file/30/33/0/ensel950_annexe_1310330.pdf",
+    "path": "docs/curriculum/sources/official-c306f4b91deb.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 201789,
+    "sha256": "e2aef01ea8b0f5bc003a5f2a8972459ad087df86668f0086c2db5e229dbc98a6"
+  },
+  {
+    "id": "official-ca56ee5d0c9b",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/programmelimitatif1rellcerrs2025et2026allemandpdf-112107.pdf",
+    "path": "docs/curriculum/sources/official-ca56ee5d0c9b.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 133844,
+    "sha256": "94a96589a02b273791ed9892aa945a71ada05d70c62587c59d79276d84c6c810"
+  },
+  {
+    "id": "official-dcd6c9000237",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/programmelimitatif1rellcerrs2025et2026espagnolpdf-112128.pdf",
+    "path": "docs/curriculum/sources/official-dcd6c9000237.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 112211,
+    "sha256": "578ac7a0bb387aabc5112a59fd6997102bab944f12851e68ff1ed268f85c0109"
+  },
+  {
+    "id": "official-bc0fa4b4a4df",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/programmelimitatif1rellcerrs2025et2026italienpdf-112131.pdf",
+    "path": "docs/curriculum/sources/official-bc0fa4b4a4df.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 114735,
+    "sha256": "ca1e42dfe18e8cb2f2197678c3a061f5cb8ceb63eedeebba9265a00f46187c5f"
+  },
+  {
+    "id": "official-902076b091ea",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/programmelimitatif1rellcerrs2025et2026portugaispdf-112137.pdf",
+    "path": "docs/curriculum/sources/official-902076b091ea.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 114089,
+    "sha256": "298ff6bb892a8f571e6c1994a99b0705332266272376a3bd34768946f910bfe0"
+  },
+  {
+    "id": "official-c01b1600ae16",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/nsproglimitatifterminalellcerrs2026et2027annexe1-allemand-eduscolpdf-127211.pdf",
+    "path": "docs/curriculum/sources/official-c01b1600ae16.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 109226,
+    "sha256": "b8099a4964ba60da82d6f41b8e4c53273fcf55ac1f94ea23172281793a9f7552"
+  },
+  {
+    "id": "official-e1039a86b56e",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/nsproglimitatifterminalellcerrs2026et2027annexe3-espagnol-eduscolpdf-127241.pdf",
+    "path": "docs/curriculum/sources/official-e1039a86b56e.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 102896,
+    "sha256": "3eb1082d631b2fba37c9c7ac4c83d15e2cab2dbfc5071514b1636a4481005821"
+  },
+  {
+    "id": "official-345fe71ba7cf",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/nsproglimitatifterminalellcerrs2026et2027annexe4-italien-eduscolpdf-127238.pdf",
+    "path": "docs/curriculum/sources/official-345fe71ba7cf.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 108087,
+    "sha256": "ff50f407ad27b633effb5a78e54be6d27b26b6716b88b7a458489e7822714979"
+  },
+  {
+    "id": "official-2893af787bee",
+    "url": "https://eduscol.education.gouv.fr/sites/default/files/document/nsproglimitatifterminalellcerrs2026et2027annexe5-portugais-eduscolpdf-127235.pdf",
+    "path": "docs/curriculum/sources/official-2893af787bee.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 106307,
+    "sha256": "cd116d02b3b063d3c7ff8c1acad17e417282b85c6d56b9802f57582b340299f5"
+  },
+  {
+    "id": "official-816d67e88940",
+    "url": "https://cache.media.education.gouv.fr/file/SP1-MEN-22-1-2019/63/3/spe637_annexe_1062633.pdf",
+    "path": "docs/curriculum/sources/official-816d67e88940.pdf",
+    "retrievedAt": "2026-10-12",
+    "status": "downloaded",
+    "bytes": 244351,
+    "sha256": "61c3d7380648d98df8567b584f4276bd9b69a4ac60ef05ed41d2d91416feafd4"
+  }
+]

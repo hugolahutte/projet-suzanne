@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+alembic
+psycopg[binary]
+pwdlib[argon2]
+httpx
+pytest
+pip-audit
