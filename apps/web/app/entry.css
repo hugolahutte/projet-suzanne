@@ -26,12 +26,12 @@
   width: 174px;
 }
 .entry-header > span {
-  font-size: 13px;
+  font-size: 16px;
   color: #6f6277;
 }
 .entry-kicker {
   color: #71568b;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 750;
   letter-spacing: 1.7px;
 }
@@ -50,7 +50,7 @@
   color: #7650b2;
 }
 .entry-intro > p {
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.65;
   max-width: 390px;
   color: #6a5d71;
@@ -109,8 +109,8 @@
   background: #fffdf9;
   border: 1px solid #dfd6e7;
   color: #523e67;
-  font-size: 11px;
-  min-height: 40px;
+  font-size: 14px;
+  min-height: 48px;
   padding: 9px 13px;
   box-shadow: 0 3px 10px #30213f0a;
 }
@@ -122,7 +122,7 @@
   gap: 8px;
   border-radius: 14px;
   padding: 12px 15px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 650;
   box-shadow: 0 5px 0 #30213f08;
   pointer-events: none;
@@ -152,21 +152,21 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 16px;
   padding: 10px 14px;
   background: white;
   border: 1px solid #e1d8e9;
   border-radius: 24px;
   color: #503a6c;
-  min-height: 44px;
+  min-height: 52px;
 }
 .entry-voice > span {
   color: #776c7f;
-  font-size: 11px;
+  font-size: 14px;
 }
 .entry-voice > p {
   flex-basis: 100%;
-  font-size: 12px;
+  font-size: 16px;
 }
 .entry-promises {
   list-style: none;
@@ -174,13 +174,14 @@
   margin: 0;
   border-top: 1px solid #e7e2d9;
   display: flex;
-  gap: 22px;
+  gap: 16px 22px;
+  flex-wrap: wrap;
 }
 .entry-promises li {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 12px;
+  font-size: 16px;
   color: #63546e;
 }
 .entry-promises svg {
@@ -205,7 +206,7 @@
 }
 .entry-panel > .muted {
   margin: 0;
-  font-size: 13px;
+  font-size: 16px;
   color: #766b7e;
   line-height: 1.5;
 }
@@ -217,8 +218,8 @@
   padding: 4px;
 }
 .entry-panel .family-tabs > button {
-  min-height: 40px;
-  font-size: 11px;
+  min-height: 48px;
+  font-size: 14px;
   padding: 8px 6px;
   color: #766780;
   border-radius: 7px;
@@ -233,7 +234,7 @@
 }
 .entry-panel .profile-option {
   padding: 18px 8px 15px;
-  min-height: 136px;
+  min-height: 156px;
   border: 1.5px solid #e9e4ef;
   border-radius: 15px;
   box-shadow: none;
@@ -263,20 +264,20 @@
   outline-offset: 3px;
 }
 .entry-panel .avatar {
-  width: 49px;
-  height: 49px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   font-size: 22px;
   font-weight: 650;
 }
 .entry-panel .profile-option strong {
   color: #3c2d4b;
-  font-size: 14px;
+  font-size: 18px;
   margin: 9px 0 3px;
 }
 .entry-panel .profile-option > span:not(.avatar) {
   color: #70617c;
-  font-size: 11px;
+  font-size: 14px;
 }
 .entry-panel .selected-check {
   color: #7850a7;
@@ -284,13 +285,13 @@
   height: 14px;
 }
 .entry-panel .field {
-  font-size: 12px;
+  font-size: 16px;
   color: #5e4f6c;
   margin-top: 22px;
   gap: 8px;
 }
 .entry-panel .field input {
-  height: 46px;
+  height: 56px;
   border: 1px solid #ddd3e6;
   background: #fdfcfe;
   border-radius: 10px;
@@ -298,7 +299,7 @@
 }
 .entry-panel form > .fine {
   color: #776b80;
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.5;
   margin: 9px 0 18px;
   overflow-wrap: anywhere;
@@ -310,8 +311,8 @@
   border-bottom-width: 3px;
   box-shadow: none;
   border-radius: 12px;
-  min-height: 49px;
-  font-size: 13px;
+  min-height: 56px;
+  font-size: 17px;
   padding: 12px 16px;
 }
 .entry-panel .primary:hover {
@@ -332,13 +333,13 @@
 }
 .entry-panel .privacy p {
   margin: 0;
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1.5;
 }
 .entry-footer {
   padding-top: 20px;
   border-top: 1px solid #e7e2d9;
-  font-size: 11px;
+  font-size: 14px;
   color: #74657b;
 }
 @media (max-width: 1000px) and (min-width: 761px) {
@@ -358,7 +359,7 @@
     flex-wrap: wrap;
   }
   .entry-sticker {
-    font-size: 10px;
+    font-size: 14px;
     padding: 10px;
   }
   .sticker-question {
@@ -382,7 +383,7 @@
     width: 140px;
   }
   .entry-header > span {
-    font-size: 10px;
+    font-size: 14px;
     max-width: 95px;
     text-align: right;
     line-height: 1.5;
@@ -393,20 +394,34 @@
     align-items: center;
     gap: 0 8px;
   }
+  .entry-intro {
+    display: contents;
+  }
   .entry-intro .entry-kicker {
-    font-size: 8px;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+    font-size: 12px;
     letter-spacing: 1px;
   }
   .entry-intro h1 {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
     font-size: clamp(28px, 6.6vw, 43px);
     letter-spacing: -1.4px;
     margin: 12px 0;
   }
   .entry-intro > p {
-    font-size: 12px;
+    grid-column: 1 / -1;
+    grid-row: 3;
+    padding-top: 16px;
+    font-size: 16px;
     line-height: 1.6;
   }
   .entry-scene {
+    grid-column: 2;
+    grid-row: 1 / span 2;
     height: 254px;
     margin: 0;
     align-self: end;
@@ -428,9 +443,11 @@
     align-items: center;
   }
   .entry-page .public-portrait .presence-controls button {
-    font-size: 9px;
+    font-size: 14px;
     padding: 7px 8px;
-    min-height: 36px;
+    min-height: 48px;
+    max-width: 100%;
+    line-height: 1.3;
   }
   .entry-voice {
     grid-column: 1 / -1;
@@ -438,10 +455,10 @@
     gap: 10px;
   }
   .entry-voice .text-button {
-    font-size: 11px;
+    font-size: 14px;
   }
   .entry-voice > span {
-    font-size: 10px;
+    font-size: 14px;
   }
   .entry-promises {
     grid-column: 1 / -1;
@@ -450,7 +467,7 @@
     padding-top: 14px;
   }
   .entry-promises li {
-    font-size: 10px;
+    font-size: 14px;
     gap: 5px;
   }
   .entry-promises svg {
@@ -466,7 +483,7 @@
   .entry-footer {
     align-items: flex-start;
     line-height: 1.5;
-    font-size: 9px;
+    font-size: 14px;
   }
   .entry-footer > span:last-child {
     text-align: right;
